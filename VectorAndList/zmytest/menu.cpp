@@ -8,7 +8,7 @@
 
 FirstMenu::FirstMenu()
 {
-	m_MenuText = std::string("Main Menu\n")
+	menuText = std::string("Main Menu\n")
 				+"Please make your selection\n"
 				+ "1 - Start game\n"
 				+ "2 - Options\n"
@@ -17,13 +17,13 @@ FirstMenu::FirstMenu()
 }
 BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) // This is us actually defining the pure virtual method above
 {
-	BaseMenu *aNewMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
+	BaseMenu *mainMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
 
 	switch (choice) // Notice - I have only done "options". You would obviously need to do this for all of your menus
 	{
 		case 2:
 		{
-			aNewMenu = new SecondMenu;
+			mainMenu = new SecondMenu;
 			break;
 		}
 
@@ -41,12 +41,12 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) /
 
 	}
 
-	return aNewMenu; // Sending it back to the main function
+	return mainMenu; // Sending it back to the main function
 }
 
 SecondMenu::SecondMenu()
 {
-	m_MenuText = std::string("OptionsMenu\n")
+	menuText = std::string("OptionsMenu\n")
 				+ "Please make your selection\n"
 				+ "1 - ????"
 				+ "2 - dafuq?";
@@ -54,18 +54,18 @@ SecondMenu::SecondMenu()
 
 BaseMenu *SecondMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) // This is us actually defining the pure virtual method above
 {
-	BaseMenu *aNewMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
+	BaseMenu *mainMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
 
 	switch (choice) // Notice - I have only done options. You would obviously need to do this for all of your menus
 	{
 		case 1:
 		{
-			aNewMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
+			mainMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
 		}
 		break;
 		case 2:
 		{
-			aNewMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
+			mainMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
 		}
 		break;
 
@@ -76,7 +76,7 @@ BaseMenu *SecondMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) 
 
 	}
 
-	return aNewMenu; // Sending it back to the main function
+	return mainMenu; // Sending it back to the main function
 }
 
 

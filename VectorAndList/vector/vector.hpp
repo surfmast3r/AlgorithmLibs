@@ -12,8 +12,8 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-template <typename Data>
-class Vector { // Must extend LinearContainer<Data>, MappableContainer<Data>, and FoldableContainer<Data>
+template <typename DataType>
+class Vector : virtual public LinearContainer<DataType>, virtual public MappableContainer<DataType>, virtual public FoldableContainer<DataType>{
 
 private:
 
