@@ -5,7 +5,7 @@
  *      Author: Paolo Gallo
  */
 #include "menu.hpp"
-
+#include "test.hpp"
 FirstMenu::FirstMenu()
 {
 	menuText = std::string("Main Menu\n")
@@ -61,7 +61,7 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) 
 		case 1:
 		{
 			//mainMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
-
+			createRandomVector();
 		}
 		break;
 		case 2:

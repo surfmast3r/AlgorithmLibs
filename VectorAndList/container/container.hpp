@@ -94,7 +94,7 @@ public:
   virtual DataType& Front() const = 0; // (concrete function must throw std::length_error when empty)
   virtual DataType& Back() const = 0; // (concrete function must throw std::length_error when empty)
 
-  virtual DataType& operator[](const unsigned long &) const = 0; // (concrete function must throw std::out_of_range when out of range)
+  virtual DataType& operator[](const unsigned long ) const = 0; // (concrete function must throw std::out_of_range when out of range)
 
 };
 
@@ -197,7 +197,7 @@ protected:
 public:
 
   // Destructor
-  virtual ~FoldableContainer() = 0;
+  virtual ~FoldableContainer() = default;
 
   /* ************************************************************************ */
 
@@ -219,15 +219,17 @@ public:
 
   typedef std::function<void(const DataType&, const void*, void*) noexcept> FoldFunctor;
 
-  virtual void FoldPreOrder(const FoldFunctor, const void*,void*) = 0;
-  virtual void FoldPostOrder(const FoldFunctor, const void*,void*) = 0;
+  virtual void FoldPreOrder(const FoldFunctor, const void*,void*) const = 0;
+  virtual void FoldPostOrder(const FoldFunctor, const void*,void*) const = 0;
 
   virtual bool Exists(const DataType&) const noexcept override; // Override TestableContainer member
+
 
 };
 
 /* ************************************************************************** */
 
+/*
 template <typename DataType>
 class BreadthMappableContainer : virtual public MappableContainer<DataType>{ // Must extend MappableContainer
 
@@ -266,10 +268,10 @@ public:
 
   // type MapBreadth(arguments) specifiers;
 
-};
+//};
 
 /* ************************************************************************** */
-
+/*
 template <typename DataType>
 class BreadthFoldableContainer { // Must extend FoldableContainer
 
@@ -308,7 +310,7 @@ public:
 
   // type FoldBreadth(arguments) specifiers;
 
-};
+//};
 
 /* ************************************************************************** */
 

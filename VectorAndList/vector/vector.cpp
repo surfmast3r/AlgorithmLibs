@@ -1,12 +1,13 @@
+
 namespace lasd {
 
 /* ************************************************************************** */
 
 // A vector with a given initial dimension
 template <typename DataType>
-Vector<DataType>::Vector(const unsigned long& newsize){
+Vector<DataType>::Vector(const unsigned long newsize){
 
-	Elements= new DataType[size]{};
+	Elements= new DataType[newsize]{};
 	size=newsize;
 }
 
@@ -15,7 +16,7 @@ template <typename DataType>
 Vector<DataType>::Vector(const LinearContainer<DataType>& linearContainer ){
 	size=linearContainer.Size();
 	Elements= new DataType[size];
-	for(int i=0; i<size; i++){
+	for(unsigned long i=0; i<size; i++){
 		Elements[i]=linearContainer[i];
 	}
 }
@@ -30,7 +31,7 @@ Vector<DataType>::Vector(const Vector<DataType>& vector ){
 
 // Move constructor
 template <typename DataType>
-Vector<DataType>::Vector(Vector<DataType>&& vector ){
+Vector<DataType>::Vector(Vector<DataType>&& vector ) noexcept{
 	std::swap(Elements,vector.Elements);
 	std::swap(size, vector.size);
 }
@@ -41,14 +42,16 @@ Vector<DataType>::~Vector(){
 	delete[] Elements;
 }
 
+//copy assignment
 template <typename DataType>
 Vector<DataType>& Vector<DataType>::operator=(const Vector<DataType>& vector ){
-	Vector<DataType>* temp = new Vector(vector);
+	Vector<DataType>* temp = new Vector<DataType>(vector);
 	std::swap(*temp,*this);
 	delete temp;
 	return *this;
 }
 
+//move assignment
 template <typename DataType>
 Vector<DataType>& Vector<DataType>::operator=(Vector<DataType>&& vector ) noexcept{
 	std::swap(Elements,vector.Elements);
@@ -56,9 +59,45 @@ Vector<DataType>& Vector<DataType>::operator=(Vector<DataType>&& vector ) noexce
 	return *this;
 }
 
+//comparison operators
 
 template <typename DataType>
-DataType& Vector<DataType>::operator[](const unsigned long& index) const{
+bool Vector<DataType>::operator ==(const Vector<DataType>& vector) const noexcept{
+	if(size == vector.size){
+		for(unsigned long i=0;i<size;i++){
+			if(Elements[i] != vector.Elements[i])
+				return false;
+		}
+		return true;
+	}
+	else
+		return false;
+}
+
+template <typename DataType>
+bool Vector<DataType>::operator !=(const Vector<DataType>& vector) const noexcept{
+	return !(*this == vector);
+}
+
+//resize
+template <typename DataType>
+void Vector<DataType>::Resize(const unsigned long newSize){
+	if(newSize==0)
+		Clear();
+	else if(size!=newSize){
+		unsigned long limit= (size < newSize) ? size:newSize;
+		DataType* temp= new DataType[newSize]{};
+		for (unsigned long i=0;i<limit;i++)
+			std::swap(Elements[i],temp[i]);
+		std::swap(Elements,temp);
+		size= newSize;
+		delete[] temp;
+	}
+}
+
+//operator[]
+template <typename DataType>
+DataType& Vector<DataType>::operator[](const unsigned long index) const {
 
 	if(index < size )
 		return Elements[index];
@@ -69,7 +108,59 @@ DataType& Vector<DataType>::operator[](const unsigned long& index) const{
 }
 
 
+template <typename DataType>
+void Vector<DataType>::Clear() {
+	delete[] Elements;
+	Elements=nullptr;
+	size=0;
+}
+
+template <typename DataType>
+DataType& Vector<DataType>::Front() const{
+	if(size!=0)
+		return Elements[0];
+	else
+		throw std::length_error("Vector is empty");
+}
+
+template <typename DataType>
+DataType& Vector<DataType>::Back() const{
+	if(size!=0)
+		return Elements[size-1];
+	else
+		throw std::length_error("Vector is empty");
+}
+
 
 /* ************************************************************************** */
+
+//mappable container functions
+template <typename DataType>
+void Vector<DataType>::MapPreOrder(const MapFunctor function,void* param){
+	for(unsigned long i=0;i<size;i++){
+		function(Elements[i],param);
+	}
+}
+
+template <typename DataType>
+void Vector<DataType>::MapPostOrder(const MapFunctor function,void* param){
+	for(unsigned long i=size;i>0;i--){
+		function(Elements[i],param);
+	}
+}
+
+//foldable container functions
+template <typename DataType>
+void Vector<DataType>::FoldPreOrder(const FoldFunctor function,const void* param, void* acc) const{
+	for(unsigned long i=0;i<size;i++){
+		function(Elements[i],param,acc);
+	}
+}
+template <typename DataType>
+void Vector<DataType>::FoldPostOrder(const FoldFunctor function,const void* param, void* acc)const{
+	for(unsigned long i=size;i>0;i--){
+		function(Elements[i],param,acc);
+	}
+}
 
 }

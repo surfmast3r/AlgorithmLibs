@@ -8,5 +8,7 @@ using namespace std;
 
 void createRandomVector(){
 	std::cout<< "new vector";
-	lasd::Vector<int> vec(3);
+	lasd::Vector<long> vec(3);
+	vec[0]=13;
+	cout<<vec[0];
 };

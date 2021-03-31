@@ -35,7 +35,7 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-  Vector(const unsigned long& size); // A vector with a given initial dimension
+  Vector(const unsigned long); // A vector with a given initial dimension
   Vector(const LinearContainer<DataType>& ); // A vector obtained from a LinearContainer
 
   /* ************************************************************************ */
@@ -44,7 +44,7 @@ public:
   Vector(const Vector&) ;
 
   // Move constructor
-  Vector(Vector&&) ;
+  Vector(Vector&&) noexcept;
 
   /* ************************************************************************ */
 
@@ -69,7 +69,7 @@ public:
 
   // Specific member functions
 
-  // type Resize(argument) specifiers; // Resize the vector to a given size
+  void Resize(const unsigned long); // Resize the vector to a given size
 
   /* ************************************************************************ */
 
@@ -84,7 +84,7 @@ public:
   DataType& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
   DataType& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
 
-  DataType& operator[](const unsigned long&) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+  DataType& operator[](const unsigned long) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
   /* ************************************************************************ */
 
@@ -101,8 +101,8 @@ public:
 
   using typename FoldableContainer<DataType>::FoldFunctor;
 
-  void FoldPreOrder(const FoldFunctor, const void*,void*) override; // Override FoldableContainer member
-  void FoldPostOrder(const FoldFunctor, const void*,void*) override; // Override FoldableContainer member
+  void FoldPreOrder(const FoldFunctor, const void*,void*) const override; // Override FoldableContainer member
+  void FoldPostOrder(const FoldFunctor, const void*,void*) const override; // Override FoldableContainer member
 
 };
 
