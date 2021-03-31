@@ -18,10 +18,10 @@ class Container {
 private:
 
   // ...
-	unsigned long size;
+
 
 protected:
-
+	unsigned long size;
   // ...
 
 public:
@@ -119,10 +119,10 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  TestableContainer operator=(const TestableContainer&) noexcept = delete; // Copy assignment of abstract types should not be possible.
+  TestableContainer& operator=(const TestableContainer&) noexcept = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  TestableContainer operator=(TestableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+  TestableContainer& operator=(TestableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
@@ -222,23 +222,8 @@ public:
   virtual void FoldPreOrder(const FoldFunctor, const void*,void*) = 0;
   virtual void FoldPostOrder(const FoldFunctor, const void*,void*) = 0;
 
-  extern virtual bool Exists(DataType&) const noexcept override; // Override TestableContainer member
+  virtual bool Exists(const DataType&) const noexcept override; // Override TestableContainer member
 
-  /* ********************spostare nel .cpp *********************************** */
-  template <typename DataType>
-  void AuxiliaryFoldExists (const DataType& data, const void* value, void* exists){
-  	if (data== *((DataType) value)){
-  		*((bool*)exists)=true;
-  	}
-  }
-
-  template <typename DataType>
-  bool Exists( const DataType& data) const noexcept{
-  	 bool exists= false;
-  	 FoldPreOrder(&AuxiliaryFoldExists<DataType>,&data,&exists);
-  	 return exists;
-  }
-  /* ********************spostare nel .cpp *********************************** */
 };
 
 /* ************************************************************************** */

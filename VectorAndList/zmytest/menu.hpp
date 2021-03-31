@@ -34,10 +34,10 @@ public:
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 };
 
-class SecondMenu : public BaseMenu
+class VectorMenu : public BaseMenu
 {
 public:
-    SecondMenu();
+    VectorMenu();
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 };
 

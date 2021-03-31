@@ -1,8 +1,9 @@
+
 namespace lasd {
 
 /* ************************************************************************** */
 
-/*template <typename DataType>
+template <typename DataType>
 void AuxiliaryFoldExists (const DataType& data, const void* value, void* exists){
 	if (data== *((DataType) value)){
 		*((bool*)exists)=true;
@@ -15,7 +16,7 @@ bool FoldableContainer<DataType>::Exists( const DataType& data) const noexcept{
 	 FoldPreOrder(&AuxiliaryFoldExists<DataType>,&data,&exists);
 	 return exists;
 }
-*/
+
 /* ************************************************************************** */
 
 }
