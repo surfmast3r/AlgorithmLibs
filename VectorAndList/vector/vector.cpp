@@ -9,6 +9,7 @@ Vector<DataType>::Vector(const unsigned long newsize){
 
 	Elements= new DataType[newsize]{};
 	size=newsize;
+	std::cout<<"New vector constructed\n";
 }
 
 // A vector obtained from a LinearContainer
@@ -19,6 +20,7 @@ Vector<DataType>::Vector(const LinearContainer<DataType>& linearContainer ){
 	for(unsigned long i=0; i<size; i++){
 		Elements[i]=linearContainer[i];
 	}
+	std::cout<<"New vector constructed\n";
 }
 
 // Copy constructor
@@ -27,6 +29,7 @@ Vector<DataType>::Vector(const Vector<DataType>& vector ){
 	size=vector.Size();
 	Elements= new DataType[size];
 	std::copy(vector.Elements, vector.Elements + size, Elements);
+	std::cout<<"New vector constructed\n";
 }
 
 // Move constructor
@@ -34,12 +37,14 @@ template <typename DataType>
 Vector<DataType>::Vector(Vector<DataType>&& vector ) noexcept{
 	std::swap(Elements,vector.Elements);
 	std::swap(size, vector.size);
+	std::cout<<"New vector constructed\n";
 }
 
 // Destructor
 template <typename DataType>
 Vector<DataType>::~Vector(){
 	delete[] Elements;
+	std::cout<<"Vector destructed\n";
 }
 
 //copy assignment
@@ -144,8 +149,14 @@ void Vector<DataType>::MapPreOrder(const MapFunctor function,void* param){
 
 template <typename DataType>
 void Vector<DataType>::MapPostOrder(const MapFunctor function,void* param){
-	for(unsigned long i=size;i>0;i--){
-		function(Elements[i],param);
+	long index;
+	if(size>0){
+		index=size-1;
+		while(index>=0)
+		{
+			function(Elements[index],param);
+			index--;
+		}
 	}
 }
 
@@ -158,8 +169,14 @@ void Vector<DataType>::FoldPreOrder(const FoldFunctor function,const void* param
 }
 template <typename DataType>
 void Vector<DataType>::FoldPostOrder(const FoldFunctor function,const void* param, void* acc)const{
-	for(unsigned long i=size;i>0;i--){
-		function(Elements[i],param,acc);
+	long index;
+	if(size>0){
+		index=size-1;
+		while(index>=0)
+		{
+			function(Elements[index],param,acc);
+			index--;
+		}
 	}
 }
 

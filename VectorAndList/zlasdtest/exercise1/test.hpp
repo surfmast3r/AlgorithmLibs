@@ -1,9 +1,12 @@
 
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef EX1TEST_HPP
+#define EX1TEST_HPP
+
 /* ************************************************************************** */
 
-void createRandomIntVector(unsigned long size);
+void testSimpleExercise1();
+
+void testFullExercise1();
 
 /* ************************************************************************** */
 

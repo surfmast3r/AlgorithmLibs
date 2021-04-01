@@ -1,9 +1,10 @@
 
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef LASDTEST_HPP
+#define LASDTEST_HPP
+
 /* ************************************************************************** */
 
-void createRandomIntVector(unsigned long size);
+void lasdtest();
 
 /* ************************************************************************** */
 

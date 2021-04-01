@@ -39,6 +39,7 @@ class VectorMenu : public BaseMenu
 public:
     VectorMenu();
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
+
 };
 
 

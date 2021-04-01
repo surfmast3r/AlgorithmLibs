@@ -1,5 +1,5 @@
 
-//#include "zlasdtest/test.hpp"
+#include "zlasdtest/test.hpp"
 
 #include "zmytest/test.hpp"
 #include "zmytest/menu.hpp"
@@ -12,7 +12,7 @@
 
 int main() {
   std::cout << "Lasd Libraries 2020" << std::endl;
-  //lasdtest(); // To call in the menu of your library test!
+  //
 
 
   BaseMenu* aCurrentMenu = new FirstMenu; // We have a pointer to our menu. We're using a pointer so we can change the menu seamlessly.
