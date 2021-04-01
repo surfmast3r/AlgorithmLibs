@@ -4,6 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <random>
+#include "test.hpp"
 /* ************************************************************************** */
 
 using namespace std;
@@ -58,12 +59,26 @@ void createRandomIntVector(unsigned long size){
 			}
 			break;
 			case 4:{
+				vec.MapPreOrder(&mapPrint<int>, (void*)0);
 			}
 			break;
 			case 5:{
+				int value;
+				unsigned long index=0;
+				cout<<"insert element to find:"<<endl;
+				cin>>value;
+				vec.FoldPreOrder(&foldFind<int>, &value, &index);
+
+
 			}
 			break;
 			case 6:{
+				int value;
+				unsigned long acc=0;
+				cout<<"insert n size:"<<endl;
+				cin>>value;
+				vec.FoldPreOrder(&foldSumLessThan<int>, &value, &acc);
+				cout<<"sum is: "<<acc<<endl;
 			}
 			break;
 			case 7:{
