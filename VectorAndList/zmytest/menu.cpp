@@ -9,7 +9,7 @@
 #include "test.hpp"
 FirstMenu::FirstMenu()
 {
-	menuText = std::string("Main Menu\n")
+	menuText = std::string("\nMain Menu\n")
 				+"Please make your selection\n"
 				+ "1 - Vector\n"
 				+ "2 - List\n"
@@ -47,7 +47,7 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) /
 
 VectorMenu::VectorMenu()
 {
-	menuText = std::string("Vector Menu\n")
+	menuText = std::string("\nVector Menu\n")
 				+ "Please make your selection\n"
 				+ "1 - create random int vector\n"
 				+ "2 - create random string vector\n"
@@ -65,10 +65,12 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) 
 	{
 		case 1:
 		{
-			unsigned long size;
-			std::cout<<"insert vector size\n";
-			std::cin>>size;
-			createRandomIntVector(size);
+			manageIntVector();
+		}
+		break;
+		case 3:
+		{
+			manageFloatVector();
 		}
 		break;
 		case 4:
