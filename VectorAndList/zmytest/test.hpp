@@ -9,13 +9,18 @@
 #include <type_traits>
 #include <algorithm>
 #include "../vector/vector.hpp"
+#include <string>
 
 void populateRandomIntVector(lasd::Vector<int>&);
 void populateRandomFloatVector(lasd::Vector<float>&);
+void populateRandomStringVector(lasd::Vector<std::string>&);
+std::string createRandomString(int stringSize);
 
-void manageFloatVector();
-void manageIntVector();
+void testFloatVector();
+void testStringVector();
+void testIntVector();
 
+// MappableContainer functions
 template <typename DataType>
 void mapPrint(const DataType& data, void* _) {
   std::cout << data << " ";
@@ -31,6 +36,10 @@ void mapSquareElementValue(DataType& data,void* _) {
 	data*=data;
 }
 
+void capitalizeString(std::string& s);
+void mapUppercase(std::string& data,void* _);
+
+// FoldableContainer functions
 template <typename DataType>
 void foldFind(const DataType& data,const void* target,void* index) {
 	if(data==*((DataType*)target)){
@@ -41,7 +50,7 @@ void foldFind(const DataType& data,const void* target,void* index) {
 
 template<class T>
 typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
-    almost_equal(T x, T y, int ulp)
+almost_equal(T x, T y, int ulp)
 {
     // the machine epsilon has to be scaled to the magnitude of the values used
     // and multiplied by the desired precision in ULPs (units in the last place)
@@ -74,6 +83,8 @@ void foldMultiplyGreaterThan(const DataType& data,const void* n,void* acc) {
 	}
 
 }
+
+void foldStringLessThan(const std::string& data,const void* n,void* acc);
 
 
 /* ************************************************************************** */

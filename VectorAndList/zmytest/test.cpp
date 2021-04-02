@@ -1,6 +1,4 @@
 #include <iostream>
-
-
 #include <time.h>
 #include <stdlib.h>
 #include <random>
@@ -8,7 +6,7 @@
 /* ************************************************************************** */
 
 using namespace std;
-void manageIntVector(){
+void testIntVector(){
 
 	bool isQuitOptionSelected=false;
 	unsigned long size;
@@ -18,15 +16,6 @@ void manageIntVector(){
 	std::cout<< "new vector\n";
 	lasd::Vector<int> vec(size);
 	populateRandomIntVector(vec);
-	/*
-	default_random_engine genx(random_device{}());
-	uniform_int_distribution<unsigned int> distx(7, 35);
-	for(unsigned long i = 0; i<size; i++){
-
-		vec[i]=distx(genx);
-		cout << "vector "+to_string(i)+" "+to_string(vec[i]);
-		cout << endl;
-	}*/
 
 	while (!isQuitOptionSelected)
 	{
@@ -109,8 +98,97 @@ void manageIntVector(){
 
 	}
 };
+void testStringVector(){
+	bool isQuitOptionSelected=false;
+	unsigned long size;
 
-void manageFloatVector(){
+	std::cout<<"insert vector size\n";
+	std::cin>>size;
+	std::cout<< "new vector\n";
+	lasd::Vector<string> vec(size);
+	populateRandomStringVector(vec);
+
+	while (!isQuitOptionSelected)
+	{
+		cout<<std::string("\nVector Menu\n")
+						+ "Please make your selection\n"
+						+ "1 - vector front element\n"
+						+ "2 - vector back element\n"
+						+ "3 - vector element at index\n"
+						+ "4 - print vector\n"
+						+ "5 - find element\n"
+						+ "6 - concat less then n\n"
+						+ "7 - apply uppercase function\n"
+						+ "8 - back to main menu\n"
+						+ "Selection: ";
+		int choice = 0;
+		std::cin >> choice;
+		switch (choice){
+			case 1:{
+				cout<<"Vector front element: "+vec.Front()<<endl;
+			}
+			break;
+			case 2:{
+				cout<<"Vector back element: "+vec.Back()<<endl;
+			}
+			break;
+			case 3:{
+				int index;
+				cout<<"insert index:"<<endl;
+				cin>>index;
+				try{
+					cout<<vec[index];
+
+				} catch (std::out_of_range&) {
+					cout<<"invalid index\n";
+				}
+
+
+			}
+			break;
+			case 4:{
+				vec.MapPreOrder(&mapPrint<string>, (void*)0);
+			}
+			break;
+			case 5:{
+				string value;
+				unsigned long index=0;
+				cout<<"insert element to find:"<<endl;
+				cin>>value;
+				vec.FoldPreOrder(&foldFind<string>, &value, &index);
+
+
+			}
+			break;
+			case 6:{
+				unsigned int value;
+				string acc="";
+				cout<<"insert n size:"<<endl;
+				cin>>value;
+				vec.FoldPreOrder(&foldStringLessThan, &value, &acc);
+				cout<<"concat string: "<<acc<<endl;
+
+			}
+			break;
+			case 7:{
+				vec.MapPreOrder(&mapUppercase,0);
+				vec.MapPreOrder(&mapPrint<string>, (void*)0);
+			}
+			break;
+			case 8:{
+				isQuitOptionSelected=true;
+			}
+			break;
+			default:
+			{
+				// Do nothing
+			}
+		}
+
+
+	}
+};
+void testFloatVector(){
 
 	bool isQuitOptionSelected=false;
 	unsigned long size;
@@ -235,3 +313,44 @@ void populateRandomFloatVector(lasd::Vector<float>& vec){
 	cout<<endl;
 
 };
+void populateRandomStringVector(lasd::Vector<string>& vec){
+	std::cout<< "populating string vector\n";
+	unsigned int size=vec.Size();
+	unsigned int stringSize=0;
+	srand(time(NULL));
+	for(unsigned long i = 0; i<size; i++){
+
+		stringSize=rand()%10;
+		vec[i]=createRandomString(stringSize);
+
+	}
+	vec.MapPreOrder(&mapPrint<string>, 0);
+	cout<<endl;
+
+};
+string createRandomString(int stringSize)
+{
+	char letters[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q',
+	'r','s','t','u','v','w','x',
+	'y','z'};
+	string ran = "";
+	for (int i=0;i<stringSize;i++)
+		ran=ran + letters[rand() % 26];
+	return ran;
+}
+
+
+void foldStringLessThan(const std::string& data,const void* n,void* acc) {
+	if(data.size()<=*(unsigned int*)n){
+		((std::string*) acc)->append(data);
+	}
+
+}
+void mapUppercase(string& data,void* _){
+	capitalizeString(data);
+}
+void capitalizeString(string& s)
+{
+    transform(s.begin(), s.end(), s.begin(),
+                   [](unsigned char c){ return toupper(c); });
+}

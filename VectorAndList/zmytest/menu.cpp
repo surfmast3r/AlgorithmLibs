@@ -65,12 +65,17 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) 
 	{
 		case 1:
 		{
-			manageIntVector();
+			testIntVector();
+		}
+		break;
+		case 2:
+		{
+			testStringVector();
 		}
 		break;
 		case 3:
 		{
-			manageFloatVector();
+			testFloatVector();
 		}
 		break;
 		case 4:
