@@ -32,6 +32,6 @@ int main() {
 		  aCurrentMenu = aNewMenuPointer; // We're updating the 'current menu' with the new menu we just created
 	  }
   }
-
+  std::cout << "Goodbye!" << std::endl;
   return true;
 }

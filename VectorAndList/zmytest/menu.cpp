@@ -13,7 +13,8 @@ FirstMenu::FirstMenu()
 				+"Please make your selection\n"
 				+ "1 - Vector\n"
 				+ "2 - List\n"
-				+ "3 - Quit\n"
+				+ "3 - start zlasd tests\n"
+				+ "4 - Quit\n"
 				+ "Selection: ";
 }
 BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) // This is us actually defining the pure virtual method above
@@ -27,8 +28,13 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) /
 			mainMenu = new VectorMenu;
 			break;
 		}
-
 		case 3:
+		{
+			lasdtest(); // To call in the menu of your library test!
+			break;
+		}
+
+		case 4:
 		{
 			// Ah, they selected quit! Update the bool we got as input
 			iIsQuitOptionSelected = true;
@@ -52,8 +58,7 @@ VectorMenu::VectorMenu()
 				+ "1 - create random int vector\n"
 				+ "2 - create random string vector\n"
 				+ "3 - create random float vector\n"
-				+ "4 - start vector tests\n"
-				+ "5 - back to main menu\n"
+				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
@@ -80,12 +85,12 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) 
 		break;
 		case 4:
 		{
-			lasdtest(); // To call in the menu of your library test!
+			mainMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
 		}
 		break;
 		case 5:
 		{
-			mainMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
+
 		}
 		break;
 
