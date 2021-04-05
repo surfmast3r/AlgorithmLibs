@@ -33,27 +33,43 @@ protected:
     Node* next=nullptr;
     /* ********************************************************************** */
 
+    Node()=default;
     // Specific constructors
-    Node(DataType,Node*);
+    Node(const DataType &data){
+    	value=data;
+    	std::cout<<"new node created with value : "<<value;
+    }
 
     /* ********************************************************************** */
 
     // Copy constructor
-    Node(const Node&);
+    Node(const Node& node){
+    	value=node.value;
+    	//next=node.next;
+    }
 
     // Move constructor
-    Node(Node&&) noexcept;
+    Node(Node&& node) noexcept{
+    	std::swap(value, node.value);
+    	std::swap(next,node.next);
+    }
 
     /* ********************************************************************** */
 
     // Destructor
-    ~Node();
+    ~Node(){
+    	next=nullptr;
+    }
 
     /* ********************************************************************** */
 
     // Comparison operators
-    bool operator==(const Node&) const noexcept;
-    bool operator!=(const Node&) const noexcept;
+    bool operator==(const Node& node) const noexcept{
+    	return value==node.value;
+    }
+    bool operator!=(const Node& node) const noexcept{
+    	return value!=node.value;
+    }
 
     /* ********************************************************************** */
 
@@ -75,7 +91,6 @@ public:
   /* ************************************************************************ */
 
   // Specific constructor
-  List(const unsigned long);
   List(const LinearContainer<DataType>&); // A list obtained from a LinearContainer
 
   /* ************************************************************************ */
@@ -84,7 +99,7 @@ public:
   List(const List&);
 
   // Move constructor
-  List(List&&);
+  List(List&&) noexcept;
 
   /* ************************************************************************ */
 
@@ -156,8 +171,8 @@ protected:
 
   // type MapPreOrder(arguments) specifiers; // Accessory function executing from one point of the list onwards
   // type MapPostOrder(arguments) specifiers; // Accessory function executing from one point of the list onwards
-  void MapPreOrder(const MapFunctor, void*,const Node*); //??
-  void MapPostOrder(const MapFunctor, void*,const Node*);
+  void MapPreOrder(const MapFunctor, void*, Node*); //??
+  void MapPostOrder(const MapFunctor, void*, Node*);
 
   /* ************************************************************************ */
 
@@ -165,9 +180,10 @@ protected:
 
   // type FoldPreOrder(arguments) specifiers; // Accessory function executing from one point of the list onwards
   // type FoldPostOrder(arguments) specifiers; // Accessory function executing from one point of the list onwards
-  void FoldPreOrder(const FoldFunctor,const void*,void*,const Node*) const; // ??
-  void FoldPostOrder(const FoldFunctor,const void*,void*,const Node*) const; //
+  void FoldPreOrder(const FoldFunctor,const void*,void*, Node*) const; // ??
+  void FoldPostOrder(const FoldFunctor,const void*,void*, Node*) const; //
 
+  void deleteAllNodes();
 };
 
 /* ************************************************************************** */

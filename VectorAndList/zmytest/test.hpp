@@ -9,6 +9,7 @@
 #include <type_traits>
 #include <algorithm>
 #include "../vector/vector.hpp"
+#include "../list/list.hpp"
 #include <string>
 
 void populateRandomIntVector(lasd::Vector<int>&);

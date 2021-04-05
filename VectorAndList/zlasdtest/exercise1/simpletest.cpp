@@ -157,7 +157,7 @@ void stestVector(unsigned int& testnum, unsigned int& testerr) {
 }
 
 /* ************************************************************************** */
-/*
+
 void stestListInt(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of List<int> Test:" << endl;
@@ -327,9 +327,9 @@ void stestList(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
   cout << endl << "Exercise 1 - List (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-/*
+
 /* ************************************************************************** */
-/*
+
 void stestVectorListInt(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector/List<int> Test:" << endl;
@@ -435,13 +435,13 @@ void stestVectorList(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
   cout << endl << "Exercise 1 - Vector/List (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-*/
+
 /* ************************************************************************** */
 
 void testSimpleExercise1() {
   unsigned int testnum = 0, testerr = 0;
   stestVector(testnum, testerr);
-  //stestList(testnum, testerr);
+  stestList(testnum, testerr);
   //stestVectorList(testnum, testerr);
   cout << endl << "Exercise 1 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }
