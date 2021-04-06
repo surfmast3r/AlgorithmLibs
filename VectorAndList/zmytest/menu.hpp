@@ -31,6 +31,7 @@ class FirstMenu : public BaseMenu
 {
 public:
     FirstMenu();
+    ~FirstMenu()= default;
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 };
 
@@ -38,6 +39,16 @@ class VectorMenu : public BaseMenu
 {
 public:
     VectorMenu();
+    ~VectorMenu()= default;
+    BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
+
+};
+
+class ListMenu : public BaseMenu
+{
+public:
+    ListMenu();
+    ~ListMenu()= default;
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 
 };

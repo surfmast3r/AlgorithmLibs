@@ -15,16 +15,30 @@
 void populateRandomIntVector(lasd::Vector<int>&);
 void populateRandomFloatVector(lasd::Vector<float>&);
 void populateRandomStringVector(lasd::Vector<std::string>&);
+
+void populateRandomIntList(lasd::List<int>& container,unsigned long&);
+void populateRandomFloatList(lasd::List<float>& container,unsigned long& );
+void populateRandomStringList(lasd::List<std::string>& container,unsigned long& );
 std::string createRandomString(int stringSize);
 
 void testFloatVector();
 void testStringVector();
 void testIntVector();
 
+void testFloatList();
+void testStringList();
+void testIntList();
+
 // MappableContainer functions
+
 template <typename DataType>
 void mapPrint(const DataType& data, void* _) {
   std::cout << data << " ";
+}
+
+template <typename DataType>
+void printMappableContainer(lasd::MappableContainer<DataType>& container){
+	container.MapPreOrder(&mapPrint<DataType>, 0);
 }
 
 template <typename DataType>

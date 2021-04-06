@@ -9,7 +9,7 @@ Vector<DataType>::Vector(const unsigned long newsize){
 
 	Elements= new DataType[newsize]{};
 	size=newsize;
-	std::cout<<"New vector constructed\n";
+	//std::cout<<"New vector constructed\n";
 }
 
 // A vector obtained from a LinearContainer
@@ -20,7 +20,7 @@ Vector<DataType>::Vector(const LinearContainer<DataType>& linearContainer ){
 	for(unsigned long i=0; i<size; i++){
 		Elements[i]=linearContainer[i];
 	}
-	std::cout<<"New vector constructed\n";
+	//std::cout<<"New vector constructed LINEAR\n";
 }
 
 // Copy constructor
@@ -29,7 +29,7 @@ Vector<DataType>::Vector(const Vector<DataType>& vector ){
 	size=vector.Size();
 	Elements= new DataType[size];
 	std::copy(vector.Elements, vector.Elements + size, Elements);
-	std::cout<<"New vector constructed\n";
+	//std::cout<<"New vector constructed COPY\n";
 }
 
 // Move constructor
@@ -37,14 +37,14 @@ template <typename DataType>
 Vector<DataType>::Vector(Vector<DataType>&& vector ) noexcept{
 	std::swap(Elements,vector.Elements);
 	std::swap(size, vector.size);
-	std::cout<<"New vector constructed\n";
+	//std::cout<<"New vector constructed MOVE\n";
 }
 
 // Destructor
 template <typename DataType>
 Vector<DataType>::~Vector(){
 	delete[] Elements;
-	std::cout<<"Vector destructed\n";
+	//std::cout<<"Vector destructed\n";
 }
 
 //copy assignment

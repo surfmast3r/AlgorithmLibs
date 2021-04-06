@@ -20,7 +20,7 @@ int main() {
   while (!isQuitOptionSelected) // We're saying that, as long as the quit option wasn't selected, we keep running
   {
 	  aCurrentMenu->printText(); // This will call the method of whichever MenuObject we're using, and print the text we want to display
-	  lasdtest();
+
 	  int choice = 0; // Always initialise variables, unless you're 100% sure you don't want to.
 	  std::cin >> choice;
 

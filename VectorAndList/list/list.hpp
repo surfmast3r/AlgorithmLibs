@@ -20,6 +20,7 @@ class List : virtual public LinearContainer<DataType>,
 private:
 
   // ...
+	DataType frontNRemoveReturnValue;
 
 protected:
 
@@ -37,7 +38,7 @@ protected:
     // Specific constructors
     Node(const DataType &data){
     	value=data;
-    	std::cout<<"new node created with value : "<<value;
+
     }
 
     /* ********************************************************************** */

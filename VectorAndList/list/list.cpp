@@ -8,13 +8,13 @@ List<DataType>::List(const LinearContainer<DataType>& linearContainer ){
 	size=linearContainer.Size();
 	head= new Node(linearContainer[0]);
 	Node*curr=head;
-	for(unsigned long i=0; i<size; i++){
+	for(unsigned long i=1; i<size; i++){
 		Node* newNode=new Node(linearContainer[i]);
 		curr->next=newNode;
-		curr=newNode;
+		curr=curr->next;
 	}
 	tail=curr;
-	std::cout<<"New list constructed\n";
+	//std::cout<<"New list constructed LINEAR\n";
 }
 
 // Copy constructor
@@ -25,14 +25,15 @@ List<DataType>::List(const List<DataType>& list ){
 
 	Node*curr=list.head;
 	Node*currCopy=head;
+	Node* temp = nullptr;
 	while(curr->next!=nullptr){
-		Node* temp = new Node(curr->next->value);
+		temp = new Node(curr->next->value);
 		currCopy->next=temp;
-		tail=temp;
 		curr=curr->next;
 		currCopy=currCopy->next;
 	}
-	std::cout<<"New list constructed\n";
+	tail=currCopy;
+	//std::cout<<"New list constructed COPY\n";
 }
 
 // Move constructor
@@ -41,7 +42,7 @@ List<DataType>::List(List<DataType>&& list ) noexcept{
 	std::swap(head,list.head);
 	std::swap(tail,list.tail);
 	std::swap(size, list.size);
-	std::cout<<"New vector constructed\n";
+	//std::cout<<"New list constructed MOVE\n";
 }
 
 // Destructor
@@ -57,7 +58,7 @@ List<DataType>::~List(){
 	head = head->next;
 	delete(temp);
 	}
-	std::cout<<"List destructed\n";
+	//std::cout<<"List destructed\n";
 }
 
 //copy assignment
@@ -108,20 +109,25 @@ bool List<DataType>::operator !=(const List<DataType>& list) const noexcept{
 template <typename DataType>
 void List<DataType>::InsertAtFront(const DataType& newValue){ // Copy of the value
 	Node* newNode=new Node(newValue);
-	if(head)
+	if(size==0){
+		tail=newNode;
+	}
+	else{
 		newNode->next=head;
-	else
-		newNode->next=tail;
+
+	}
 	head=newNode;
 	size++;
 }
 template <typename DataType>
 void List<DataType>::InsertAtFront(DataType&& newValue) noexcept{ // Copy of the value
 	Node* newNode=new Node(newValue);
-	if(head)
+	if(size==0){
+		tail=newNode;
+	}
+	else{
 		newNode->next=head;
-	else
-		newNode->next=tail;
+	}
 	head=newNode;
 	size++;
 }
@@ -131,7 +137,7 @@ void List<DataType>::RemoveFromFront(){  // (must throw std::length_error when e
 	if(size>0){
 		Node* temp = head;
 		head=head->next;
-		//delete temp;
+		delete temp;
 		size--;
 	}else{
 		throw std::length_error("List is empty");
@@ -143,7 +149,9 @@ DataType& List<DataType>::FrontNRemove(){  // (must throw std::length_error when
 		Node* temp = head;
 		head=head->next;
 		size--;
-		return temp->value;
+		std::swap(temp->value,frontNRemoveReturnValue);
+		delete temp;
+		return frontNRemoveReturnValue;
 	}else{
 		throw std::length_error("List is empty");
 	}
@@ -151,9 +159,11 @@ DataType& List<DataType>::FrontNRemove(){  // (must throw std::length_error when
 
 template <typename DataType>
 void List<DataType>::InsertAtBack(const DataType& newValue){ // Copy of the value
-	std::cout<<"insert back";
+	//std::cout<<"insert back";
 	Node* newNode= new Node(newValue);
-	if(tail)
+	if(size==0){
+		head=newNode;
+	}else
 		tail->next=newNode;
 	tail=newNode;
 	size++;
