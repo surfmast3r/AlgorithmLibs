@@ -48,15 +48,12 @@ List<DataType>::List(List<DataType>&& list ) noexcept{
 // Destructor
 template <typename DataType>
 List<DataType>::~List(){
-	//1. create a temp node
+
 	Node* temp = new Node();
-	//2. if the head is not null make temp as head and
-	//   move head to head next, then delete the temp,
-	//   continue the process till head becomes null
 	while(head != nullptr) {
-	temp = head;
-	head = head->next;
-	delete(temp);
+		temp = head;
+		head = head->next;
+		delete(temp);
 	}
 	//std::cout<<"List destructed\n";
 }
@@ -120,8 +117,8 @@ void List<DataType>::InsertAtFront(const DataType& newValue){ // Copy of the val
 	size++;
 }
 template <typename DataType>
-void List<DataType>::InsertAtFront(DataType&& newValue) noexcept{ // Copy of the value
-	Node* newNode=new Node(newValue);
+void List<DataType>::InsertAtFront(DataType&& newValue) noexcept{ // Move of the value
+	Node* newNode=new Node(std::move(newValue));
 	if(size==0){
 		tail=newNode;
 	}
@@ -144,14 +141,16 @@ void List<DataType>::RemoveFromFront(){  // (must throw std::length_error when e
 	}
 }
 template <typename DataType>
-DataType& List<DataType>::FrontNRemove(){  // (must throw std::length_error when empty) //da sistemare
+DataType List<DataType>::FrontNRemove(){  // (must throw std::length_error when empty) //da sistemare
 	if(size>0){
 		Node* temp = head;
+		DataType returnValue=head->value;
 		head=head->next;
 		size--;
-		std::swap(temp->value,frontNRemoveReturnValue);
+
 		delete temp;
-		return frontNRemoveReturnValue;
+
+		return returnValue;
 	}else{
 		throw std::length_error("List is empty");
 	}
@@ -203,9 +202,9 @@ template <typename DataType>
 void List<DataType>::Clear() {
 	Node* temp = new Node();
 	while(head != nullptr) {
-	temp = head;
-	head = head->next;
-	delete(temp);
+		temp = head;
+		head = head->next;
+		delete(temp);
 	}
 	tail=nullptr;
 	size=0;

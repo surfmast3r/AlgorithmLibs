@@ -20,7 +20,6 @@ class List : virtual public LinearContainer<DataType>,
 private:
 
   // ...
-	DataType frontNRemoveReturnValue;
 
 protected:
 
@@ -128,7 +127,7 @@ public:
   void InsertAtFront(const DataType&) ; // Copy of the value
   void InsertAtFront(DataType&&) noexcept; // Move of the value
   void RemoveFromFront(); // (must throw std::length_error when empty)
-  DataType& FrontNRemove(); // (must throw std::length_error when empty)
+  DataType FrontNRemove(); // (must throw std::length_error when empty)
 
   void InsertAtBack(const DataType&); // Copy of the value
   void InsertAtBack(DataType&&) noexcept; // Move of the value
