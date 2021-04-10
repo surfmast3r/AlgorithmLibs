@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <random>
+#include <list>
 #include "test.hpp"
 using namespace std;
 /* ************************************************************************** */
@@ -477,6 +478,7 @@ void testStringList(){
 			break;
 			case 4:{
 				printMappableContainer(list);
+
 			}
 			break;
 			case 5:{
@@ -601,6 +603,7 @@ void testFloatList(){
 			case 8:{
 				isQuitOptionSelected=true;
 			}
+
 			break;
 			default:
 			{
@@ -616,7 +619,7 @@ void populateRandomIntList(lasd::List<int>& container,unsigned long& size){
 	std::cout<< "populating int list\n";
 	srand(time(NULL));
 	default_random_engine genx(random_device{}());
-	uniform_int_distribution<unsigned int> distx(7, 35);
+	uniform_int_distribution<unsigned int> distx(5, 50);
 	for(unsigned long i = 0; i<size; i++){
 		container.InsertAtFront(distx(genx));
 	}
@@ -674,3 +677,4 @@ void capitalizeString(string& s)
     transform(s.begin(), s.end(), s.begin(),
                    [](unsigned char c){ return toupper(c); });
 }
+

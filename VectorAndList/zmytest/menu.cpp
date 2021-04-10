@@ -20,7 +20,6 @@ FirstMenu::FirstMenu()
 BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) // This is us actually defining the pure virtual method above
 {
 	BaseMenu *mainMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
-
 	switch (choice) // Notice - I have only done "options". You would obviously need to do this for all of your menus
 	{
 		case 1:

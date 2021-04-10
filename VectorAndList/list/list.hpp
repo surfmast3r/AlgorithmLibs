@@ -36,16 +36,14 @@ protected:
     Node()=default;
     // Specific constructors
     Node(const DataType &data){
-    	value=data;
-
+		value=data;
     }
 
     /* ********************************************************************** */
 
     // Copy constructor
     Node(const Node& node){
-    	value=node.value;
-    	//next=node.next;
+		value=node.value;
     }
 
     // Move constructor

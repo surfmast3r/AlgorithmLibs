@@ -100,7 +100,7 @@ void foldMultiplyGreaterThan(const DataType& data,const void* n,void* acc) {
 }
 
 void foldStringLessThan(const std::string& data,const void* n,void* acc);
-
+void testacaso();
 
 /* ************************************************************************** */
 

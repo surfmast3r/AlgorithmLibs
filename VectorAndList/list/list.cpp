@@ -6,33 +6,41 @@ namespace lasd {
 template <typename DataType>
 List<DataType>::List(const LinearContainer<DataType>& linearContainer ){
 	size=linearContainer.Size();
-	head= new Node(linearContainer[0]);
-	Node*curr=head;
-	for(unsigned long i=1; i<size; i++){
-		Node* newNode=new Node(linearContainer[i]);
-		curr->next=newNode;
-		curr=curr->next;
+
+	if(size>0){
+
+		head= new Node(linearContainer[0]);
+		Node*curr=head;
+		for(unsigned long i=1; i<size; i++){
+			Node* newNode=new Node(linearContainer[i]);
+			curr->next=newNode;
+			curr=curr->next;
+		}
+		tail=curr;
 	}
-	tail=curr;
 	//std::cout<<"New list constructed LINEAR\n";
 }
 
 // Copy constructor
 template <typename DataType>
 List<DataType>::List(const List<DataType>& list ){
-	size=list.Size();
-	head= new Node(list.head->value);
 
-	Node*curr=list.head;
-	Node*currCopy=head;
-	Node* temp = nullptr;
-	while(curr->next!=nullptr){
-		temp = new Node(curr->next->value);
-		currCopy->next=temp;
-		curr=curr->next;
-		currCopy=currCopy->next;
+	size=list.Size();
+	if(size>0){
+		head= new Node(list.head->value);
+
+		Node*curr=list.head;
+		Node*currCopy=head;
+		Node* temp = nullptr;
+		while(curr->next!=nullptr){
+			temp = new Node(curr->next->value);
+			currCopy->next=temp;
+			curr=curr->next;
+			currCopy=currCopy->next;
+		}
+		tail=currCopy;
+
 	}
-	tail=currCopy;
 	//std::cout<<"New list constructed COPY\n";
 }
 
@@ -105,6 +113,7 @@ bool List<DataType>::operator !=(const List<DataType>& list) const noexcept{
   // Specific member functions
 template <typename DataType>
 void List<DataType>::InsertAtFront(const DataType& newValue){ // Copy of the value
+
 	Node* newNode=new Node(newValue);
 	if(size==0){
 		tail=newNode;
@@ -115,6 +124,8 @@ void List<DataType>::InsertAtFront(const DataType& newValue){ // Copy of the val
 	}
 	head=newNode;
 	size++;
+
+
 }
 template <typename DataType>
 void List<DataType>::InsertAtFront(DataType&& newValue) noexcept{ // Move of the value
@@ -169,8 +180,10 @@ void List<DataType>::InsertAtBack(const DataType& newValue){ // Copy of the valu
 }
 template <typename DataType>
 void List<DataType>::InsertAtBack(DataType&& newValue) noexcept{ // Move of the value
-	Node* newNode= new Node(newValue);
-	if(tail)
+	Node* newNode= new Node(std::move(newValue));
+	if(size==0){
+			head=newNode;
+	}else
 		tail->next=newNode;
 	tail=newNode;
 	size++;
