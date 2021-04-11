@@ -17,10 +17,10 @@ FirstMenu::FirstMenu()
 				+ "4 - Quit\n"
 				+ "Selection: ";
 }
-BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) // This is us actually defining the pure virtual method above
+BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
-	BaseMenu *mainMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
-	switch (choice) // Notice - I have only done "options". You would obviously need to do this for all of your menus
+	BaseMenu *mainMenu = 0;
+	switch (choice)
 	{
 		case 1:
 		{
@@ -34,25 +34,25 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) /
 		}
 		case 3:
 		{
-			lasdtest(); // To call in the menu of your library test!
+			lasdtest();
 			break;
 		}
 
 		case 4:
 		{
-			// Ah, they selected quit! Update the bool we got as input
+
 			iIsQuitOptionSelected = true;
 			break;
 		}
 
 		default:
 		{
-			// Do nothing - we won't change the menu
+			// Do nothing
 		}
 
 	}
 
-	return mainMenu; // Sending it back to the main function
+	return mainMenu;
 }
 
 VectorMenu::VectorMenu()
@@ -66,11 +66,11 @@ VectorMenu::VectorMenu()
 				+ "Selection: ";
 }
 
-BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) // This is us actually defining the pure virtual method above
+BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
-	BaseMenu *mainMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
+	BaseMenu *mainMenu = 0;
 
-	switch (choice) // Notice - I have only done options. You would obviously need to do this for all of your menus
+	switch (choice)
 	{
 		case 1:
 		{
@@ -89,7 +89,7 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) 
 		break;
 		case 4:
 		{
-			mainMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
+			mainMenu = new FirstMenu;
 		}
 		break;
 		case 5:
@@ -100,12 +100,12 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) 
 
 		default:
 		{
-			// Do nothing - we won't change the menu
+			// Do nothing
 		}
 
 	}
 
-	return mainMenu; // Sending it back to the main function
+	return mainMenu;
 }
 
 ListMenu::ListMenu()
@@ -119,11 +119,11 @@ ListMenu::ListMenu()
 				+ "Selection: ";
 }
 
-BaseMenu *ListMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) // This is us actually defining the pure virtual method above
+BaseMenu *ListMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
-	BaseMenu *mainMenu = 0; // We're setting up the pointer here, but makin sure it's null (0)
+	BaseMenu *mainMenu = 0;
 
-	switch (choice) // Notice - I have only done options. You would obviously need to do this for all of your menus
+	switch (choice)
 	{
 		case 1:
 		{
@@ -142,7 +142,7 @@ BaseMenu *ListMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) //
 		break;
 		case 4:
 		{
-			mainMenu = new FirstMenu; // We're creating our new menu object here, and will send it back to the main function below
+			mainMenu = new FirstMenu;
 		}
 		break;
 		case 5:
@@ -153,12 +153,12 @@ BaseMenu *ListMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected) //
 
 		default:
 		{
-			// Do nothing - we won't change the menu
+			// Do nothing
 		}
 
 	}
 
-	return mainMenu; // Sending it back to the main function
+	return mainMenu;
 }
 
 
