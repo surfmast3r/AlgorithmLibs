@@ -13,7 +13,13 @@ void testIntVector(){
 	unsigned long size;
 
 	std::cout<<"insert vector size\n";
-	std::cin>>size;
+	//std::cin>>size;
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert vector size\n";
+	}
 	std::cout<< "new vector\n";
 	lasd::Vector<int> vec(size);
 	populateRandomIntVector(vec);
@@ -32,7 +38,12 @@ void testIntVector(){
 						+ "8 - back to main menu\n"
 						+ "Selection: ";
 		int choice = 0;
-		std::cin >> choice;
+		//std::cin >> choice;
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only: ";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
 		switch (choice){
 			case 1:{
 				cout<<"Vector front element: "+to_string(vec.Front())<<endl;
@@ -45,7 +56,11 @@ void testIntVector(){
 			case 3:{
 				int index;
 				cout<<"insert index:"<<endl;
-				cin>>index;
+				while(!(std::cin >> index)){
+					std::cout << "Please enter numbers only: insert index";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
 				try{
 					cout<<vec[index];
 
@@ -58,13 +73,18 @@ void testIntVector(){
 			break;
 			case 4:{
 				vec.MapPreOrder(&mapPrint<int>, (void*)0);
+				cout<<endl;
 			}
 			break;
 			case 5:{
 				int value;
 				unsigned long index=0;
 				cout<<"insert element to find:"<<endl;
-				cin>>value;
+				if(!(std::cin >> value)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
 				vec.FoldPreOrder(&foldFind<int>, &value, &index);
 
 
@@ -74,7 +94,11 @@ void testIntVector(){
 				int value;
 				unsigned long acc=0;
 				cout<<"insert n size:"<<endl;
-				cin>>value;
+				while(!(std::cin >> value)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
 				vec.FoldPreOrder(&foldSumLessThan<int>, &value, &acc);
 				cout<<"sum is: "<<acc<<endl;
 			}
@@ -104,7 +128,12 @@ void testStringVector(){
 	unsigned long size;
 
 	std::cout<<"insert vector size\n";
-	std::cin>>size;
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert vector size\n";
+	}
 	std::cout<< "new vector\n";
 	lasd::Vector<string> vec(size);
 	populateRandomStringVector(vec);
@@ -123,7 +152,12 @@ void testStringVector(){
 						+ "8 - back to main menu\n"
 						+ "Selection: ";
 		int choice = 0;
-		std::cin >> choice;
+		//std::cin >> choice;
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only: ";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
 		switch (choice){
 			case 1:{
 				cout<<"Vector front element: "+vec.Front()<<endl;
@@ -136,7 +170,11 @@ void testStringVector(){
 			case 3:{
 				int index;
 				cout<<"insert index:"<<endl;
-				cin>>index;
+				while(!(std::cin >> index)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
 				try{
 					cout<<vec[index];
 
@@ -149,6 +187,7 @@ void testStringVector(){
 			break;
 			case 4:{
 				vec.MapPreOrder(&mapPrint<string>, (void*)0);
+				cout<<endl;
 			}
 			break;
 			case 5:{
@@ -166,9 +205,14 @@ void testStringVector(){
 				unsigned int value;
 				string acc="";
 				cout<<"insert n size:"<<endl;
-				cin>>value;
-				vec.FoldPreOrder(&foldStringLessThan, &value, &acc);
-				cout<<"concat string: "<<acc<<endl;
+				if(!(std::cin >> value)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}else{
+					vec.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
+					cout<<"concat string: "<<acc<<endl;
+				}
 
 			}
 			break;
@@ -196,7 +240,12 @@ void testFloatVector(){
 	unsigned long size;
 
 	std::cout<<"insert vector size\n";
-	std::cin>>size;
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert vector size\n";
+	}
 	std::cout<< "new vector\n";
 	lasd::Vector<float> vec(size);
 	populateRandomFloatVector(vec);
@@ -215,7 +264,12 @@ void testFloatVector(){
 						+ "8 - back to main menu\n"
 						+ "Selection: ";
 		int choice = 0;
-		std::cin >> choice;
+		//std::cin >> choice;
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only: ";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
 		switch (choice){
 			case 1:{
 				cout<<"Vector front element: "+to_string(vec.Front())<<endl;
@@ -228,7 +282,11 @@ void testFloatVector(){
 			case 3:{
 				int index;
 				cout<<"insert index:"<<endl;
-				cin>>index;
+				while(!(std::cin >> index)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
 				try{
 					cout<<vec[index];
 
@@ -241,15 +299,21 @@ void testFloatVector(){
 			break;
 			case 4:{
 				vec.MapPreOrder(&mapPrint<float>, (void*)0);
+				cout<<endl;
 			}
 			break;
 			case 5:{
 				float value;
 				unsigned long index=0;
 				cout<<"insert element to find:"<<endl;
-				cin>>value;
-				cout<<"value to find: "<<value<<endl;
-				vec.FoldPreOrder(&foldFloatFind<float>, &value, &index);
+				if(!(std::cin >> value)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}else{
+					cout<<"value to find: "<<value<<endl;
+					vec.FoldPreOrder(&foldFloatFind<float>, &value, &index);
+				}
 
 
 			}
@@ -258,9 +322,16 @@ void testFloatVector(){
 				float value;
 				float acc=1;
 				cout<<"insert n size:"<<endl;
-				cin>>value;
-				vec.FoldPreOrder(&foldMultiplyGreaterThan<float>, &value, &acc);
-				cout<<"product is: "<<acc<<endl;
+				if(!(std::cin >> value)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
+				else{
+					vec.FoldPreOrder(&foldMultiplyGreaterThan<float>, &value, &acc);
+					cout<<"product is: "<<acc<<endl;
+				}
+
 			}
 			break;
 			case 7:{
@@ -340,7 +411,12 @@ void testIntList(){
 	unsigned long size;
 
 	std::cout<<"insert List size\n";
-	std::cin>>size;
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert list size\n";
+	}
 	std::cout<< "new list\n";
 	lasd::List<int> list;
 	populateRandomIntList(list,size);
@@ -359,7 +435,11 @@ void testIntList(){
 						+ "8 - back to main menu\n"
 						+ "Selection: ";
 		int choice = 0;
-		std::cin >> choice;
+		if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only: "<<endl;
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+		}
 		switch (choice){
 			case 1:{
 				cout<<"List front element: "+to_string(list.Front())<<endl;
@@ -372,13 +452,20 @@ void testIntList(){
 			case 3:{
 				int index;
 				cout<<"insert index:"<<endl;
-				cin>>index;
-				try{
-					cout<<list[index];
+				if(!(std::cin >> index)){
+						std::cout << "Please enter numbers only: "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
 
-				} catch (std::out_of_range&) {
-					cout<<"invalid index\n";
+				}else{
+					try{
+						cout<<list[index];
+
+					} catch (std::out_of_range&) {
+						cout<<"invalid index\n";
+					}
 				}
+
 
 
 			}
@@ -391,7 +478,12 @@ void testIntList(){
 				int value;
 				unsigned long index=0;
 				cout<<"insert element to find:"<<endl;
-				cin>>value;
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						cout<<"insert element to find:"<<endl;
+				}
 				list.FoldPreOrder(&foldFind<int>, &value, &index);
 
 
@@ -401,7 +493,12 @@ void testIntList(){
 				int value;
 				unsigned long acc=0;
 				cout<<"insert n size:"<<endl;
-				cin>>value;
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						cout<<"insert n size:"<<endl;
+				}
 				list.FoldPreOrder(&foldSumLessThan<int>, &value, &acc);
 				cout<<"sum is: "<<acc<<endl;
 			}
@@ -433,7 +530,12 @@ void testStringList(){
 	unsigned long size;
 
 	std::cout<<"insert List size\n";
-	std::cin>>size;
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert list size\n";
+	}
 	std::cout<< "new list\n";
 	lasd::List<std::string> list;
 	populateRandomStringList(list,size);
@@ -452,7 +554,12 @@ void testStringList(){
 						+ "8 - back to main menu\n"
 						+ "Selection: ";
 		int choice = 0;
-		std::cin >> choice;
+		if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only "<<endl;
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+
+			}
 		switch (choice){
 			case 1:{
 				cout<<"Vector front element: "+list.Front()<<endl;
@@ -465,12 +572,18 @@ void testStringList(){
 			case 3:{
 				int index;
 				cout<<"insert index:"<<endl;
-				cin>>index;
-				try{
-					cout<<list[index];
+				if(!(std::cin >> index)){
+						std::cout << "Please enter numbers only "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
 
-				} catch (std::out_of_range&) {
-					cout<<"invalid index\n";
+				}else{
+					try{
+						cout<<list[index];
+
+					} catch (std::out_of_range&) {
+						cout<<"invalid index\n";
+					}
 				}
 
 
@@ -496,8 +609,13 @@ void testStringList(){
 				unsigned int value;
 				string acc="";
 				cout<<"insert n size:"<<endl;
-				cin>>value;
-				list.FoldPreOrder(&foldStringLessThan, &value, &acc);
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						std::cout<<"insert n size:\n";
+				}
+				list.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
 				cout<<"concat string: "<<acc<<endl;
 
 			}
@@ -526,7 +644,12 @@ void testFloatList(){
 	unsigned long size;
 
 	std::cout<<"insert list size\n";
-	std::cin>>size;
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert list size\n";
+	}
 	std::cout<< "new list\n";
 	lasd::List<float> list;
 	populateRandomFloatList(list,size);
@@ -545,7 +668,12 @@ void testFloatList(){
 						+ "8 - back to main menu\n"
 						+ "Selection: ";
 		int choice = 0;
-		std::cin >> choice;
+		if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only "<<endl;
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+
+			}
 		switch (choice){
 			case 1:{
 				cout<<"List front element: "+to_string(list.Front())<<endl;
@@ -558,12 +686,18 @@ void testFloatList(){
 			case 3:{
 				int index;
 				cout<<"insert index:"<<endl;
-				cin>>index;
-				try{
-					cout<<list[index];
+				if(!(std::cin >> index)){
+						std::cout << "Please enter numbers only ";
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
 
-				} catch (std::out_of_range&) {
-					cout<<"invalid index\n";
+				}else{
+					try{
+						cout<<list[index];
+
+					} catch (std::out_of_range&) {
+						cout<<"invalid index\n";
+					}
 				}
 
 
@@ -577,7 +711,12 @@ void testFloatList(){
 				float value;
 				unsigned long index=0;
 				cout<<"insert element to find:"<<endl;
-				cin>>value;
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: ";
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						std::cout<<"insert element to find\n";
+				}
 				cout<<"value to find: "<<value<<endl;
 				list.FoldPreOrder(&foldFloatFind<float>, &value, &index);
 
@@ -588,7 +727,12 @@ void testFloatList(){
 				float value;
 				float acc=1;
 				cout<<"insert n size:"<<endl;
-				cin>>value;
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: ";
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						std::cout<<"insert n size\n";
+				}
 				list.FoldPreOrder(&foldMultiplyGreaterThan<float>, &value, &acc);
 				cout<<"product is: "<<acc<<endl;
 			}
@@ -663,7 +807,7 @@ string createRandomString(int stringSize)
 }
 
 
-void foldStringLessThan(const std::string& data,const void* n,void* acc) {
+void foldStringLessEqThan(const std::string& data,const void* n,void* acc) {
 	if(data.size()<=*(unsigned int*)n){
 		((std::string*) acc)->append(data);
 	}

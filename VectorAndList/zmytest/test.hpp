@@ -85,7 +85,7 @@ void foldFloatFind(const DataType& data,const void* target,void* index) {
 
 template <typename DataType>
 void foldSumLessThan(const DataType& data,const void* n,void* acc) {
-	if(data<=*((DataType*)n)){
+	if(data<*((DataType*)n)){
 		*((DataType*) acc)+=data;
 	}
 
@@ -99,7 +99,7 @@ void foldMultiplyGreaterThan(const DataType& data,const void* n,void* acc) {
 
 }
 
-void foldStringLessThan(const std::string& data,const void* n,void* acc);
+void foldStringLessEqThan(const std::string& data,const void* n,void* acc);
 void testacaso();
 
 /* ************************************************************************** */

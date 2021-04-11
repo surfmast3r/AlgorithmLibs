@@ -229,7 +229,7 @@ public:
 
 /* ************************************************************************** */
 
-/*
+
 template <typename DataType>
 class BreadthMappableContainer : virtual public MappableContainer<DataType>{ // Must extend MappableContainer
 
@@ -268,10 +268,10 @@ public:
 
   // type MapBreadth(arguments) specifiers;
 
-//};
+};
 
 /* ************************************************************************** */
-/*
+
 template <typename DataType>
 class BreadthFoldableContainer { // Must extend FoldableContainer
 
@@ -310,7 +310,7 @@ public:
 
   // type FoldBreadth(arguments) specifiers;
 
-//};
+};
 
 /* ************************************************************************** */
 
