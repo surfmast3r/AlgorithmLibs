@@ -26,8 +26,8 @@ void GetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    tst = true;
-    std::cout << std::endl << "Wrong std::exception: " << exc.what() << "!" << std::endl;
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
@@ -43,8 +43,8 @@ void SetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    tst = true;
-    std::cout << std::endl << "Wrong std::exception: " << exc.what() << "!" << std::endl;
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
@@ -59,8 +59,8 @@ void GetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    tst = true;
-    std::cout << std::endl << "Wrong std::exception: " << exc.what() << "!" << std::endl;
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
@@ -76,8 +76,8 @@ void SetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    tst = true;
-    std::cout << std::endl << "Wrong std::exception: " << exc.what() << "!" << std::endl;
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
@@ -93,8 +93,8 @@ void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
   } catch(std::out_of_range exc) {
     std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    tst = true;
-    std::cout << std::endl << "Wrong std::exception: " << exc.what() << "!" << std::endl;
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
@@ -109,8 +109,8 @@ void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
   } catch(std::out_of_range exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    tst = true;
-    std::cout << std::endl << "Wrong std::exception: " << exc.what() << "!" << std::endl;
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
@@ -259,7 +259,7 @@ void FoldStringConcatenate(const std::string&, const void*, void*);
 /* ************************************************************************** */
 
 // BreadthMappableContainer member functions!
-/*
+
 template <typename Data, typename Parameter>
 void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappableContainer<Data>& con, bool chk, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
   bool tst = true;
@@ -274,11 +274,11 @@ void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappa
   }
   testerr += (1 - (unsigned int) tst);
 }
-*/
+
 /* ************************************************************************** */
 
 // BreadthFoldableContainer member functions!
-/*
+
 template <typename Data, typename Parameter, typename Value>
 void FoldBreadth(unsigned int& testnum, unsigned int& testerr, const lasd::BreadthFoldableContainer<Data>& con, bool chk, typename lasd::BreadthFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval) {
   bool tst;
@@ -295,7 +295,7 @@ void FoldBreadth(unsigned int& testnum, unsigned int& testerr, const lasd::Bread
   }
   testerr += (1 - (unsigned int) tst);
 }
-*/
+
 /* ************************************************************************** */
 
 #endif

@@ -30,6 +30,9 @@ void RemoveFromFront(unsigned int& testnum, unsigned int& testerr, lasd::List<Da
     std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
+  } catch(std::exception exc) {
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
@@ -43,6 +46,9 @@ void FrontNRemove(unsigned int& testnum, unsigned int& testerr, lasd::List<Data>
     std::cout << ((tst = ((lst.FrontNRemove() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
+  } catch(std::exception exc) {
+    tst = false;
+    std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
   testerr += (1 - (unsigned int) tst);
 }
