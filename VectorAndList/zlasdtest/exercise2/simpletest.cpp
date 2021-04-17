@@ -142,12 +142,12 @@ void stestStackString(Stk& stk, unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
   cout << "End of Stack<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-/*
+
 void stestStackString(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  lasd::StackVec<string> stkvec;
-  cout << endl << "Begin of StackVec<string> Test:" << endl;
-  stestStackString(stkvec, loctestnum, loctesterr);
+  //lasd::StackVec<string> stkvec;
+  //cout << endl << "Begin of StackVec<string> Test:" << endl;
+  //stestStackString(stkvec, loctestnum, loctesterr);
   lasd::StackLst<string> stklst;
   cout << endl << "Begin of StackLst<string> Test:" << endl;
   stestStackString(stklst, loctestnum, loctesterr);
@@ -156,12 +156,12 @@ void stestStackString(unsigned int& testnum, unsigned int& testerr) {
     lasd::Vector<string> vec(2);
     SetAt(loctestnum, loctesterr, vec, true, 0, string("A"));
     SetAt(loctestnum, loctesterr, vec, true, 1, string("B"));
-
+/*
     PushM(loctestnum, loctesterr, stkvec, string("A"));
     PushM(loctestnum, loctesterr, stkvec, string("B"));
     lasd::StackVec<string> newstkvec(vec);
     EqualStack(loctestnum, loctesterr, stkvec, newstkvec, true);
-
+*/
     PushM(loctestnum, loctesterr, stklst, string("B"));
     PushM(loctestnum, loctesterr, stklst, string("A"));
     lasd::StackLst<string> newstklst(vec);
@@ -173,19 +173,19 @@ void stestStackString(unsigned int& testnum, unsigned int& testerr) {
   testnum += loctestnum;
   testerr += loctesterr;
 }
-*/
+
 void stestStack(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
   stestStackInt(loctestnum, loctesterr);
   stestStackFloat(loctestnum, loctesterr);
-  //stestStackString(loctestnum, loctesterr);
+  stestStackString(loctestnum, loctesterr);
   testnum += loctestnum;
   testerr += loctesterr;
   cout << endl << "Exercise 2 - Stack (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
 
 /* ************************************************************************** */
-/*
+
 template <typename Que>
 void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
@@ -241,9 +241,9 @@ void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestQueueInt(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  lasd::QueueVec<int> quevec;
+  //lasd::QueueVec<int> quevec;
   cout << endl << "Begin of QueueVec<int> Test:" << endl;
-  stestQueueInt(quevec, loctestnum, loctesterr);
+  //stestQueueInt(quevec, loctestnum, loctesterr);
   lasd::QueueLst<int> quelst;
   cout << endl << "Begin of QueueLst<int> Test:" << endl;
   stestQueueInt(quelst, loctestnum, loctesterr);
@@ -277,9 +277,9 @@ void stestQueueFloat(Que& que, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestQueueFloat(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  lasd::QueueVec<double> quevec;
+  //lasd::QueueVec<double> quevec;
   cout << endl << "Begin of QueueVec<double> Test:" << endl;
-  stestQueueFloat(quevec, loctestnum, loctesterr);
+  //stestQueueFloat(quevec, loctestnum, loctesterr);
   lasd::QueueLst<double> quelst;
   cout << endl << "Begin of QueueLst<double> Test:" << endl;
   stestQueueFloat(quelst, loctestnum, loctesterr);
@@ -311,9 +311,9 @@ void stestQueueString(Que& que, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestQueueString(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  lasd::QueueVec<string> quevec;
+  //lasd::QueueVec<string> quevec;
   cout << endl << "Begin of QueueVec<string> Test:" << endl;
-  stestQueueString(quevec, loctestnum, loctesterr);
+  //stestQueueString(quevec, loctestnum, loctesterr);
   lasd::QueueLst<string> quelst;
   cout << endl << "Begin of QueueLst<string> Test:" << endl;
   stestQueueString(quelst, loctestnum, loctesterr);
@@ -323,11 +323,11 @@ void stestQueueString(unsigned int& testnum, unsigned int& testerr) {
     SetAt(loctestnum, loctesterr, vec, true, 0, string("A"));
     SetAt(loctestnum, loctesterr, vec, true, 1, string("B"));
 
-    EnqueueM(loctestnum, loctesterr, quevec, string("A"));
+    /*EnqueueM(loctestnum, loctesterr, quevec, string("A"));
     EnqueueM(loctestnum, loctesterr, quevec, string("B"));
     lasd::QueueVec<string> newquevec(vec);
     EqualStack(loctestnum, loctesterr, quevec, newquevec, true);
-
+     */
     EnqueueM(loctestnum, loctesterr, quelst, string("A"));
     EnqueueM(loctestnum, loctesterr, quelst, string("B"));
     lasd::QueueLst<string> newquelst(vec);
@@ -349,12 +349,12 @@ void stestQueue(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
   cout << endl << "Exercise 2 - Queue (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-*/
+
 /* ************************************************************************** */
 
 void testSimpleExercise2() {
   unsigned int testnum = 0, testerr = 0;
   stestStack(testnum, testerr);
-  //stestQueue(testnum, testerr);
+  stestQueue(testnum, testerr);
   cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }

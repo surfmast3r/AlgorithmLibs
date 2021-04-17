@@ -58,7 +58,7 @@ public:
 /* ************************************************************************** */
 
 template <typename DataType>
-class LinearContainer : public virtual Container { // Must extend Container
+class LinearContainer : virtual public Container { // Must extend Container
 
 private:
 

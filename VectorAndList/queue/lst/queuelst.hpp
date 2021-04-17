@@ -13,71 +13,73 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-template <typename Data>
-class QueueLst { // Must extend Queue<Data> and List<Data>
+template <typename DataType>
+class QueueLst : virtual public Queue<DataType>,
+				 virtual protected List<DataType>{ // Must extend Queue<Data> and List<Data>
 
 private:
 
-  // ...
+	List<DataType>* list= nullptr;
 
 protected:
 
-  // using List<Data>::???;
+	using List<DataType>::size;
 
   // ...
 
 public:
 
   // Default constructor
-  // QueueLst() specifier;
+
+	QueueLst();
 
   /* ************************************************************************ */
 
   // Specific constructor
-  // QueueLst(argument) specifiers; // A queue obtained from a LinearContainer
+	QueueLst(const LinearContainer<DataType>&); // A queue obtained from a LinearContainer
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // QueueLst(argument);
+	QueueLst(const QueueLst<DataType>&);
 
   // Move constructor
-  // QueueLst(argument);
+	QueueLst(QueueLst<DataType>&&);
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~QueueLst() specifier;
+    ~QueueLst();
 
   /* ************************************************************************ */
 
-  // Copy assignment
-  // type operator=(argument);
+    // Copy assignment
+    QueueLst& operator=(const QueueLst&);
 
-  // Move assignment
-  // type operator=(argument);
+	// Move assignment
+    QueueLst& operator=(QueueLst&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+    bool operator==(const QueueLst&) const noexcept;
+    bool operator!=(const QueueLst&) const noexcept;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Queue)
 
-  // type Enqueue(argument) specifiers; // Override Queue member (copy of the value)
-  // type Enqueue(argument) specifiers; // Override Queue member (move of the value)
-  // type Head() specifiers; // Override Queue member (must throw std::length_error when empty)
-  // type Dequeue() specifiers; // Override Queue member (must throw std::length_error when empty)
-  // type HeadNDequeue() specifiers; // Override Queue member (must throw std::length_error when empty)
+    void Enqueue(const DataType&) override; // Override Queue member (copy of the value)
+    void Enqueue(DataType&&) noexcept override;  // Override Queue member (move of the value)
+    DataType& Head() const override; // Override Queue member (must throw std::length_error when empty)
+    void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
+    DataType HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-  // type Clear() specifiers; // Override Container member
+    void Clear() override; // Override Container member
 
 };
 

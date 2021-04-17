@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename DataType>
-class StackLst : public Stack<DataType>,
+class StackLst : virtual public Stack<DataType>,
 				 virtual protected List<DataType>{ // Must extend Stack<Data> and List<Data>
 
 private:
