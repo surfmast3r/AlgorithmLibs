@@ -15,15 +15,17 @@ namespace lasd {
 
 template <typename DataType>
 class StackLst : virtual public Stack<DataType>,
-				 virtual protected List<DataType>{ // Must extend Stack<Data> and List<Data>
+				 protected List<DataType>{ // Must extend Stack<Data> and List<Data>
 
 private:
 
-  	List<DataType>* list= nullptr;
+  	//List<DataType>* list= nullptr;
 
 protected:
 
    using List<DataType>::size;
+   using List<DataType>::head;
+   using List<DataType>::tail;
 
   // ...
 
@@ -31,37 +33,37 @@ public:
 
 
   // Default constructor
-   StackLst() ;
+   StackLst() : List<DataType>::List(){};
 
   /* ************************************************************************ */
 
   // Specific constructor
-   StackLst(const LinearContainer<DataType>&);// A stack obtained from a LinearContainer
+   StackLst(const LinearContainer<DataType>& container) : List<DataType>::List(container){};// A stack obtained from a LinearContainer
 
   /* ************************************************************************ */
    // Copy constructor
-   StackLst(const StackLst&);
+   StackLst(const StackLst<DataType>& stackList): List<DataType>::List(stackList){};
 
    // Move constructor
-   StackLst(StackLst&&) noexcept;
+   StackLst(StackLst<DataType>&& stackList) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-   ~StackLst();
+   ~StackLst() = default;
 
   /* ************************************************************************ */
    // Copy assignment
-   StackLst& operator=(const StackLst&);
+   StackLst& operator=(const StackLst<DataType>& );
 
    // Move assignment
-   StackLst& operator=(StackLst&&) noexcept;
+   StackLst& operator=(StackLst<DataType>&& ) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-   bool operator==(const StackLst&) const noexcept;
-   bool operator!=(const StackLst&) const noexcept;
+   bool operator==(const StackLst<DataType>& ) const noexcept;
+   bool operator!=(const StackLst<DataType>& ) const noexcept;
 
   /* ************************************************************************ */
 
