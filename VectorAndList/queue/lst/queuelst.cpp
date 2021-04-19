@@ -40,16 +40,17 @@ namespace lasd {
 		std::swap(head,queueList.head);
 		std::swap(tail,queueList.tail);
 		std::swap(size, queueList.size);
-		//typename List<DataType>::List(std::move(queueList));
+
 	}
 
   /* ************************************************************************ */
 
   // Destructor
-	template<typename DataType>
-	QueueLst<DataType>::~QueueLst(){
-		//delete list;
-	}
+
+//	template<typename DataType>
+//	QueueLst<DataType>::~QueueLst(){
+//		//delete list;
+//	}
 
   /* ************************************************************************ */
 

@@ -33,19 +33,19 @@ public:
 
 
   // Default constructor
-   StackLst() : List<DataType>::List(){};
+   StackLst();
 
   /* ************************************************************************ */
 
   // Specific constructor
-   StackLst(const LinearContainer<DataType>& container) : List<DataType>::List(container){};// A stack obtained from a LinearContainer
+   StackLst(const LinearContainer<DataType>&);// A stack obtained from a LinearContainer
 
   /* ************************************************************************ */
    // Copy constructor
-   StackLst(const StackLst<DataType>& stackList): List<DataType>::List(stackList){};
+   StackLst(const StackLst<DataType>&);
 
    // Move constructor
-   StackLst(StackLst<DataType>&& stackList) noexcept;
+   StackLst(StackLst<DataType>&&) noexcept;
 
   /* ************************************************************************ */
 

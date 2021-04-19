@@ -74,9 +74,9 @@ void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestStackInt(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  /*lasd::StackVec<int> stkvec;
+  lasd::StackVec<int> stkvec;
   cout << endl << "Begin of StackVec<int> Test:" << endl;
-  stestStackInt(stkvec, loctestnum, loctesterr);*/
+  stestStackInt(stkvec, loctestnum, loctesterr);
   lasd::StackLst<int> stklst;
   cout << endl << "Begin of StackLst<int> Test:" << endl;
   stestStackInt(stklst, loctestnum, loctesterr);
@@ -110,9 +110,9 @@ void stestStackFloat(Stk& stk, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestStackFloat(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  //lasd::StackVec<double> stkvec;
-  //cout << endl << "Begin of StackVec<double> Test:" << endl;
-  //stestStackFloat(stkvec, loctestnum, loctesterr);
+  lasd::StackVec<double> stkvec;
+  cout << endl << "Begin of StackVec<double> Test:" << endl;
+  stestStackFloat(stkvec, loctestnum, loctesterr);
   lasd::StackLst<double> stklst;
   cout << endl << "Begin of StackLst<double> Test:" << endl;
   stestStackFloat(stklst, loctestnum, loctesterr);
@@ -145,9 +145,9 @@ void stestStackString(Stk& stk, unsigned int& testnum, unsigned int& testerr) {
 
 void stestStackString(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  //lasd::StackVec<string> stkvec;
-  //cout << endl << "Begin of StackVec<string> Test:" << endl;
-  //stestStackString(stkvec, loctestnum, loctesterr);
+  lasd::StackVec<string> stkvec;
+  cout << endl << "Begin of StackVec<string> Test:" << endl;
+  stestStackString(stkvec, loctestnum, loctesterr);
   lasd::StackLst<string> stklst;
   cout << endl << "Begin of StackLst<string> Test:" << endl;
   stestStackString(stklst, loctestnum, loctesterr);

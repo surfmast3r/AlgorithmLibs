@@ -4,29 +4,20 @@ namespace lasd {
 /* ************************************************************************** */
 
 	// Default constructor
-	/*template<typename DataType>
-	StackLst<DataType>::StackLst() {
-		list= new List<DataType>;
-		size=list->Size();
-   }*/
+	template<typename DataType>
+	StackLst<DataType>::StackLst() : List<DataType>::List(){}
 
   /* ************************************************************************ */
 
   // Specific constructor
-	/*template<typename DataType>
-	StackLst<DataType>::StackLst(const LinearContainer<DataType>& container){// A stack obtained from a LinearContainer
-		list= new List<DataType>(container);
-		size=list->Size();
-	}*/
+	template<typename DataType>
+	StackLst<DataType>::StackLst(const LinearContainer<DataType>& container): List<DataType>::List(container){}// A stack obtained from a LinearContainer
 
   /* ************************************************************************ */
    // Copy constructor
-	/*template<typename DataType>
-	StackLst<DataType>::StackLst(const StackLst& stackList){
-		list= new List<DataType>(*stackList.list);
-		size=list->Size();
-	}
-*/
+	template<typename DataType>
+	StackLst<DataType>::StackLst(const StackLst& stackList): List<DataType>::List(stackList){}
+
    // Move constructor
 	template<typename DataType>
 	StackLst<DataType>::StackLst(StackLst<DataType>&& stackList) noexcept{
@@ -97,7 +88,7 @@ namespace lasd {
 	void StackLst<DataType>::Push(DataType&& data) noexcept{// Override Stack member (move of the value)
 		//list->InsertAtFront(std::move(data));
 		//size=list->Size();
-		List<DataType>::InsertAtFront(data);
+		List<DataType>::InsertAtFront(std::move(data));
 	}
 
 	template<typename DataType>
