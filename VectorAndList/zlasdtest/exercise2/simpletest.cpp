@@ -156,12 +156,12 @@ void stestStackString(unsigned int& testnum, unsigned int& testerr) {
     lasd::Vector<string> vec(2);
     SetAt(loctestnum, loctesterr, vec, true, 0, string("A"));
     SetAt(loctestnum, loctesterr, vec, true, 1, string("B"));
-/*
+
     PushM(loctestnum, loctesterr, stkvec, string("A"));
     PushM(loctestnum, loctesterr, stkvec, string("B"));
     lasd::StackVec<string> newstkvec(vec);
     EqualStack(loctestnum, loctesterr, stkvec, newstkvec, true);
-*/
+
     PushM(loctestnum, loctesterr, stklst, string("B"));
     PushM(loctestnum, loctesterr, stklst, string("A"));
     lasd::StackLst<string> newstklst(vec);

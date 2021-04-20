@@ -16,21 +16,26 @@ namespace lasd {
 	template <typename DataType>
 	StackVec<DataType>::StackVec(const LinearContainer<DataType>& linearContainer) : Vector<DataType>::Vector(linearContainer){
 		stackSize=linearContainer.Size();
-		top=0;
+		top=stackSize-1;
 	} // A stack obtained from a LinearContainer
 
   /* ************************************************************************ */
 
   // Copy constructor
 	template <typename DataType>
-	StackVec<DataType>::StackVec(const StackVec<DataType>& stackVector) :  Vector<DataType>::Vector(stackVector){
+	StackVec<DataType>::StackVec(const StackVec<DataType>& stackVector) {
+		size=stackVector.Size();
+		Elements= new DataType[size];
+		std::copy(stackVector.Elements, stackVector.Elements + size, Elements);
 		stackSize=stackVector.stackSize;
 		top=stackVector.top;
 	}
 
   // Move constructor
 	template <typename DataType>
-	StackVec<DataType>::StackVec(StackVec<DataType>&& stackVector) noexcept :  Vector<DataType>::Vector(stackVector){
+	StackVec<DataType>::StackVec(StackVec<DataType>&& stackVector) noexcept {
+		std::swap(Elements,stackVector.Elements);
+		std::swap(size, stackVector.size);
 		std::swap(stackSize, stackVector.stackSize);
 		std::swap(top, stackVector.top);
 
@@ -92,9 +97,10 @@ namespace lasd {
 	template <typename DataType>
 	void StackVec<DataType>::Push(const DataType& value) {// Override Stack member (copy of the value)
 		if(fullStack()){ Expand();}
-		top++;
-		Elements[top]=value;
 
+		if(stackSize>0) //if not first element in the stack
+			top++;
+		Elements[top]=value;
 		stackSize++;
 
 	}
@@ -102,7 +108,8 @@ namespace lasd {
 	template <typename DataType>
 	void StackVec<DataType>::Push(DataType&& value) noexcept {
 		if(fullStack()){ Expand();}
-		top++;
+		if(stackSize>0) //if not first element in the stack
+			top++;
 		Elements[top]=std::move(value);
 		stackSize++;
 	} // Override Stack member (move of the value)
@@ -119,7 +126,8 @@ namespace lasd {
 	void StackVec<DataType>::Pop() {
 
 		if( !emptyStack() ){
-			top--;
+			if(stackSize>1) //if not last element in the stack
+				top--;
 			stackSize--;
 		}
 		else
@@ -131,7 +139,8 @@ namespace lasd {
 	DataType StackVec<DataType>::TopNPop() {
 		if( !emptyStack() ){
 			DataType returnValue=Elements[top];
-			top--;
+			if(stackSize>1) //if not last element in the stack
+				top--;
 			stackSize--;
 
 			return returnValue;
@@ -156,8 +165,10 @@ namespace lasd {
 	template <typename DataType>
 	void StackVec<DataType>::Clear() {
 		Vector<DataType>::Clear();
-		StackVec<DataType>* temp = new StackVec<DataType>();
-		std::swap(*temp,*this);
+		Elements= new DataType[2]{};
+		size=2;
+		stackSize=0;
+		top=0;
 
 	} // Override Container member.
 
