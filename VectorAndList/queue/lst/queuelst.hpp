@@ -46,7 +46,7 @@ public:
 	QueueLst(const QueueLst<DataType>&);
 
   // Move constructor
-	QueueLst(QueueLst<DataType>&&);
+	QueueLst(QueueLst<DataType>&&) noexcept;
 
   /* ************************************************************************ */
 

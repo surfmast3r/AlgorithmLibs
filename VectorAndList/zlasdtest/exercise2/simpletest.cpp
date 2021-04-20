@@ -241,9 +241,9 @@ void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestQueueInt(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  //lasd::QueueVec<int> quevec;
+  lasd::QueueVec<int> quevec;
   cout << endl << "Begin of QueueVec<int> Test:" << endl;
-  //stestQueueInt(quevec, loctestnum, loctesterr);
+  stestQueueInt(quevec, loctestnum, loctesterr);
   lasd::QueueLst<int> quelst;
   cout << endl << "Begin of QueueLst<int> Test:" << endl;
   stestQueueInt(quelst, loctestnum, loctesterr);
@@ -277,9 +277,9 @@ void stestQueueFloat(Que& que, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestQueueFloat(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  //lasd::QueueVec<double> quevec;
+  lasd::QueueVec<double> quevec;
   cout << endl << "Begin of QueueVec<double> Test:" << endl;
-  //stestQueueFloat(quevec, loctestnum, loctesterr);
+  stestQueueFloat(quevec, loctestnum, loctesterr);
   lasd::QueueLst<double> quelst;
   cout << endl << "Begin of QueueLst<double> Test:" << endl;
   stestQueueFloat(quelst, loctestnum, loctesterr);
@@ -311,9 +311,9 @@ void stestQueueString(Que& que, unsigned int& testnum, unsigned int& testerr) {
 }
 void stestQueueString(unsigned int& testnum, unsigned int& testerr) {
   unsigned int loctestnum = 0, loctesterr = 0;
-  //lasd::QueueVec<string> quevec;
+  lasd::QueueVec<string> quevec;
   cout << endl << "Begin of QueueVec<string> Test:" << endl;
-  //stestQueueString(quevec, loctestnum, loctesterr);
+  stestQueueString(quevec, loctestnum, loctesterr);
   lasd::QueueLst<string> quelst;
   cout << endl << "Begin of QueueLst<string> Test:" << endl;
   stestQueueString(quelst, loctestnum, loctesterr);

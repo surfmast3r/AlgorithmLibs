@@ -33,7 +33,7 @@ namespace lasd {
 
   // Move constructor
 	template<typename DataType>
-	QueueLst<DataType>::QueueLst(QueueLst<DataType>&& queueList){
+	QueueLst<DataType>::QueueLst(QueueLst<DataType>&& queueList) noexcept{
 		//list=new List<DataType>();
 		//std::swap(list,queueList.list);
 		//std::swap(size,queueList.size);

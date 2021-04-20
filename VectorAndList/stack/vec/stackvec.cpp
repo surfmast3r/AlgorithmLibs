@@ -16,7 +16,7 @@ namespace lasd {
 	template <typename DataType>
 	StackVec<DataType>::StackVec(const LinearContainer<DataType>& linearContainer) : Vector<DataType>::Vector(linearContainer){
 		stackSize=linearContainer.Size();
-		top=stackSize-1;
+		top=stackSize;
 	} // A stack obtained from a LinearContainer
 
   /* ************************************************************************ */
@@ -98,9 +98,8 @@ namespace lasd {
 	void StackVec<DataType>::Push(const DataType& value) {// Override Stack member (copy of the value)
 		if(fullStack()){ Expand();}
 
-		if(stackSize>0) //if not first element in the stack
-			top++;
 		Elements[top]=value;
+		top++;
 		stackSize++;
 
 	}
@@ -108,16 +107,15 @@ namespace lasd {
 	template <typename DataType>
 	void StackVec<DataType>::Push(DataType&& value) noexcept {
 		if(fullStack()){ Expand();}
-		if(stackSize>0) //if not first element in the stack
-			top++;
 		Elements[top]=std::move(value);
+		top++;
 		stackSize++;
 	} // Override Stack member (move of the value)
 
 	template <typename DataType>
 	DataType& StackVec<DataType>::Top() const{
 		if(!emptyStack())
-			return Elements[top];
+			return Elements[top-1];
 		else
 			throw std::length_error("Stack is Empty size:"+ std::to_string(stackSize));
 	} // Override Stack member (must throw std::length_error when empty)
@@ -126,8 +124,8 @@ namespace lasd {
 	void StackVec<DataType>::Pop() {
 
 		if( !emptyStack() ){
-			if(stackSize>1) //if not last element in the stack
-				top--;
+
+			top--;
 			stackSize--;
 		}
 		else
@@ -138,9 +136,8 @@ namespace lasd {
 	template <typename DataType>
 	DataType StackVec<DataType>::TopNPop() {
 		if( !emptyStack() ){
-			DataType returnValue=Elements[top];
-			if(stackSize>1) //if not last element in the stack
-				top--;
+			DataType returnValue=Elements[top-1];
+			top--;
 			stackSize--;
 
 			return returnValue;
@@ -175,7 +172,7 @@ namespace lasd {
 /* ************************************************************************** */
 	template <typename DataType>
 	bool StackVec<DataType>::fullStack() const{
-		return stackSize==size-1;
+		return stackSize==size;
 	}
 	template <typename DataType>
 	bool StackVec<DataType>::emptyStack() const{
