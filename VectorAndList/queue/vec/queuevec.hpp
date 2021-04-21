@@ -99,7 +99,7 @@ protected:
 	void Reduce();
 	bool fullQueue() const;
 	bool emptyQueue() const;
-  // type SwapVectors(arguments) specifiers;
+    //void SwapVectors()noexcept;
 
 };
 

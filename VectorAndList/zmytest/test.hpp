@@ -10,6 +10,10 @@
 #include <algorithm>
 #include "../vector/vector.hpp"
 #include "../list/list.hpp"
+#include "../queue/lst/queuelst.hpp"
+#include "../queue/vec/queuevec.hpp"
+#include "../stack/lst/stacklst.hpp"
+#include "../stack/vec/stackvec.hpp"
 #include <string>
 
 void populateRandomIntVector(lasd::Vector<int>&);
@@ -29,6 +33,29 @@ void testFloatList();
 void testStringList();
 void testIntList();
 
+/* ************************************************************************** */
+/* Stack */
+
+void createIntStack();
+void createFloatStack();
+void createStringStack();
+void intStackTest(lasd::Stack<int>& stack);
+void floatStackTest(lasd::Stack<float>& stack);
+void stringStackTest(lasd::Stack<std::string>& stack);
+
+/* ************************************************************************** */
+/* Queue */
+void queueVecTest();
+
+void createIntQueue();
+void createFloatQueue();
+void createStringQueue();
+
+void intQueueTest(lasd::Queue<int>& queue);
+void floatQueueTest(lasd::Queue<float>& queue);
+void stringQueueTest(lasd::Queue<std::string>& queue);
+
+/* ************************************************************************** */
 // MappableContainer functions
 
 template <typename DataType>

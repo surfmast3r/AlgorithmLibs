@@ -9,10 +9,10 @@
 #include "test.hpp"
 FirstMenu::FirstMenu()
 {
-	menuText = std::string("\nMain Menu\n")
+	menuText = std::string("\n--Main Menu--\n")
 				+"Please make your selection\n"
-				+ "1 - Vector\n"
-				+ "2 - List\n"
+				+ "1 - Stack\n"
+				+ "2 - Queue\n"
 				+ "3 - start zlasd tests\n"
 				+ "4 - Quit\n"
 				+ "Selection: ";
@@ -24,12 +24,12 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			mainMenu = new VectorMenu;
+			mainMenu = new StackMenu;
 			break;
 		}
 		case 2:
 		{
-			mainMenu = new ListMenu;
+			mainMenu = new QueueMenu;
 			break;
 		}
 		case 3:
@@ -55,18 +55,18 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	return mainMenu;
 }
 
-VectorMenu::VectorMenu()
+StackMenu::StackMenu()
 {
-	menuText = std::string("\nVector Menu\n")
+	menuText = std::string("\n--Stack Menu--\n")
 				+ "Please make your selection\n"
-				+ "1 - create random int vector\n"
-				+ "2 - create random string vector\n"
-				+ "3 - create random float vector\n"
+				+ "1 - create random int Stack \n"
+				+ "2 - create random string Stack \n"
+				+ "3 - create random float Stack \n"
 				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
-BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
+BaseMenu *StackMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
 	BaseMenu *mainMenu = 0;
 
@@ -74,27 +74,25 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			testIntVector();
+			//testIntVector();
+			createIntStack();
 		}
 		break;
 		case 2:
 		{
-			testStringVector();
+			//testStringVector();
+			createStringStack();
 		}
 		break;
 		case 3:
 		{
-			testFloatVector();
+			//testFloatVector();
+			createFloatStack();
 		}
 		break;
 		case 4:
 		{
 			mainMenu = new FirstMenu;
-		}
-		break;
-		case 5:
-		{
-
 		}
 		break;
 
@@ -108,18 +106,18 @@ BaseMenu *VectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	return mainMenu;
 }
 
-ListMenu::ListMenu()
+QueueMenu::QueueMenu()
 {
-	menuText = std::string("\nList Menu\n")
+	menuText = std::string("\n--Queue Menu--\n")
 				+ "Please make your selection\n"
-				+ "1 - create random int list\n"
-				+ "2 - create random string list\n"
-				+ "3 - create random float list\n"
+				+ "1 - create random int Queue\n"
+				+ "2 - create random string Queue\n"
+				+ "3 - create random float Queue\n"
 				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
-BaseMenu *ListMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
+BaseMenu *QueueMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
 	BaseMenu *mainMenu = 0;
 
@@ -127,27 +125,22 @@ BaseMenu *ListMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			testIntList();
+			createIntQueue();
 		}
 		break;
 		case 2:
 		{
-			testStringList();
+			createStringQueue();
 		}
 		break;
 		case 3:
 		{
-			testFloatList();
+			createFloatQueue();
 		}
 		break;
 		case 4:
 		{
 			mainMenu = new FirstMenu;
-		}
-		break;
-		case 5:
-		{
-
 		}
 		break;
 

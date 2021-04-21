@@ -127,6 +127,8 @@ namespace lasd {
 
 			top--;
 			stackSize--;
+			if(stackSize<=size/2)
+				Reduce();
 		}
 		else
 			throw std::length_error("Stack is Empty size:"+ std::to_string(stackSize));
@@ -139,7 +141,8 @@ namespace lasd {
 			DataType returnValue=Elements[top-1];
 			top--;
 			stackSize--;
-
+			if(stackSize<=size/2)
+				Reduce();
 			return returnValue;
 		}
 		else
@@ -182,6 +185,13 @@ namespace lasd {
 	template <typename DataType>
 	void StackVec<DataType>::Expand(){
 		Vector<DataType>::Resize(2*size);
+	}
+	template <typename DataType>
+	void StackVec<DataType>::Reduce(){
+		unsigned long newSize=size*3/4;
+		Vector<DataType>::Resize(newSize);
+
+
 	}
 
 }

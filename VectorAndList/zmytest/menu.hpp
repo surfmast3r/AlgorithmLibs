@@ -35,20 +35,20 @@ public:
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 };
 
-class VectorMenu : public BaseMenu
+class StackMenu : public BaseMenu
 {
 public:
-    VectorMenu();
-    ~VectorMenu()= default;
+    StackMenu();
+    ~StackMenu()= default;
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 
 };
 
-class ListMenu : public BaseMenu
+class QueueMenu : public BaseMenu
 {
 public:
-    ListMenu();
-    ~ListMenu()= default;
+    QueueMenu();
+    ~QueueMenu()= default;
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 
 };

@@ -323,11 +323,11 @@ void stestQueueString(unsigned int& testnum, unsigned int& testerr) {
     SetAt(loctestnum, loctesterr, vec, true, 0, string("A"));
     SetAt(loctestnum, loctesterr, vec, true, 1, string("B"));
 
-    /*EnqueueM(loctestnum, loctesterr, quevec, string("A"));
+    EnqueueM(loctestnum, loctesterr, quevec, string("A"));
     EnqueueM(loctestnum, loctesterr, quevec, string("B"));
     lasd::QueueVec<string> newquevec(vec);
     EqualStack(loctestnum, loctesterr, quevec, newquevec, true);
-     */
+
     EnqueueM(loctestnum, loctesterr, quelst, string("A"));
     EnqueueM(loctestnum, loctesterr, quelst, string("B"));
     lasd::QueueLst<string> newquelst(vec);

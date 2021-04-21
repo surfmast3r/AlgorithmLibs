@@ -5,6 +5,970 @@
 #include <list>
 #include "test.hpp"
 using namespace std;
+
+/* ************************************************************************** */
+/* Stack */
+void createIntStack(){
+	bool isQuitOptionSelected=false;
+
+	unsigned long size;
+
+	std::cout<<"insert Stack size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert Stack size\n";
+	}
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Int Stack Menu--\n");
+			std::cout<<"insert Stack type"<<endl;
+			std::cout<<"1: Stack Vector"<<endl;
+			std::cout<<"2: Stack List"<<endl;
+			std::cout<<"3: Back"<<endl;
+			std::cout<<"Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only: ";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					cout<<"Stack Vector "<<endl;
+					lasd::Vector<int> vec(size);
+					populateRandomIntVector(vec);
+					lasd::StackVec<int> stackVec(vec);
+					intStackTest(stackVec);
+				}
+				break;
+				case 2:{
+					cout<<"Stack List "<<endl;
+					lasd::List<int> list;
+					populateRandomIntList(list,size);
+					lasd::StackLst<int> stackLst(list);
+					intStackTest(stackLst);
+				}
+				break;
+				case 3:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+}
+void createFloatStack(){
+	bool isQuitOptionSelected=false;
+
+	unsigned long size;
+
+	std::cout<<"insert Stack size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only"<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert vector size\n";
+	}
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Float Stack Menu--\n");
+			std::cout<<"insert Stack type"<<endl;
+			std::cout<<"1: Stack Vector"<<endl;
+			std::cout<<"2: Stack List"<<endl;
+			std::cout<<"3: Back"<<endl;
+			std::cout<<"Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					cout<<"Stack Vector "<<endl;
+					lasd::Vector<float> vec(size);
+					populateRandomFloatVector(vec);
+					lasd::StackVec<float> stackVec(vec);
+					floatStackTest(stackVec);
+				}
+				break;
+				case 2:{
+					cout<<"Stack List "<<endl;
+					lasd::List<float> list;
+					populateRandomFloatList(list,size);
+					lasd::StackLst<float> stackLst(list);
+					floatStackTest(stackLst);
+				}
+				break;
+				case 3:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+}
+void createStringStack(){
+	bool isQuitOptionSelected=false;
+
+	unsigned long size;
+
+	std::cout<<"insert Stack size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only"<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert vector size\n";
+	}
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--String Stack Menu--\n");
+			std::cout<<"insert Stack type"<<endl;
+			std::cout<<"1: Stack Vector"<<endl;
+			std::cout<<"2: Stack List"<<endl;
+			std::cout<<"3: Back"<<endl;
+			std::cout<<"Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					cout<<"Stack Vector "<<endl;
+					lasd::Vector<string> vec(size);
+					populateRandomStringVector(vec);
+					lasd::StackVec<string> stackVec(vec);
+					stringStackTest(stackVec);
+				}
+				break;
+				case 2:{
+					cout<<"Stack List "<<endl;
+					lasd::List<string> list;
+					populateRandomStringList(list,size);
+					lasd::StackLst<string> stackLst(list);
+					stringStackTest(stackLst);
+				}
+				break;
+				case 3:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+}
+
+void intStackTest(lasd::Stack<int>& stack){
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Int Stack Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - push element\n"
+								+ "2 - pop element\n"
+								+ "3 - top&pop element\n"
+								+ "4 - top element\n"
+								+ "5 - check if stack is empty\n"
+								+ "6 - stack size\n"
+								+ "7 - clear stack\n"
+								+ "8 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					int value;
+					cout<<"insert int value:"<<endl;
+					while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only";
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+					}
+					stack.Push(value);
+
+				}
+				break;
+				case 2:{
+					try{
+						stack.Pop();
+						int topValue=stack.Top();
+						cout<<"Popped element new top: "<<topValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 3:{
+					try{
+						int popValue=stack.TopNPop();
+						cout<<"Top&pop element: "<<popValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 4:{
+					try{
+						int topValue=stack.Top();
+						cout<<"Top element: "<<topValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 5:{
+
+					if(stack.Empty()){
+						cout<<"Stack is empty"<<endl;
+					}else{
+						cout<<"Stack is not empty"<<endl;
+					}
+
+				}
+				break;
+				case 6:{
+
+					cout<<"Stack size: "<<stack.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 7:{
+					cout<<"Clearing Stack .. "<<endl;
+					stack.Clear();
+					cout<<"Stack size: "<<stack.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 8:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+
+}
+void floatStackTest(lasd::Stack<float>& stack){
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Float Stack Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - push element\n"
+								+ "2 - pop element\n"
+								+ "3 - top&pop element\n"
+								+ "4 - top element\n"
+								+ "5 - check if stack is empty\n"
+								+ "6 - stack size\n"
+								+ "7 - clear stack\n"
+								+ "8 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					float value;
+					cout<<"insert value:"<<endl;
+					while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only";
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+					}
+					stack.Push(value);
+
+				}
+				break;
+				case 2:{
+					try{
+						stack.Pop();
+						float topValue=stack.Top();
+						cout<<"Popped element new top: "<<topValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 3:{
+					try{
+						float popValue=stack.TopNPop();
+						cout<<"Top&pop element: "<<popValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 4:{
+					try{
+						float topValue=stack.Top();
+						cout<<"Top element: "<<topValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 5:{
+
+					if(stack.Empty()){
+						cout<<"Stack is empty"<<endl;
+					}else{
+						cout<<"Stack is not empty"<<endl;
+					}
+
+				}
+				break;
+				case 6:{
+
+					cout<<"Stack size: "<<stack.Size()<<endl;
+
+				}
+				break;
+				case 7:{
+					cout<<"Clearing Stack .. "<<endl;
+					stack.Clear();
+					cout<<"Stack size: "<<stack.Size()<<endl;
+
+				}
+				break;
+				case 8:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+
+}
+void stringStackTest(lasd::Stack<string>& stack){
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--String Stack Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - push element\n"
+								+ "2 - pop element\n"
+								+ "3 - top&pop element\n"
+								+ "4 - top element\n"
+								+ "5 - check if stack is empty\n"
+								+ "6 - stack size\n"
+								+ "7 - clear stack\n"
+								+ "8 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					string value="";
+					cout<<"insert string:"<<endl;
+					cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+					getline(cin,value);
+					stack.Push(value);
+
+				}
+				break;
+				case 2:{
+					try{
+						stack.Pop();
+						string topValue=stack.Top();
+						cout<<"Popped element new top: "<<topValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 3:{
+					try{
+						string popValue=stack.TopNPop();
+						cout<<"Top&pop element: "<<popValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 4:{
+					try{
+						string topValue=stack.Top();
+						cout<<"Top element: "<<topValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Stack is empty"<<endl;
+					}
+				}
+				break;
+				case 5:{
+
+					if(stack.Empty()){
+						cout<<"Stack is empty"<<endl;
+					}else{
+						cout<<"Stack is not empty"<<endl;
+					}
+
+				}
+				break;
+				case 6:{
+
+					cout<<"Stack size: "<<stack.Size()<<endl;
+
+				}
+				break;
+				case 7:{
+					cout<<"Clearing Stack .. "<<endl;
+					stack.Clear();
+					cout<<"Stack size: "<<stack.Size()<<endl;
+
+				}
+				break;
+				case 8:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+
+}
+/* ************************************************************************** */
+/* Queue */
+
+void createIntQueue(){
+	bool isQuitOptionSelected=false;
+
+	unsigned long size;
+
+	std::cout<<"insert Queue size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert Queue size\n";
+	}
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Int Queue Menu--\n");
+			std::cout<<"insert Queue type"<<endl;
+			std::cout<<"1: Queue Vector"<<endl;
+			std::cout<<"2: Queue List"<<endl;
+			std::cout<<"3: Back"<<endl;
+			std::cout<<"Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only: ";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					cout<<"Queue Vector "<<endl;
+					lasd::Vector<int> vec(size);
+					populateRandomIntVector(vec);
+
+					lasd::QueueVec<int> queueVec(vec);
+					intQueueTest(queueVec);
+				}
+				break;
+				case 2:{
+					cout<<"Queue List "<<endl;
+					lasd::List<int> list;
+					populateRandomIntList(list,size);
+
+					lasd::QueueLst<int> queueLst(list);
+					intQueueTest(queueLst);
+				}
+				break;
+				case 3:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+}
+void createFloatQueue(){
+	bool isQuitOptionSelected=false;
+
+	unsigned long size;
+
+	std::cout<<"insert Queue size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert Queue size\n";
+	}
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Int Queue Menu--\n");
+			std::cout<<"insert Queue type"<<endl;
+			std::cout<<"1: Queue Vector"<<endl;
+			std::cout<<"2: Queue List"<<endl;
+			std::cout<<"3: Back"<<endl;
+			std::cout<<"Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only: ";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					cout<<"Queue Vector "<<endl;
+					lasd::Vector<float> vec(size);
+					populateRandomFloatVector(vec);
+					lasd::QueueVec<float> queueVec(vec);
+					floatQueueTest(queueVec);
+				}
+				break;
+				case 2:{
+					cout<<"Queue List "<<endl;
+					lasd::List<float> list;
+					populateRandomFloatList(list,size);
+					lasd::QueueLst<float> queueLst(list);
+					floatQueueTest(queueLst);
+				}
+				break;
+				case 3:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+}
+void createStringQueue(){
+	bool isQuitOptionSelected=false;
+
+	unsigned long size;
+
+	std::cout<<"insert Queue size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert Queue size\n";
+	}
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--String Queue Menu--\n");
+			std::cout<<"insert Queue type"<<endl;
+			std::cout<<"1: Queue Vector"<<endl;
+			std::cout<<"2: Queue List"<<endl;
+			std::cout<<"3: Back"<<endl;
+			std::cout<<"Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only: ";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					cout<<"Queue Vector "<<endl;
+					lasd::Vector<string> vec(size);
+					populateRandomStringVector(vec);
+					lasd::QueueVec<string> queueVec(vec);
+					stringQueueTest(queueVec);
+				}
+				break;
+				case 2:{
+					cout<<"Queue List "<<endl;
+					lasd::List<string> list;
+					populateRandomStringList(list,size);
+					lasd::QueueLst<string> queueLst(list);
+					stringQueueTest(queueLst);
+				}
+				break;
+				case 3:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+}
+
+void intQueueTest(lasd::Queue<int>& queue){
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Int Queue Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - Enqueue element\n"
+								+ "2 - Dequeue element\n"
+								+ "3 - Head&Dequeue element\n"
+								+ "4 - Head element\n"
+								+ "5 - check if Queue is empty\n"
+								+ "6 - Queue size\n"
+								+ "7 - clear Queue\n"
+								+ "8 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					int value;
+					cout<<"insert int value:"<<endl;
+					while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only";
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+					}
+					queue.Enqueue(value);
+
+				}
+				break;
+				case 2:{
+					try{
+						queue.Dequeue();
+						int headValue=queue.Head();
+						cout<<"Removed element new head: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 3:{
+					try{
+						int headValue=queue.HeadNDequeue();
+						cout<<"Head&Dequeue element: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 4:{
+					try{
+						int headValue=queue.Head();
+						cout<<"Head element: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 5:{
+
+					if(queue.Empty()){
+						cout<<"Queue is empty"<<endl;
+					}else{
+						cout<<"Queue is not empty"<<endl;
+					}
+
+				}
+				break;
+				case 6:{
+
+					cout<<"Queue size: "<<queue.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 7:{
+					cout<<"Clearing Queue .. "<<endl;
+					queue.Clear();
+					cout<<"Queue size: "<<queue.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 8:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+}
+void floatQueueTest(lasd::Queue<float>& queue){
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Float Queue Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - Enqueue element\n"
+								+ "2 - Dequeue element\n"
+								+ "3 - Head&Dequeue element\n"
+								+ "4 - Head element\n"
+								+ "5 - check if Queue is empty\n"
+								+ "6 - Queue size\n"
+								+ "7 - clear Queue\n"
+								+ "8 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					float value;
+					cout<<"insert value:"<<endl;
+					while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only";
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+					}
+					queue.Enqueue(value);
+
+				}
+				break;
+				case 2:{
+					try{
+						queue.Dequeue();
+						float headValue=queue.Head();
+						cout<<"Removed element new head: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 3:{
+					try{
+						float headValue=queue.HeadNDequeue();
+						cout<<"Head&Dequeue element: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 4:{
+					try{
+						float headValue=queue.Head();
+						cout<<"Head element: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 5:{
+
+					if(queue.Empty()){
+						cout<<"Queue is empty"<<endl;
+					}else{
+						cout<<"Queue is not empty"<<endl;
+					}
+
+				}
+				break;
+				case 6:{
+
+					cout<<"Queue size: "<<queue.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 7:{
+					cout<<"Clearing Queue .. "<<endl;
+					queue.Clear();
+					cout<<"Queue size: "<<queue.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 8:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+}
+void stringQueueTest(lasd::Queue<string>& queue){
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--String Queue Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - Enqueue element\n"
+								+ "2 - Dequeue element\n"
+								+ "3 - Head&Dequeue element\n"
+								+ "4 - Head element\n"
+								+ "5 - check if Queue is empty\n"
+								+ "6 - Queue size\n"
+								+ "7 - clear Queue\n"
+								+ "8 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					string value="";
+					cout<<"insert string:"<<endl;
+					cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+					getline(cin,value);
+					queue.Enqueue(value);
+
+				}
+				break;
+				case 2:{
+					try{
+						queue.Dequeue();
+						string headValue=queue.Head();
+						cout<<"Removed element new head: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 3:{
+					try{
+						string headValue=queue.HeadNDequeue();
+						cout<<"Head&Dequeue element: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 4:{
+					try{
+						string headValue=queue.Head();
+						cout<<"Head element: "<<headValue<<endl;
+
+					} catch (std::length_error&) {
+						cout<<"Queue is empty"<<endl;
+					}
+				}
+				break;
+				case 5:{
+
+					if(queue.Empty()){
+						cout<<"Queue is empty"<<endl;
+					}else{
+						cout<<"Queue is not empty"<<endl;
+					}
+
+				}
+				break;
+				case 6:{
+
+					cout<<"Queue size: "<<queue.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 7:{
+					cout<<"Clearing Queue .. "<<endl;
+					queue.Clear();
+					cout<<"Queue size: "<<queue.Size();
+					cout<<endl;
+
+				}
+				break;
+				case 8:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+}
+
 /* ************************************************************************** */
 /* Vector */
 void testIntVector(){
@@ -768,7 +1732,7 @@ void populateRandomIntList(lasd::List<int>& container,unsigned long& size){
 		container.InsertAtFront(distx(genx));
 	}
 	printMappableContainer(container);
-
+	cout<<endl;
 };
 void populateRandomFloatList(lasd::List<float>& container,unsigned long& size){
 	std::cout<< "populating float list\n";
@@ -779,7 +1743,7 @@ void populateRandomFloatList(lasd::List<float>& container,unsigned long& size){
 		container.InsertAtFront(distx(genx));
 	}
 	printMappableContainer(container);
-
+	cout<<endl;
 
 };
 void populateRandomStringList(lasd::List<string>& container,unsigned long& size){
@@ -791,6 +1755,7 @@ void populateRandomStringList(lasd::List<string>& container,unsigned long& size)
 		container.InsertAtFront(createRandomString(stringSize));
 	}
 	printMappableContainer(container);
+	cout<<endl;
 };
 
 /* ************************************************************************** */
@@ -820,5 +1785,57 @@ void capitalizeString(string& s)
 {
     transform(s.begin(), s.end(), s.begin(),
                    [](unsigned char c){ return toupper(c); });
+}
+
+void queueVecTest(){
+	lasd::Vector<int> vec(5);
+	populateRandomIntVector(vec);
+	lasd::QueueVec<int> queueVec(vec);
+
+	cout<<queueVec.Head();
+		cout<<"-";
+	queueVec.Enqueue(123);
+	queueVec.Enqueue(124);
+
+	queueVec.Enqueue(125);
+
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.HeadNDequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Enqueue(123);
+	queueVec.Enqueue(123);
+	queueVec.Enqueue(123);
+	queueVec.HeadNDequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Enqueue(126);
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Dequeue();
+		cout<<queueVec.Head();
+		cout<<"-";
+		queueVec.Dequeue();
+			cout<<queueVec.Head();
+			cout<<"-";
+			queueVec.Dequeue();
+				cout<<queueVec.Head();
+				cout<<"-";
+				queueVec.Dequeue();
+					cout<<queueVec.Head();
+					cout<<"-";
+
 }
 

@@ -15,9 +15,12 @@ namespace lasd {
 	// Specific constructor
 	template <typename DataType>
 	QueueVec<DataType>::QueueVec(const LinearContainer<DataType>& linearContainer) : Vector<DataType>::Vector(linearContainer){
+		Vector<DataType>::Resize(linearContainer.Size()+1);
 		queueSize=linearContainer.Size();
 		head=0;
 		tail=queueSize;
+
+
 	} // A stack obtained from a LinearContainer
 
 
@@ -134,6 +137,8 @@ namespace lasd {
 		{
 			head = (head+1)%(size);
 			queueSize--;
+			if(queueSize<=size/2)
+				Reduce();
 		}
 		else
 			throw std::length_error("Queue is empty");
@@ -146,6 +151,8 @@ namespace lasd {
 			DataType returnValue = Elements[head];
 			head = (head+1)%(size);
 			queueSize--;
+			if(queueSize<=size/2)
+				Reduce();
 			return returnValue;
 		}
 		else
@@ -184,6 +191,7 @@ namespace lasd {
 		else if(size!=newSize){
 			unsigned long limit= (size < newSize) ? size:newSize;
 			DataType* temp= new DataType[newSize]{};
+
 			unsigned long i=0;
 			while(head!=tail){
 				std::swap(Elements[head],temp[i]);
@@ -196,6 +204,28 @@ namespace lasd {
 			size= newSize;
 			delete[] temp;
 		}
+	}
+
+	template <typename DataType>
+	void QueueVec<DataType>::Reduce(){
+		unsigned long newSize=size*3/4;
+		if(newSize>queueSize){
+			DataType* temp= new DataType[newSize]{};
+
+			unsigned long i=0;
+			while(head!=tail){
+				std::swap(Elements[head],temp[i]);
+				i++;
+				head = (head+1)%(size);
+			}
+			std::swap(Elements,temp);
+			head=0;
+			tail=queueSize;
+			size= newSize;
+			delete[] temp;
+		}
+
+
 	}
 
 	template <typename DataType>
