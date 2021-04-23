@@ -13,8 +13,8 @@
 int main() {
   std::cout << "Lasd Libraries 2020" << std::endl;
   //
-  //lasdtest();
-  //queueVecTest();
+  lasdtest();
+  queueVecTest();
 
   BaseMenu* aCurrentMenu = new FirstMenu;
   bool isQuitOptionSelected = false;

@@ -156,7 +156,7 @@ namespace lasd {
 			return returnValue;
 		}
 		else
-			throw new std::length_error("Queue is empty");
+			throw std::length_error("Queue is empty");
 
 
 	} // Override Queue member (must throw std::length_error when empty)
@@ -189,7 +189,7 @@ namespace lasd {
 		if(newSize==0)
 			Clear();
 		else if(size!=newSize){
-			unsigned long limit= (size < newSize) ? size:newSize;
+
 			DataType* temp= new DataType[newSize]{};
 
 			unsigned long i=0;

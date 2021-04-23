@@ -14,7 +14,7 @@ namespace lasd {
 
   // Specific constructor
 	template <typename DataType>
-	StackVec<DataType>::StackVec(const LinearContainer<DataType>& linearContainer) : Vector<DataType>::Vector(linearContainer){
+	StackVec<DataType>::StackVec(const LinearContainer<DataType>& linearContainer) : Vector<DataType>::Vector(linearContainer){//controllare
 		stackSize=linearContainer.Size();
 		top=stackSize;
 	} // A stack obtained from a LinearContainer
@@ -131,7 +131,7 @@ namespace lasd {
 				Reduce();
 		}
 		else
-			throw std::length_error("Stack is Empty size:"+ std::to_string(stackSize));
+			throw std::length_error("Stack is Empty");
 
 	} // Override Stack member (must throw std:: when empty)
 
@@ -146,7 +146,8 @@ namespace lasd {
 			return returnValue;
 		}
 		else
-			throw std::length_error("Stack is Empty size:"+ std::to_string(stackSize));
+			throw std::length_error("Stack is Empty");
+
 	} // Override Stack member (must throw std::length_error when empty)
 
   /* ************************************************************************ */

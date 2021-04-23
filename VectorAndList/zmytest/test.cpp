@@ -218,9 +218,10 @@ void intStackTest(lasd::Stack<int>& stack){
 				break;
 				case 2:{
 					try{
-						stack.Pop();
 						int topValue=stack.Top();
-						cout<<"Popped element new top: "<<topValue<<endl;
+						stack.Pop();
+
+						cout<<"Removed element: "<<topValue<<endl;
 
 					} catch (std::length_error&) {
 						cout<<"Stack is empty"<<endl;
@@ -323,9 +324,10 @@ void floatStackTest(lasd::Stack<float>& stack){
 				break;
 				case 2:{
 					try{
-						stack.Pop();
 						float topValue=stack.Top();
-						cout<<"Popped element new top: "<<topValue<<endl;
+						stack.Pop();
+
+						cout<<"Removed element: "<<topValue<<endl;
 
 					} catch (std::length_error&) {
 						cout<<"Stack is empty"<<endl;
@@ -423,9 +425,10 @@ void stringStackTest(lasd::Stack<string>& stack){
 				break;
 				case 2:{
 					try{
-						stack.Pop();
 						string topValue=stack.Top();
-						cout<<"Popped element new top: "<<topValue<<endl;
+						stack.Pop();
+
+						cout<<"Removed element: "<<topValue<<endl;
 
 					} catch (std::length_error&) {
 						cout<<"Stack is empty"<<endl;
@@ -700,9 +703,10 @@ void intQueueTest(lasd::Queue<int>& queue){
 				break;
 				case 2:{
 					try{
+						int headValue=queue.Head();//add try-catch
 						queue.Dequeue();
-						int headValue=queue.Head();
-						cout<<"Removed element new head: "<<headValue<<endl;
+
+						cout<<"Removed element: "<<headValue<<endl;
 
 					} catch (std::length_error&) {
 						cout<<"Queue is empty"<<endl;
@@ -803,9 +807,10 @@ void floatQueueTest(lasd::Queue<float>& queue){
 				break;
 				case 2:{
 					try{
+						float headValue=queue.Head();//add try-catch
 						queue.Dequeue();
-						float headValue=queue.Head();
-						cout<<"Removed element new head: "<<headValue<<endl;
+
+						cout<<"Removed element: "<<headValue<<endl;
 
 					} catch (std::length_error&) {
 						cout<<"Queue is empty"<<endl;
@@ -903,9 +908,10 @@ void stringQueueTest(lasd::Queue<string>& queue){
 				break;
 				case 2:{
 					try{
+						string headValue=queue.Head();//add try-catch
 						queue.Dequeue();
-						string headValue=queue.Head();
-						cout<<"Removed element new head: "<<headValue<<endl;
+
+						cout<<"Removed element: "<<headValue<<endl;
 
 					} catch (std::length_error&) {
 						cout<<"Queue is empty"<<endl;
@@ -971,353 +977,353 @@ void stringQueueTest(lasd::Queue<string>& queue){
 
 /* ************************************************************************** */
 /* Vector */
-void testIntVector(){
-
-	bool isQuitOptionSelected=false;
-	unsigned long size;
-
-	std::cout<<"insert vector size\n";
-	//std::cin>>size;
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert vector size\n";
-	}
-	std::cout<< "new vector\n";
-	lasd::Vector<int> vec(size);
-	populateRandomIntVector(vec);
-
-	while (!isQuitOptionSelected)
-	{
-		cout<<std::string("\nVector Menu\n")
-						+ "Please make your selection\n"
-						+ "1 - vector front element\n"
-						+ "2 - vector back element\n"
-						+ "3 - vector element at index\n"
-						+ "4 - print vector\n"
-						+ "5 - find element\n"
-						+ "6 - sum less then n\n"
-						+ "7 - apply 2n function n\n"
-						+ "8 - back to main menu\n"
-						+ "Selection: ";
-		int choice = 0;
-		//std::cin >> choice;
-		if(!(std::cin >> choice)){
-			std::cout << "Please enter numbers only: ";
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-		}
-		switch (choice){
-			case 1:{
-				cout<<"Vector front element: "+to_string(vec.Front())<<endl;
-			}
-			break;
-			case 2:{
-				cout<<"Vector back element: "+to_string(vec.Back())<<endl;
-			}
-			break;
-			case 3:{
-				int index;
-				cout<<"insert index:"<<endl;
-				while(!(std::cin >> index)){
-					std::cout << "Please enter numbers only: insert index";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}
-				try{
-					cout<<vec[index];
-
-				} catch (std::out_of_range&) {
-					cout<<"invalid index\n";
-				}
-
-
-			}
-			break;
-			case 4:{
-				vec.MapPreOrder(&mapPrint<int>, (void*)0);
-				cout<<endl;
-			}
-			break;
-			case 5:{
-				int value;
-				unsigned long index=0;
-				cout<<"insert element to find:"<<endl;
-				if(!(std::cin >> value)){
-					std::cout << "Please enter numbers only: ";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}
-				vec.FoldPreOrder(&foldFind<int>, &value, &index);
-
-
-			}
-			break;
-			case 6:{
-				int value;
-				unsigned long acc=0;
-				cout<<"insert n size:"<<endl;
-				while(!(std::cin >> value)){
-					std::cout << "Please enter numbers only: ";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}
-				vec.FoldPreOrder(&foldSumLessThan<int>, &value, &acc);
-				cout<<"sum is: "<<acc<<endl;
-			}
-			break;
-			case 7:{
-
-				vec.MapPreOrder(&mapDoubleElementValue<int>, (void*)0);
-				vec.MapPreOrder(&mapPrint<int>, 0);
-				cout<<endl;
-			}
-			break;
-			case 8:{
-				isQuitOptionSelected=true;
-			}
-			break;
-			default:
-			{
-				// Do nothing
-			}
-		}
-
-
-	}
-};
-void testStringVector(){
-	bool isQuitOptionSelected=false;
-	unsigned long size;
-
-	std::cout<<"insert vector size\n";
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert vector size\n";
-	}
-	std::cout<< "new vector\n";
-	lasd::Vector<string> vec(size);
-	populateRandomStringVector(vec);
-
-	while (!isQuitOptionSelected)
-	{
-		cout<<std::string("\nVector Menu\n")
-						+ "Please make your selection\n"
-						+ "1 - vector front element\n"
-						+ "2 - vector back element\n"
-						+ "3 - vector element at index\n"
-						+ "4 - print vector\n"
-						+ "5 - find element\n"
-						+ "6 - concat less then n\n"
-						+ "7 - apply uppercase function\n"
-						+ "8 - back to main menu\n"
-						+ "Selection: ";
-		int choice = 0;
-		//std::cin >> choice;
-		if(!(std::cin >> choice)){
-			std::cout << "Please enter numbers only: ";
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-		}
-		switch (choice){
-			case 1:{
-				cout<<"Vector front element: "+vec.Front()<<endl;
-			}
-			break;
-			case 2:{
-				cout<<"Vector back element: "+vec.Back()<<endl;
-			}
-			break;
-			case 3:{
-				int index;
-				cout<<"insert index:"<<endl;
-				while(!(std::cin >> index)){
-					std::cout << "Please enter numbers only: ";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}
-				try{
-					cout<<vec[index];
-
-				} catch (std::out_of_range&) {
-					cout<<"invalid index\n";
-				}
-
-
-			}
-			break;
-			case 4:{
-				vec.MapPreOrder(&mapPrint<string>, (void*)0);
-				cout<<endl;
-			}
-			break;
-			case 5:{
-				string value="";
-				unsigned long index=0;
-				cout<<"insert element to find:"<<endl;
-				cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
-				getline(cin,value);
-				vec.FoldPreOrder(&foldFind<string>, &value, &index);
-
-
-			}
-			break;
-			case 6:{
-				unsigned int value;
-				string acc="";
-				cout<<"insert n size:"<<endl;
-				if(!(std::cin >> value)){
-					std::cout << "Please enter numbers only: ";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}else{
-					vec.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
-					cout<<"concat string: "<<acc<<endl;
-				}
-
-			}
-			break;
-			case 7:{
-				vec.MapPreOrder(&mapUppercase,0);
-				vec.MapPreOrder(&mapPrint<string>, (void*)0);
-			}
-			break;
-			case 8:{
-				isQuitOptionSelected=true;
-			}
-			break;
-			default:
-			{
-				// Do nothing
-			}
-		}
-
-
-	}
-};
-void testFloatVector(){
-
-	bool isQuitOptionSelected=false;
-	unsigned long size;
-
-	std::cout<<"insert vector size\n";
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert vector size\n";
-	}
-	std::cout<< "new vector\n";
-	lasd::Vector<float> vec(size);
-	populateRandomFloatVector(vec);
-
-	while (!isQuitOptionSelected)
-	{
-		cout<<std::string("\nFloat Vector Menu\n")
-						+ "Please make your selection\n"
-						+ "1 - vector front element\n"
-						+ "2 - vector back element\n"
-						+ "3 - vector element at index\n"
-						+ "4 - print vector\n"
-						+ "5 - find element\n"
-						+ "6 - multiply greater then n\n"
-						+ "7 - apply n^2 function n\n"
-						+ "8 - back to main menu\n"
-						+ "Selection: ";
-		int choice = 0;
-		//std::cin >> choice;
-		if(!(std::cin >> choice)){
-			std::cout << "Please enter numbers only: ";
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-		}
-		switch (choice){
-			case 1:{
-				cout<<"Vector front element: "+to_string(vec.Front())<<endl;
-			}
-			break;
-			case 2:{
-				cout<<"Vector back element: "+to_string(vec.Back())<<endl;
-			}
-			break;
-			case 3:{
-				int index;
-				cout<<"insert index:"<<endl;
-				while(!(std::cin >> index)){
-					std::cout << "Please enter numbers only: ";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}
-				try{
-					cout<<vec[index];
-
-				} catch (std::out_of_range&) {
-					cout<<"invalid index\n";
-				}
-
-
-			}
-			break;
-			case 4:{
-				vec.MapPreOrder(&mapPrint<float>, (void*)0);
-				cout<<endl;
-			}
-			break;
-			case 5:{
-				float value;
-				unsigned long index=0;
-				cout<<"insert element to find:"<<endl;
-				if(!(std::cin >> value)){
-					std::cout << "Please enter numbers only: ";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}else{
-					cout<<"value to find: "<<value<<endl;
-					vec.FoldPreOrder(&foldFloatFind<float>, &value, &index);
-				}
-
-
-			}
-			break;
-			case 6:{
-				float value;
-				float acc=1;
-				cout<<"insert n size:"<<endl;
-				if(!(std::cin >> value)){
-					std::cout << "Please enter numbers only: ";
-					std::cin.clear();
-					std::cin.ignore(10000, '\n');
-				}
-				else{
-					vec.FoldPreOrder(&foldMultiplyGreaterThan<float>, &value, &acc);
-					cout<<"product is: "<<acc<<endl;
-				}
-
-			}
-			break;
-			case 7:{
-
-				vec.MapPreOrder(&mapSquareElementValue<float>, (void*)0);
-				vec.MapPreOrder(&mapPrint<float>, 0);
-				cout<<endl;
-			}
-			break;
-			case 8:{
-				isQuitOptionSelected=true;
-			}
-			break;
-			default:
-			{
-				// Do nothing
-			}
-		}
-
-
-	}
-};
+//void testIntVector(){
+//
+//	bool isQuitOptionSelected=false;
+//	unsigned long size;
+//
+//	std::cout<<"insert vector size\n";
+//	//std::cin>>size;
+//	while(!(std::cin >> size)){
+//		std::cout << "Please enter numbers only: "<<endl;
+//		std::cin.clear();
+//		std::cin.ignore(10000, '\n');
+//		std::cout<<"insert vector size\n";
+//	}
+//	std::cout<< "new vector\n";
+//	lasd::Vector<int> vec(size);
+//	populateRandomIntVector(vec);
+//
+//	while (!isQuitOptionSelected)
+//	{
+//		cout<<std::string("\nVector Menu\n")
+//						+ "Please make your selection\n"
+//						+ "1 - vector front element\n"
+//						+ "2 - vector back element\n"
+//						+ "3 - vector element at index\n"
+//						+ "4 - print vector\n"
+//						+ "5 - find element\n"
+//						+ "6 - sum less then n\n"
+//						+ "7 - apply 2n function n\n"
+//						+ "8 - back to main menu\n"
+//						+ "Selection: ";
+//		int choice = 0;
+//		//std::cin >> choice;
+//		if(!(std::cin >> choice)){
+//			std::cout << "Please enter numbers only: ";
+//			std::cin.clear();
+//			std::cin.ignore(10000, '\n');
+//		}
+//		switch (choice){
+//			case 1:{
+//				cout<<"Vector front element: "+to_string(vec.Front())<<endl;
+//			}
+//			break;
+//			case 2:{
+//				cout<<"Vector back element: "+to_string(vec.Back())<<endl;
+//			}
+//			break;
+//			case 3:{
+//				int index;
+//				cout<<"insert index:"<<endl;
+//				while(!(std::cin >> index)){
+//					std::cout << "Please enter numbers only: insert index";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}
+//				try{
+//					cout<<vec[index];
+//
+//				} catch (std::out_of_range&) {
+//					cout<<"invalid index\n";
+//				}
+//
+//
+//			}
+//			break;
+//			case 4:{
+//				vec.MapPreOrder(&mapPrint<int>, (void*)0);
+//				cout<<endl;
+//			}
+//			break;
+//			case 5:{
+//				int value;
+//				unsigned long index=0;
+//				cout<<"insert element to find:"<<endl;
+//				if(!(std::cin >> value)){
+//					std::cout << "Please enter numbers only: ";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}
+//				vec.FoldPreOrder(&foldFind<int>, &value, &index);
+//
+//
+//			}
+//			break;
+//			case 6:{
+//				int value;
+//				unsigned long acc=0;
+//				cout<<"insert n size:"<<endl;
+//				while(!(std::cin >> value)){
+//					std::cout << "Please enter numbers only: ";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}
+//				vec.FoldPreOrder(&foldSumLessThan<int>, &value, &acc);
+//				cout<<"sum is: "<<acc<<endl;
+//			}
+//			break;
+//			case 7:{
+//
+//				vec.MapPreOrder(&mapDoubleElementValue<int>, (void*)0);
+//				vec.MapPreOrder(&mapPrint<int>, 0);
+//				cout<<endl;
+//			}
+//			break;
+//			case 8:{
+//				isQuitOptionSelected=true;
+//			}
+//			break;
+//			default:
+//			{
+//				// Do nothing
+//			}
+//		}
+//
+//
+//	}
+//};
+//void testStringVector(){
+//	bool isQuitOptionSelected=false;
+//	unsigned long size;
+//
+//	std::cout<<"insert vector size\n";
+//	while(!(std::cin >> size)){
+//		std::cout << "Please enter numbers only: "<<endl;
+//		std::cin.clear();
+//		std::cin.ignore(10000, '\n');
+//		std::cout<<"insert vector size\n";
+//	}
+//	std::cout<< "new vector\n";
+//	lasd::Vector<string> vec(size);
+//	populateRandomStringVector(vec);
+//
+//	while (!isQuitOptionSelected)
+//	{
+//		cout<<std::string("\nVector Menu\n")
+//						+ "Please make your selection\n"
+//						+ "1 - vector front element\n"
+//						+ "2 - vector back element\n"
+//						+ "3 - vector element at index\n"
+//						+ "4 - print vector\n"
+//						+ "5 - find element\n"
+//						+ "6 - concat less then n\n"
+//						+ "7 - apply uppercase function\n"
+//						+ "8 - back to main menu\n"
+//						+ "Selection: ";
+//		int choice = 0;
+//		//std::cin >> choice;
+//		if(!(std::cin >> choice)){
+//			std::cout << "Please enter numbers only: ";
+//			std::cin.clear();
+//			std::cin.ignore(10000, '\n');
+//		}
+//		switch (choice){
+//			case 1:{
+//				cout<<"Vector front element: "+vec.Front()<<endl;
+//			}
+//			break;
+//			case 2:{
+//				cout<<"Vector back element: "+vec.Back()<<endl;
+//			}
+//			break;
+//			case 3:{
+//				int index;
+//				cout<<"insert index:"<<endl;
+//				while(!(std::cin >> index)){
+//					std::cout << "Please enter numbers only: ";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}
+//				try{
+//					cout<<vec[index];
+//
+//				} catch (std::out_of_range&) {
+//					cout<<"invalid index\n";
+//				}
+//
+//
+//			}
+//			break;
+//			case 4:{
+//				vec.MapPreOrder(&mapPrint<string>, (void*)0);
+//				cout<<endl;
+//			}
+//			break;
+//			case 5:{
+//				string value="";
+//				unsigned long index=0;
+//				cout<<"insert element to find:"<<endl;
+//				cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+//				getline(cin,value);
+//				vec.FoldPreOrder(&foldFind<string>, &value, &index);
+//
+//
+//			}
+//			break;
+//			case 6:{
+//				unsigned int value;
+//				string acc="";
+//				cout<<"insert n size:"<<endl;
+//				if(!(std::cin >> value)){
+//					std::cout << "Please enter numbers only: ";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}else{
+//					vec.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
+//					cout<<"concat string: "<<acc<<endl;
+//				}
+//
+//			}
+//			break;
+//			case 7:{
+//				vec.MapPreOrder(&mapUppercase,0);
+//				vec.MapPreOrder(&mapPrint<string>, (void*)0);
+//			}
+//			break;
+//			case 8:{
+//				isQuitOptionSelected=true;
+//			}
+//			break;
+//			default:
+//			{
+//				// Do nothing
+//			}
+//		}
+//
+//
+//	}
+//};
+//void testFloatVector(){
+//
+//	bool isQuitOptionSelected=false;
+//	unsigned long size;
+//
+//	std::cout<<"insert vector size\n";
+//	while(!(std::cin >> size)){
+//		std::cout << "Please enter numbers only: "<<endl;
+//		std::cin.clear();
+//		std::cin.ignore(10000, '\n');
+//		std::cout<<"insert vector size\n";
+//	}
+//	std::cout<< "new vector\n";
+//	lasd::Vector<float> vec(size);
+//	populateRandomFloatVector(vec);
+//
+//	while (!isQuitOptionSelected)
+//	{
+//		cout<<std::string("\nFloat Vector Menu\n")
+//						+ "Please make your selection\n"
+//						+ "1 - vector front element\n"
+//						+ "2 - vector back element\n"
+//						+ "3 - vector element at index\n"
+//						+ "4 - print vector\n"
+//						+ "5 - find element\n"
+//						+ "6 - multiply greater then n\n"
+//						+ "7 - apply n^2 function n\n"
+//						+ "8 - back to main menu\n"
+//						+ "Selection: ";
+//		int choice = 0;
+//		//std::cin >> choice;
+//		if(!(std::cin >> choice)){
+//			std::cout << "Please enter numbers only: ";
+//			std::cin.clear();
+//			std::cin.ignore(10000, '\n');
+//		}
+//		switch (choice){
+//			case 1:{
+//				cout<<"Vector front element: "+to_string(vec.Front())<<endl;
+//			}
+//			break;
+//			case 2:{
+//				cout<<"Vector back element: "+to_string(vec.Back())<<endl;
+//			}
+//			break;
+//			case 3:{
+//				int index;
+//				cout<<"insert index:"<<endl;
+//				while(!(std::cin >> index)){
+//					std::cout << "Please enter numbers only: ";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}
+//				try{
+//					cout<<vec[index];
+//
+//				} catch (std::out_of_range&) {
+//					cout<<"invalid index\n";
+//				}
+//
+//
+//			}
+//			break;
+//			case 4:{
+//				vec.MapPreOrder(&mapPrint<float>, (void*)0);
+//				cout<<endl;
+//			}
+//			break;
+//			case 5:{
+//				float value;
+//				unsigned long index=0;
+//				cout<<"insert element to find:"<<endl;
+//				if(!(std::cin >> value)){
+//					std::cout << "Please enter numbers only: ";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}else{
+//					cout<<"value to find: "<<value<<endl;
+//					vec.FoldPreOrder(&foldFloatFind<float>, &value, &index);
+//				}
+//
+//
+//			}
+//			break;
+//			case 6:{
+//				float value;
+//				float acc=1;
+//				cout<<"insert n size:"<<endl;
+//				if(!(std::cin >> value)){
+//					std::cout << "Please enter numbers only: ";
+//					std::cin.clear();
+//					std::cin.ignore(10000, '\n');
+//				}
+//				else{
+//					vec.FoldPreOrder(&foldMultiplyGreaterThan<float>, &value, &acc);
+//					cout<<"product is: "<<acc<<endl;
+//				}
+//
+//			}
+//			break;
+//			case 7:{
+//
+//				vec.MapPreOrder(&mapSquareElementValue<float>, (void*)0);
+//				vec.MapPreOrder(&mapPrint<float>, 0);
+//				cout<<endl;
+//			}
+//			break;
+//			case 8:{
+//				isQuitOptionSelected=true;
+//			}
+//			break;
+//			default:
+//			{
+//				// Do nothing
+//			}
+//		}
+//
+//
+//	}
+//};
 
 void populateRandomIntVector(lasd::Vector<int>& vec){
 	std::cout<< "populating int vector\n";
@@ -1369,360 +1375,359 @@ void populateRandomStringVector(lasd::Vector<string>& vec){
 
 /* ************************************************************************** */
 /*List*/
-void testIntList(){
+//void testIntList(){
+//
+//	bool isQuitOptionSelected=false;
+//	unsigned long size;
+//
+//	std::cout<<"insert List size\n";
+//	while(!(std::cin >> size)){
+//		std::cout << "Please enter numbers only: "<<endl;
+//		std::cin.clear();
+//		std::cin.ignore(10000, '\n');
+//		std::cout<<"insert list size\n";
+//	}
+//	std::cout<< "new list\n";
+//	lasd::List<int> list;
+//	populateRandomIntList(list,size);
+//
+//	while (!isQuitOptionSelected)
+//	{
+//		cout<<std::string("\nList int Menu\n")
+//						+ "Please make your selection\n"
+//						+ "1 - list front element\n"
+//						+ "2 - list back element\n"
+//						+ "3 - list element at index\n"
+//						+ "4 - print list\n"
+//						+ "5 - find element\n"
+//						+ "6 - sum less then n\n"
+//						+ "7 - apply 2n function n\n"
+//						+ "8 - back to main menu\n"
+//						+ "Selection: ";
+//		int choice = 0;
+//		if(!(std::cin >> choice)){
+//				std::cout << "Please enter numbers only: "<<endl;
+//				std::cin.clear();
+//				std::cin.ignore(10000, '\n');
+//		}
+//		switch (choice){
+//			case 1:{
+//				cout<<"List front element: "+to_string(list.Front())<<endl;
+//			}
+//			break;
+//			case 2:{
+//				cout<<"List back element: "+to_string(list.Back())<<endl;
+//			}
+//			break;
+//			case 3:{
+//				int index;
+//				cout<<"insert index:"<<endl;
+//				if(!(std::cin >> index)){
+//						std::cout << "Please enter numbers only: "<<endl;
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//
+//				}else{
+//					try{
+//						cout<<list[index];
+//
+//					} catch (std::out_of_range&) {
+//						cout<<"invalid index\n";
+//					}
+//				}
+//
+//
+//
+//			}
+//			break;
+//			case 4:{
+//				list.MapPreOrder(&mapPrint<int>, (void*)0);
+//			}
+//			break;
+//			case 5:{
+//				int value;
+//				unsigned long index=0;
+//				cout<<"insert element to find:"<<endl;
+//				while(!(std::cin >> value)){
+//						std::cout << "Please enter numbers only: "<<endl;
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//						cout<<"insert element to find:"<<endl;
+//				}
+//				list.FoldPreOrder(&foldFind<int>, &value, &index);
+//
+//
+//			}
+//			break;
+//			case 6:{
+//				int value;
+//				unsigned long acc=0;
+//				cout<<"insert n size:"<<endl;
+//				while(!(std::cin >> value)){
+//						std::cout << "Please enter numbers only: "<<endl;
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//						cout<<"insert n size:"<<endl;
+//				}
+//				list.FoldPreOrder(&foldSumLessThan<int>, &value, &acc);
+//				cout<<"sum is: "<<acc<<endl;
+//			}
+//			break;
+//			case 7:{
+//
+//				list.MapPreOrder(&mapDoubleElementValue<int>, (void*)0);
+//				list.MapPreOrder(&mapPrint<int>, 0);
+//				cout<<endl;
+//			}
+//			break;
+//			case 8:{
+//				isQuitOptionSelected=true;
+//			}
+//			break;
+//			default:
+//			{
+//				// Do nothing
+//			}
+//		}
+//
+//
+//	}
+//};
+//void testStringList(){
+//
+//	bool isQuitOptionSelected=false;
+//	unsigned long size;
+//
+//	std::cout<<"insert List size\n";
+//	while(!(std::cin >> size)){
+//		std::cout << "Please enter numbers only: "<<endl;
+//		std::cin.clear();
+//		std::cin.ignore(10000, '\n');
+//		std::cout<<"insert list size\n";
+//	}
+//	std::cout<< "new list\n";
+//	lasd::List<std::string> list;
+//	populateRandomStringList(list,size);
+//
+//	while (!isQuitOptionSelected)
+//	{
+//		cout<<std::string("\nList Menu\n")
+//						+ "Please make your selection\n"
+//						+ "1 - list front element\n"
+//						+ "2 - list back element\n"
+//						+ "3 - list element at index\n"
+//						+ "4 - print list\n"
+//						+ "5 - find element\n"
+//						+ "6 - concat less then n\n"
+//						+ "7 - apply uppercase function\n"
+//						+ "8 - back to main menu\n"
+//						+ "Selection: ";
+//		int choice = 0;
+//		if(!(std::cin >> choice)){
+//				std::cout << "Please enter numbers only "<<endl;
+//				std::cin.clear();
+//				std::cin.ignore(10000, '\n');
+//
+//			}
+//		switch (choice){
+//			case 1:{
+//				cout<<"Vector front element: "+list.Front()<<endl;
+//			}
+//			break;
+//			case 2:{
+//				cout<<"Vector back element: "+list.Back()<<endl;
+//			}
+//			break;
+//			case 3:{
+//				int index;
+//				cout<<"insert index:"<<endl;
+//				if(!(std::cin >> index)){
+//						std::cout << "Please enter numbers only "<<endl;
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//
+//				}else{
+//					try{
+//						cout<<list[index];
+//
+//					} catch (std::out_of_range&) {
+//						cout<<"invalid index\n";
+//					}
+//				}
+//
+//
+//			}
+//			break;
+//			case 4:{
+//				printMappableContainer(list);
+//
+//			}
+//			break;
+//			case 5:{
+//				string value="";
+//				unsigned long index=0;
+//				cout<<"insert element to find:"<<endl;
+//				cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+//				getline(cin,value);
+//				list.FoldPreOrder(&foldFind<string>, &value, &index);
+//
+//
+//			}
+//			break;
+//			case 6:{
+//				unsigned int value;
+//				string acc="";
+//				cout<<"insert n size:"<<endl;
+//				while(!(std::cin >> value)){
+//						std::cout << "Please enter numbers only: "<<endl;
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//						std::cout<<"insert n size:\n";
+//				}
+//				list.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
+//				cout<<"concat string: "<<acc<<endl;
+//
+//			}
+//			break;
+//			case 7:{
+//				list.MapPreOrder(&mapUppercase,0);
+//				printMappableContainer(list);
+//			}
+//			break;
+//			case 8:{
+//				isQuitOptionSelected=true;
+//			}
+//			break;
+//			default:
+//			{
+//				// Do nothing
+//			}
+//		}
+//
+//
+//	}
+//};
+//void testFloatList(){
+//	bool isQuitOptionSelected=false;
+//	unsigned long size;
+//
+//	std::cout<<"insert list size\n";
+//	while(!(std::cin >> size)){
+//		std::cout << "Please enter numbers only: "<<endl;
+//		std::cin.clear();
+//		std::cin.ignore(10000, '\n');
+//		std::cout<<"insert list size\n";
+//	}
+//	std::cout<< "new list\n";
+//	lasd::List<float> list;
+//	populateRandomFloatList(list,size);
+//
+//	while (!isQuitOptionSelected)
+//	{
+//		cout<<std::string("\nFloat List Menu\n")
+//						+ "Please make your selection\n"
+//						+ "1 - list front element\n"
+//						+ "2 - list back element\n"
+//						+ "3 - list element at index\n"
+//						+ "4 - print list\n"
+//						+ "5 - find element\n"
+//						+ "6 - multiply greater then n\n"
+//						+ "7 - apply n^2 function n\n"
+//						+ "8 - back to main menu\n"
+//						+ "Selection: ";
+//		int choice = 0;
+//		if(!(std::cin >> choice)){
+//				std::cout << "Please enter numbers only "<<endl;
+//				std::cin.clear();
+//				std::cin.ignore(10000, '\n');
+//
+//			}
+//		switch (choice){
+//			case 1:{
+//				cout<<"List front element: "+to_string(list.Front())<<endl;
+//			}
+//			break;
+//			case 2:{
+//				cout<<"List back element: "+to_string(list.Back())<<endl;
+//			}
+//			break;
+//			case 3:{
+//				int index;
+//				cout<<"insert index:"<<endl;
+//				if(!(std::cin >> index)){
+//						std::cout << "Please enter numbers only ";
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//
+//				}else{
+//					try{
+//						cout<<list[index];
+//
+//					} catch (std::out_of_range&) {
+//						cout<<"invalid index\n";
+//					}
+//				}
+//
+//
+//			}
+//			break;
+//			case 4:{
+//				printMappableContainer(list);
+//			}
+//			break;
+//			case 5:{
+//				float value;
+//				unsigned long index=0;
+//				cout<<"insert element to find:"<<endl;
+//				while(!(std::cin >> value)){
+//						std::cout << "Please enter numbers only: ";
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//						std::cout<<"insert element to find\n";
+//				}
+//				cout<<"value to find: "<<value<<endl;
+//				list.FoldPreOrder(&foldFloatFind<float>, &value, &index);
+//
+//
+//			}
+//			break;
+//			case 6:{
+//				float value;
+//				float acc=1;
+//				cout<<"insert n size:"<<endl;
+//				while(!(std::cin >> value)){
+//						std::cout << "Please enter numbers only: ";
+//						std::cin.clear();
+//						std::cin.ignore(10000, '\n');
+//						std::cout<<"insert n size\n";
+//				}
+//				list.FoldPreOrder(&foldMultiplyGreaterThan<float>, &value, &acc);
+//				cout<<"product is: "<<acc<<endl;
+//			}
+//			break;
+//			case 7:{
+//
+//				list.MapPreOrder(&mapSquareElementValue<float>, (void*)0);
+//				printMappableContainer(list);
+//				cout<<endl;
+//			}
+//			break;
+//			case 8:{
+//				isQuitOptionSelected=true;
+//			}
+//
+//			break;
+//			default:
+//			{
+//				// Do nothing
+//			}
+//		}
+//
+//
+//	}
+//
+//};
 
-	bool isQuitOptionSelected=false;
-	unsigned long size;
-
-	std::cout<<"insert List size\n";
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert list size\n";
-	}
-	std::cout<< "new list\n";
-	lasd::List<int> list;
-	populateRandomIntList(list,size);
-
-	while (!isQuitOptionSelected)
-	{
-		cout<<std::string("\nList int Menu\n")
-						+ "Please make your selection\n"
-						+ "1 - list front element\n"
-						+ "2 - list back element\n"
-						+ "3 - list element at index\n"
-						+ "4 - print list\n"
-						+ "5 - find element\n"
-						+ "6 - sum less then n\n"
-						+ "7 - apply 2n function n\n"
-						+ "8 - back to main menu\n"
-						+ "Selection: ";
-		int choice = 0;
-		if(!(std::cin >> choice)){
-				std::cout << "Please enter numbers only: "<<endl;
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-		}
-		switch (choice){
-			case 1:{
-				cout<<"List front element: "+to_string(list.Front())<<endl;
-			}
-			break;
-			case 2:{
-				cout<<"List back element: "+to_string(list.Back())<<endl;
-			}
-			break;
-			case 3:{
-				int index;
-				cout<<"insert index:"<<endl;
-				if(!(std::cin >> index)){
-						std::cout << "Please enter numbers only: "<<endl;
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-
-				}else{
-					try{
-						cout<<list[index];
-
-					} catch (std::out_of_range&) {
-						cout<<"invalid index\n";
-					}
-				}
-
-
-
-			}
-			break;
-			case 4:{
-				list.MapPreOrder(&mapPrint<int>, (void*)0);
-			}
-			break;
-			case 5:{
-				int value;
-				unsigned long index=0;
-				cout<<"insert element to find:"<<endl;
-				while(!(std::cin >> value)){
-						std::cout << "Please enter numbers only: "<<endl;
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-						cout<<"insert element to find:"<<endl;
-				}
-				list.FoldPreOrder(&foldFind<int>, &value, &index);
-
-
-			}
-			break;
-			case 6:{
-				int value;
-				unsigned long acc=0;
-				cout<<"insert n size:"<<endl;
-				while(!(std::cin >> value)){
-						std::cout << "Please enter numbers only: "<<endl;
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-						cout<<"insert n size:"<<endl;
-				}
-				list.FoldPreOrder(&foldSumLessThan<int>, &value, &acc);
-				cout<<"sum is: "<<acc<<endl;
-			}
-			break;
-			case 7:{
-
-				list.MapPreOrder(&mapDoubleElementValue<int>, (void*)0);
-				list.MapPreOrder(&mapPrint<int>, 0);
-				cout<<endl;
-			}
-			break;
-			case 8:{
-				isQuitOptionSelected=true;
-			}
-			break;
-			default:
-			{
-				// Do nothing
-			}
-		}
-
-
-	}
-};
-
-void testStringList(){
-
-	bool isQuitOptionSelected=false;
-	unsigned long size;
-
-	std::cout<<"insert List size\n";
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert list size\n";
-	}
-	std::cout<< "new list\n";
-	lasd::List<std::string> list;
-	populateRandomStringList(list,size);
-
-	while (!isQuitOptionSelected)
-	{
-		cout<<std::string("\nList Menu\n")
-						+ "Please make your selection\n"
-						+ "1 - list front element\n"
-						+ "2 - list back element\n"
-						+ "3 - list element at index\n"
-						+ "4 - print list\n"
-						+ "5 - find element\n"
-						+ "6 - concat less then n\n"
-						+ "7 - apply uppercase function\n"
-						+ "8 - back to main menu\n"
-						+ "Selection: ";
-		int choice = 0;
-		if(!(std::cin >> choice)){
-				std::cout << "Please enter numbers only "<<endl;
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-
-			}
-		switch (choice){
-			case 1:{
-				cout<<"Vector front element: "+list.Front()<<endl;
-			}
-			break;
-			case 2:{
-				cout<<"Vector back element: "+list.Back()<<endl;
-			}
-			break;
-			case 3:{
-				int index;
-				cout<<"insert index:"<<endl;
-				if(!(std::cin >> index)){
-						std::cout << "Please enter numbers only "<<endl;
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-
-				}else{
-					try{
-						cout<<list[index];
-
-					} catch (std::out_of_range&) {
-						cout<<"invalid index\n";
-					}
-				}
-
-
-			}
-			break;
-			case 4:{
-				printMappableContainer(list);
-
-			}
-			break;
-			case 5:{
-				string value="";
-				unsigned long index=0;
-				cout<<"insert element to find:"<<endl;
-				cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
-				getline(cin,value);
-				list.FoldPreOrder(&foldFind<string>, &value, &index);
-
-
-			}
-			break;
-			case 6:{
-				unsigned int value;
-				string acc="";
-				cout<<"insert n size:"<<endl;
-				while(!(std::cin >> value)){
-						std::cout << "Please enter numbers only: "<<endl;
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-						std::cout<<"insert n size:\n";
-				}
-				list.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
-				cout<<"concat string: "<<acc<<endl;
-
-			}
-			break;
-			case 7:{
-				list.MapPreOrder(&mapUppercase,0);
-				printMappableContainer(list);
-			}
-			break;
-			case 8:{
-				isQuitOptionSelected=true;
-			}
-			break;
-			default:
-			{
-				// Do nothing
-			}
-		}
-
-
-	}
-};
-
-void testFloatList(){
-	bool isQuitOptionSelected=false;
-	unsigned long size;
-
-	std::cout<<"insert list size\n";
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert list size\n";
-	}
-	std::cout<< "new list\n";
-	lasd::List<float> list;
-	populateRandomFloatList(list,size);
-
-	while (!isQuitOptionSelected)
-	{
-		cout<<std::string("\nFloat List Menu\n")
-						+ "Please make your selection\n"
-						+ "1 - list front element\n"
-						+ "2 - list back element\n"
-						+ "3 - list element at index\n"
-						+ "4 - print list\n"
-						+ "5 - find element\n"
-						+ "6 - multiply greater then n\n"
-						+ "7 - apply n^2 function n\n"
-						+ "8 - back to main menu\n"
-						+ "Selection: ";
-		int choice = 0;
-		if(!(std::cin >> choice)){
-				std::cout << "Please enter numbers only "<<endl;
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-
-			}
-		switch (choice){
-			case 1:{
-				cout<<"List front element: "+to_string(list.Front())<<endl;
-			}
-			break;
-			case 2:{
-				cout<<"List back element: "+to_string(list.Back())<<endl;
-			}
-			break;
-			case 3:{
-				int index;
-				cout<<"insert index:"<<endl;
-				if(!(std::cin >> index)){
-						std::cout << "Please enter numbers only ";
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-
-				}else{
-					try{
-						cout<<list[index];
-
-					} catch (std::out_of_range&) {
-						cout<<"invalid index\n";
-					}
-				}
-
-
-			}
-			break;
-			case 4:{
-				printMappableContainer(list);
-			}
-			break;
-			case 5:{
-				float value;
-				unsigned long index=0;
-				cout<<"insert element to find:"<<endl;
-				while(!(std::cin >> value)){
-						std::cout << "Please enter numbers only: ";
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-						std::cout<<"insert element to find\n";
-				}
-				cout<<"value to find: "<<value<<endl;
-				list.FoldPreOrder(&foldFloatFind<float>, &value, &index);
-
-
-			}
-			break;
-			case 6:{
-				float value;
-				float acc=1;
-				cout<<"insert n size:"<<endl;
-				while(!(std::cin >> value)){
-						std::cout << "Please enter numbers only: ";
-						std::cin.clear();
-						std::cin.ignore(10000, '\n');
-						std::cout<<"insert n size\n";
-				}
-				list.FoldPreOrder(&foldMultiplyGreaterThan<float>, &value, &acc);
-				cout<<"product is: "<<acc<<endl;
-			}
-			break;
-			case 7:{
-
-				list.MapPreOrder(&mapSquareElementValue<float>, (void*)0);
-				printMappableContainer(list);
-				cout<<endl;
-			}
-			break;
-			case 8:{
-				isQuitOptionSelected=true;
-			}
-
-			break;
-			default:
-			{
-				// Do nothing
-			}
-		}
-
-
-	}
-
-};
 void populateRandomIntList(lasd::List<int>& container,unsigned long& size){
 	std::cout<< "populating int list\n";
 	srand(time(NULL));
@@ -1791,7 +1796,7 @@ void queueVecTest(){
 	lasd::Vector<int> vec(5);
 	populateRandomIntVector(vec);
 	lasd::QueueVec<int> queueVec(vec);
-
+	lasd::StackVec<int> stackVec(vec);
 	cout<<queueVec.Head();
 		cout<<"-";
 	queueVec.Enqueue(123);
@@ -1825,17 +1830,58 @@ void queueVecTest(){
 	cout<<queueVec.Head();
 	cout<<"-";
 	queueVec.Dequeue();
-		cout<<queueVec.Head();
-		cout<<"-";
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+	queueVec.Dequeue();
+	cout<<queueVec.Head();
+	cout<<"-";
+//	queueVec.Enqueue(123);
+//	queueVec.Enqueue(123);
+//	queueVec.Enqueue(123);
+//	queueVec.Enqueue(123);
+//	queueVec.Enqueue(123);
+//	queueVec.Enqueue(123);
+	try {
 		queueVec.Dequeue();
-			cout<<queueVec.Head();
-			cout<<"-";
-			queueVec.Dequeue();
-				cout<<queueVec.Head();
-				cout<<"-";
-				queueVec.Dequeue();
-					cout<<queueVec.Head();
-					cout<<"-";
+		queueVec.Dequeue();
+		queueVec.Dequeue();
+		queueVec.Dequeue();
+		queueVec.Dequeue();
+		queueVec.Dequeue();
+		queueVec.Dequeue();
+	} catch (std::length_error&) {
+		cout<<"empty\n";
+	}
+	cout<<"stack:";
+	cout<<"pop: "<<stackVec.TopNPop();
+	cout<<"pop: "<<stackVec.TopNPop();
+	cout<<"push: 23";
+	stackVec.Push(23);
+	cout<<"push: 24";
+	stackVec.Push(24);
+	cout<<"push: 25";
+	stackVec.Push(25);
+	cout<<"push: 26";
+	stackVec.Push(26);
+	try {
+		cout<<"pop: "<<stackVec.TopNPop();
+		cout<<"pop: "<<stackVec.TopNPop();
+		cout<<"pop: "<<stackVec.TopNPop();
+		cout<<"pop: "<<stackVec.TopNPop();
+		cout<<"pop: "<<stackVec.TopNPop();
+		cout<<"pop: "<<stackVec.TopNPop();
+		cout<<"pop: "<<stackVec.TopNPop();
+		cout<<"pop: "<<stackVec.TopNPop();
+	} catch (std::length_error&) {
+		cout<<"empty\n";
+	}
+
 
 }
 
