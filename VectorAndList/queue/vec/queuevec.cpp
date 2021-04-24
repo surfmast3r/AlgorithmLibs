@@ -88,7 +88,7 @@ namespace lasd {
 				if(Elements[h] != queueVector.Elements[queueVecH])
 					return false;
 				h = (h+1)%(size);
-				queueVecH = (queueVecH+1)%(size);
+				queueVecH = (queueVecH+1)%(queueVector.size);
 			}
 			return true;
 		}

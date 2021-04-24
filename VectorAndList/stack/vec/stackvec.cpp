@@ -7,7 +7,7 @@ namespace lasd {
 	template <typename DataType>
 	StackVec<DataType>::StackVec() : Vector<DataType>::Vector(2){
 		stackSize=0;
-		top=0;
+		//top=0;
 	}
 
   /* ************************************************************************ */
@@ -16,7 +16,7 @@ namespace lasd {
 	template <typename DataType>
 	StackVec<DataType>::StackVec(const LinearContainer<DataType>& linearContainer) : Vector<DataType>::Vector(linearContainer){//controllare
 		stackSize=linearContainer.Size();
-		top=stackSize;
+		//top=stackSize;
 	} // A stack obtained from a LinearContainer
 
   /* ************************************************************************ */
@@ -28,7 +28,7 @@ namespace lasd {
 		Elements= new DataType[size];
 		std::copy(stackVector.Elements, stackVector.Elements + size, Elements);
 		stackSize=stackVector.stackSize;
-		top=stackVector.top;
+		//top=stackVector.top;
 	}
 
   // Move constructor
@@ -37,7 +37,7 @@ namespace lasd {
 		std::swap(Elements,stackVector.Elements);
 		std::swap(size, stackVector.size);
 		std::swap(stackSize, stackVector.stackSize);
-		std::swap(top, stackVector.top);
+		//std::swap(top, stackVector.top);
 
 	}
 
@@ -65,7 +65,7 @@ namespace lasd {
 		std::swap(Elements,stackVector.Elements);
 		std::swap(size, stackVector.size);
 		std::swap(stackSize, stackVector.stackSize);
-		std::swap(top, stackVector.top);
+		//std::swap(top, stackVector.top);
 		return *this;
 	}
 
@@ -98,8 +98,8 @@ namespace lasd {
 	void StackVec<DataType>::Push(const DataType& value) {// Override Stack member (copy of the value)
 		if(fullStack()){ Expand();}
 
-		Elements[top]=value;
-		top++;
+		Elements[stackSize]=value;
+		//top++;
 		stackSize++;
 
 	}
@@ -107,15 +107,15 @@ namespace lasd {
 	template <typename DataType>
 	void StackVec<DataType>::Push(DataType&& value) noexcept {
 		if(fullStack()){ Expand();}
-		Elements[top]=std::move(value);
-		top++;
+		Elements[stackSize]=std::move(value);
+		//top++;
 		stackSize++;
 	} // Override Stack member (move of the value)
 
 	template <typename DataType>
 	DataType& StackVec<DataType>::Top() const{
 		if(!emptyStack())
-			return Elements[top-1];
+			return Elements[stackSize-1];
 		else
 			throw std::length_error("Stack is Empty size:"+ std::to_string(stackSize));
 	} // Override Stack member (must throw std::length_error when empty)
@@ -125,7 +125,7 @@ namespace lasd {
 
 		if( !emptyStack() ){
 
-			top--;
+			//top--;
 			stackSize--;
 			if(stackSize<=size/2)
 				Reduce();
@@ -138,8 +138,8 @@ namespace lasd {
 	template <typename DataType>
 	DataType StackVec<DataType>::TopNPop() {
 		if( !emptyStack() ){
-			DataType returnValue=Elements[top-1];
-			top--;
+			DataType returnValue=Elements[stackSize-1];
+			//top--;
 			stackSize--;
 			if(stackSize<=size/2)
 				Reduce();
@@ -169,7 +169,7 @@ namespace lasd {
 		Elements= new DataType[2]{};
 		size=2;
 		stackSize=0;
-		top=0;
+		//top=0;
 
 	} // Override Container member.
 

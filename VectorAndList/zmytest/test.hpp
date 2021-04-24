@@ -45,7 +45,6 @@ void stringStackTest(lasd::Stack<std::string>& stack);
 
 /* ************************************************************************** */
 /* Queue */
-void queueVecTest();
 
 void createIntQueue();
 void createFloatQueue();

@@ -19,8 +19,6 @@ class QueueLst : virtual public Queue<DataType>,
 
 private:
 
-	//List<DataType>* list= nullptr;
-
 protected:
 
 	using List<DataType>::size;

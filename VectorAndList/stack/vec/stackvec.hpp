@@ -20,7 +20,7 @@ class StackVec : virtual public Stack<DataType>,
 private:
 
 	unsigned long stackSize=0;
-	unsigned long top=0;
+	//unsigned long top=0;
 
 
 protected:

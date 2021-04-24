@@ -19,7 +19,6 @@ class StackLst : virtual public Stack<DataType>,
 
 private:
 
-  	//List<DataType>* list= nullptr;
 
 protected:
 
