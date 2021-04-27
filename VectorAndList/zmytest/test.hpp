@@ -25,13 +25,13 @@ void populateRandomFloatList(lasd::List<float>& container,unsigned long& );
 void populateRandomStringList(lasd::List<std::string>& container,unsigned long& );
 std::string createRandomString(int stringSize);
 
-void testFloatVector();
-void testStringVector();
-void testIntVector();
+//void testFloatVector();
+//void testStringVector();
+//void testIntVector();
 
-void testFloatList();
-void testStringList();
-void testIntList();
+//void testFloatList();
+//void testStringList();
+//void testIntList();
 
 /* ************************************************************************** */
 /* Stack */
@@ -45,6 +45,7 @@ void stringStackTest(lasd::Stack<std::string>& stack);
 
 /* ************************************************************************** */
 /* Queue */
+void myQueueTest();
 
 void createIntQueue();
 void createFloatQueue();

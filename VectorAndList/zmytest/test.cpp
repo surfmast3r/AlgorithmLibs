@@ -493,7 +493,32 @@ void stringStackTest(lasd::Stack<string>& stack){
 }
 /* ************************************************************************** */
 /* Queue */
+void myQueueTest(){
 
+	lasd::Vector<int>vec1(6);
+	lasd::Vector<int>vec2(8);
+	populateRandomIntVector(vec1);
+	lasd::QueueVec<int>queue1(vec1);
+	lasd::QueueVec<int>queue2(vec2);
+	queue2.Dequeue();
+	queue2.Enqueue(10);
+	queue2.Dequeue();
+	queue2.Enqueue(26);
+	queue2.Dequeue();
+	queue2.Enqueue(21);
+	queue2.Dequeue();
+	queue2.Enqueue(20);
+	queue2.Dequeue();
+	queue2.Enqueue(25);
+	queue2.Dequeue();
+		queue2.Enqueue(17);
+		queue2.Dequeue();
+		queue2.Dequeue();
+	if(queue1==queue2){
+		cout<<"uguali";
+	}
+
+}
 void createIntQueue(){
 	bool isQuitOptionSelected=false;
 
