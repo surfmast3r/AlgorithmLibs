@@ -15,8 +15,8 @@ using namespace std;
 
 /* ************************************************************************** */
 
-void stestVectorInt(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVectorInt(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector<int> Test:" << endl;
   try {
     {
@@ -70,8 +70,8 @@ void stestVectorInt(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorDouble(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVectorDouble(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector<double> Test:" << endl;
   try {
     lasd::Vector<double> vec(3);
@@ -98,8 +98,8 @@ void stestVectorDouble(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorString(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVectorString(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector<string> Test:" << endl;
   try {
     lasd::Vector<string> vec(2);
@@ -126,10 +126,10 @@ void stestVectorString(unsigned int& testnum, unsigned int& testerr) {
     MapPreOrder(loctestnum, loctesterr, vec, true, &MapStringAppend, string("!"));
     NonEqualVector(loctestnum, loctesterr, vec, copvec, true);
 
-    copvec = std::move(vec);
+    copvec = move(vec);
     FoldPreOrder(loctestnum, loctesterr, copvec, true, &FoldStringConcatenate, string(""), string("?"), string("?A !B !"));
 
-    lasd::Vector<string> movvec(std::move(vec));
+    lasd::Vector<string> movvec(move(vec));
     FoldPreOrder(loctestnum, loctesterr, movvec, true, &FoldStringConcatenate, string(""), string("?"), string("?A B "));
     SetAt(loctestnum, loctesterr, vec, false, 1, string(""));
     vec.Resize(1);
@@ -146,8 +146,8 @@ void stestVectorString(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestVector(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVector(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   stestVectorInt(loctestnum, loctesterr);
   stestVectorDouble(loctestnum, loctesterr);
   stestVectorString(loctestnum, loctesterr);
@@ -158,8 +158,8 @@ void stestVector(unsigned int& testnum, unsigned int& testerr) {
 
 /* ************************************************************************** */
 
-void stestListInt(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestListInt(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of List<int> Test:" << endl;
   try {
     lasd::List<int> lst;
@@ -217,11 +217,11 @@ void stestListInt(unsigned int& testnum, unsigned int& testerr) {
 
     RemoveFromFront(loctestnum, loctesterr, coplst, true);
     FrontNRemove(loctestnum, loctesterr, coplst, true, 6);
-    coplst = std::move(lst);
+    coplst = move(lst);
     FoldPreOrder(loctestnum, loctesterr, lst, true, &FoldAdd<int>, 0, 0, 11);
     FoldPreOrder(loctestnum, loctesterr, coplst, true, &FoldAdd<int>, 0, 0, 17);
 
-    lasd::List<int> movlst(std::move(lst));
+    lasd::List<int> movlst(move(lst));
     MapPreOrder(loctestnum, loctesterr, movlst, true, &MapIncrement<int>, 0);
     FoldPreOrder(loctestnum, loctesterr, movlst, true, &FoldAdd<int>, 0, 0, 14);
 
@@ -237,8 +237,8 @@ void stestListInt(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestListDouble(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestListDouble(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of List<double> Test:" << endl;
   try {
     lasd::List<double> lst;
@@ -273,8 +273,8 @@ void stestListDouble(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestListString(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestListString(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of List<string> Test:" << endl;
   try {
     lasd::List<string> lst;
@@ -307,7 +307,7 @@ void stestListString(unsigned int& testnum, unsigned int& testerr) {
     InsertAtFront(loctestnum, loctesterr, lst, true, string("C"));
     NonEqualList(loctestnum, loctesterr, lst, coplst, true);
 
-    coplst = std::move(lst);
+    coplst = move(lst);
     FoldPreOrder(loctestnum, loctesterr, coplst, true, &FoldStringConcatenate, string(""), string("?"), string("?CB A"));
   } catch(...) {
     loctestnum++; loctesterr++;
@@ -318,8 +318,8 @@ void stestListString(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestList(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestList(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   stestListInt(loctestnum, loctesterr);
   stestListDouble(loctestnum, loctesterr);
   stestListString(loctestnum, loctesterr);
@@ -330,8 +330,8 @@ void stestList(unsigned int& testnum, unsigned int& testerr) {
 
 /* ************************************************************************** */
 
-void stestVectorListInt(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVectorListInt(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector/List<int> Test:" << endl;
   try {
     lasd::Vector<int> vec(3);
@@ -362,8 +362,8 @@ void stestVectorListInt(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorListDouble(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVectorListDouble(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector/List<double> Test:" << endl;
   try {
     lasd::Vector<double> vec(3);
@@ -394,8 +394,8 @@ void stestVectorListDouble(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorListString(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVectorListString(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of Vector/List<string> Test:" << endl;
   try {
     lasd::Vector<string> vec(3);
@@ -426,8 +426,8 @@ void stestVectorListString(unsigned int& testnum, unsigned int& testerr) {
   testerr += loctesterr;
 }
 
-void stestVectorList(unsigned int& testnum, unsigned int& testerr) {
-  unsigned int loctestnum = 0, loctesterr = 0;
+void stestVectorList(uint& testnum, uint& testerr) {
+  uint loctestnum = 0, loctesterr = 0;
   stestVectorListInt(loctestnum, loctesterr);
   stestVectorListDouble(loctestnum, loctesterr);
   stestVectorListString(loctestnum, loctesterr);
@@ -439,7 +439,7 @@ void stestVectorList(unsigned int& testnum, unsigned int& testerr) {
 /* ************************************************************************** */
 
 void testSimpleExercise1() {
-  unsigned int testnum = 0, testerr = 0;
+  uint testnum = 0, testerr = 0;
   stestVector(testnum, testerr);
   stestList(testnum, testerr);
   stestVectorList(testnum, testerr);
