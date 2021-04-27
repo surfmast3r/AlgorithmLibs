@@ -286,7 +286,7 @@ protected:
 public:
 
   // Destructor
-	~InOrderFoldableContainer() = default;
+	virtual ~InOrderFoldableContainer() = default;
 
   /* ************************************************************************ */
 
@@ -330,7 +330,7 @@ protected:
 public:
 
   // Destructor
-	~BreadthMappableContainer() = default;
+	virtual ~BreadthMappableContainer() = default;
 
   /* ************************************************************************ */
 
@@ -372,7 +372,7 @@ protected:
 public:
 
   // Destructor
-   ~BreadthFoldableContainer() = default;
+	virtual ~BreadthFoldableContainer() = default;
 
   /* ************************************************************************ */
 
