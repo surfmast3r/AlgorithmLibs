@@ -50,8 +50,8 @@ public:
 
 /* ************************************************************************** */
 
-template <typename Data>
-class ForwardIterator { // Must extend Iterator
+template <typename DataType>
+class ForwardIterator : virtual public Iterator<DataType>{ // Must extend Iterator
 
 private:
 
