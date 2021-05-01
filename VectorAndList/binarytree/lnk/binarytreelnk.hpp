@@ -12,8 +12,8 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-template <typename Data>
-class BinaryTreeLnk { // Must extend BinaryTree<Data>
+template <typename DataType>
+class BinaryTreeLnk : virtual public BinaryTree<DataType>{ // Must extend BinaryTree<Data>
 
 private:
 
@@ -25,11 +25,13 @@ protected:
 
   // ...
 
-  struct NodeLnk { // Must extend Node
+  struct NodeLnk : Node{ // Must extend Node
 
   private:
 
-    // ...
+    DataType data;
+    Node* leftChild= nullptr;
+    Node* rightChild= nullptr;
 
   protected:
 
@@ -37,58 +39,89 @@ protected:
 
   public:
 
-    // ...
+    // Destructor
+    virtual ~NodeLnk() = default;
+
+    /* ********************************************************************** */
+
+    // Copy assignment
+    NodeLnk& operator=(const NodeLnk&) noexcept;
+
+    // Move assignment
+    NodeLnk& operator=(NodeLnk&&) noexcept;
+
+    /* ********************************************************************** */
+
+    // Comparison operators
+    // type operator==(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
+    // type operator!=(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
+
+    /* ********************************************************************** */
+
+    // Specific member functions
+
+    DataType& Element() noexcept ; // Mutable access to the element (concrete function should not throw exceptions)
+    DataType& Element() const noexcept ; // Immutable access to the element (concrete function should not throw exceptions)
+
+    bool IsLeaf() noexcept; // (concrete function should not throw exceptions)
+    bool HasLeftChild() noexcept; // (concrete function should not throw exceptions)
+    bool HasRightChild() noexcept ; // (concrete function should not throw exceptions)
+
+    NodeLnk& LeftChild(); // (concrete function must throw std::out_of_range when not existent)
+    NodeLnk& RightChild(); // (concrete function must throw std::out_of_range when not existent)
 
   };
+
+  NodeLnk* root = nullptr;
 
 public:
 
   // Default constructor
-  // BinaryTreeLnk() specifiers;
+  BinaryTreeLnk() = default;
 
   /* ************************************************************************ */
 
   // Specific constructors
-  // BinaryTreeLnk(argument) specifiers; // A binary tree obtained from a LinearContainer
+  BinaryTreeLnk(LinearContainer<DataType> container); // A binary tree obtained from a LinearContainer
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // BinaryTreeLnk(argument) specifiers;
+  BinaryTreeLnk(const BinaryTreeLnk&) noexcept;
 
   // Move constructor
-  // BinaryTreeLnk(argument) specifiers;
+  BinaryTreeLnk(BinaryTreeLnk&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~BinaryTreeLnk() specifiers;
+  ~BinaryTreeLnk();
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+  BinaryTreeLnk& operator=(const BinaryTreeLnk) noexcept;
 
   // Move assignment
-  // type operator=(argument) specifiers;
+  BinaryTreeLnk& operator=(BinaryTreeLnk&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+   bool operator==(const BinaryTreeLnk&) const noexcept;
+   bool operator!=(const BinaryTreeLnk&) const noexcept;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BinaryTree)
 
-  // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
+  Node& Root(); // Override BinaryTree member (throw std::length_error when empty)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-  // type Clear() specifiers; // Override Container member
+  void Clear(); // Override Container member
 
 };
 

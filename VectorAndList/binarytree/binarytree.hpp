@@ -124,7 +124,7 @@ public:
 	using typename FoldableContainer<DataType>::FoldFunctor;
 
 	virtual void FoldPreOrder(const FoldFunctor, const void*,void*) const override;// Override FoldableContainer member
-	virtual void FoldPostOrder(const FoldFunctor, const void*,void*) const = 0;// Override FoldableContainer member
+	virtual void FoldPostOrder(const FoldFunctor, const void*,void*) const override= 0;// Override FoldableContainer member
 
 	/* ************************************************************************ */
 
@@ -153,42 +153,42 @@ public:
 protected:
 
 	// Auxiliary member functions (for MappableContainer)
-	void MapPreOrder(const MapFunctor, void*, Node*); // Accessory function executing from one node of the tree
-	void MapPostOrder(const MapFunctor, void*, Node*);// Accessory function executing from one node of the tree
+	void MapPreOrder(const MapFunctor, void*, Node&); // Accessory function executing from one node of the tree
+	void MapPostOrder(const MapFunctor, void*, Node&);// Accessory function executing from one node of the tree
 
 	/* ************************************************************************ */
 
 	// Auxiliary member functions (for FoldableContainer)
-	void FoldPreOrder(const FoldFunctor,const void*,void*, Node*) const; // Accessory function executing from one node of the tree
-	void FoldPostOrder(const FoldFunctor,const void*,void*, Node*) const;// Accessory function executing from one node of the tree
+	void FoldPreOrder(const FoldFunctor,const void*,void*, Node&) const; // Accessory function executing from one node of the tree
+	void FoldPostOrder(const FoldFunctor,const void*,void*, Node&) const;// Accessory function executing from one node of the tree
 
 	/* ************************************************************************ */
 
 	// Auxiliary member functions (for InOrderMappableContainer)
 
 	// type MapInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
-	void MapInOrder(const MapFunctor, void*, Node*); // Accessory function executing from one node of the tree
+	void MapInOrder(const MapFunctor, void*, Node&); // Accessory function executing from one node of the tree
 
 	/* ************************************************************************ */
 
 	// Auxiliary member functions (for InOrderFoldableContainer)
 
 	// type FoldInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
-	void FoldInOrder(const FoldFunctor,const void*,void*, Node*) const; // Accessory function executing from one node of the tree
+	void FoldInOrder(const FoldFunctor,const void*,void*, Node&) const; // Accessory function executing from one node of the tree
 
 	/* ************************************************************************ */
 
 	// Auxiliary member functions (for BreadthMappableContainer)
 
 	// type MapBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
-	void MapBreadth(const MapFunctor, void*, Node*); // Accessory function executing from one node of the tree
+	void MapBreadth(const MapFunctor, void*, Node&); // Accessory function executing from one node of the tree
 
 	/* ************************************************************************ */
 
 	// Auxiliary member functions (for BreadthFoldableContainer)
 
 	// type FoldBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
-	void FoldBreadth(const FoldFunctor,const void*,void*, Node*) const; // Accessory function executing from one node of the tree
+	void FoldBreadth(const FoldFunctor,const void*,void*, Node&) const; // Accessory function executing from one node of the tree
 
 };
 
