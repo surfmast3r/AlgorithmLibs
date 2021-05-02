@@ -18,10 +18,10 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename DataType>
-class BinaryTree : virtual protected InOrderMappableContainer<DataType>,
-				   virtual protected BreadthMappableContainer<DataType>,
-				   virtual protected InOrderFoldableContainer<DataType>,
-				   virtual protected BreadthFoldableContainer<DataType>{ // Must extend InOrder/BreadthMappableContainer<Data> and InOrder/BreadthFoldableContainer<Data>
+class BinaryTree : virtual public InOrderMappableContainer<DataType>,
+				   virtual public BreadthMappableContainer<DataType>,
+				   virtual public InOrderFoldableContainer<DataType>,
+				   virtual public BreadthFoldableContainer<DataType>{ // Must extend InOrder/BreadthMappableContainer<Data> and InOrder/BreadthFoldableContainer<Data>
 
 private:
 
@@ -42,7 +42,9 @@ public:
 
   protected:
 
-    // ...
+	// Comparison operators
+	bool operator==(const Node&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
+	bool operator!=(const Node&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
 
   public:
 
@@ -72,14 +74,14 @@ public:
     // Specific member functions
 
     virtual DataType& Element() noexcept = 0; // Mutable access to the element (concrete function should not throw exceptions)
-    virtual DataType& Element() const noexcept  = 0; // Immutable access to the element (concrete function should not throw exceptions)
+    virtual const DataType& Element() const noexcept  = 0; // Immutable access to the element (concrete function should not throw exceptions)
 
     virtual bool IsLeaf() noexcept = 0; // (concrete function should not throw exceptions)
-    virtual bool HasLeftChild() noexcept = 0; // (concrete function should not throw exceptions)
-    virtual bool HasRightChild() noexcept = 0; // (concrete function should not throw exceptions)
+    virtual bool HasLeftChild() const noexcept= 0; // (concrete function should not throw exceptions)
+    virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
 
-    virtual Node& LeftChild() = 0; // (concrete function must throw std::out_of_range when not existent)
-    virtual Node& RightChild() = 0; // (concrete function must throw std::out_of_range when not existent)
+    virtual  Node& LeftChild() = 0; // (concrete function must throw std::out_of_range when not existent)
+    virtual  Node& RightChild()  = 0; // (concrete function must throw std::out_of_range when not existent)
 
   };
 
@@ -106,7 +108,7 @@ public:
 
 	// Specific member functions
 
-	virtual Node& Root() = 0; // (concrete function must throw std::length_error when empty)
+	virtual Node& Root() const= 0; // (concrete function must throw std::length_error when empty)
 
 	/* ************************************************************************ */
 
@@ -124,7 +126,7 @@ public:
 	using typename FoldableContainer<DataType>::FoldFunctor;
 
 	virtual void FoldPreOrder(const FoldFunctor, const void*,void*) const override;// Override FoldableContainer member
-	virtual void FoldPostOrder(const FoldFunctor, const void*,void*) const override= 0;// Override FoldableContainer member
+	virtual void FoldPostOrder(const FoldFunctor, const void*,void*) const override;// Override FoldableContainer member
 
 	/* ************************************************************************ */
 
@@ -182,7 +184,7 @@ protected:
 
 	// type MapBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
 	void MapBreadth(const MapFunctor, void*, Node&); // Accessory function executing from one node of the tree
-
+	bool AuxiliaryEqualOperatorFunction ( Node& ,  Node& ) const;
 	/* ************************************************************************ */
 
 	// Auxiliary member functions (for BreadthFoldableContainer)

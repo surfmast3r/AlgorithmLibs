@@ -1,16 +1,28 @@
 
-// #include "..."
+ #include "../queue/lst/queuelst.hpp"
 
 namespace lasd {
 
 /* ************************************************************************** */
 template <typename DataType>
+bool BinaryTree<DataType>::Node::operator==(const Node& node) const noexcept{
+
+	return node.Element()==this->Element();
+}
+
+template <typename DataType>
+bool BinaryTree<DataType>::Node::operator!=(const Node& node) const noexcept{
+	return !(*this==node);
+}
+
+/* ************************************************************************** */
+template <typename DataType>
 bool BinaryTree<DataType>::operator==(const BinaryTree<DataType>& binaryTree) const noexcept{
 
-	Node& btRoot=binaryTree.Root();
 	if(size==binaryTree.size)
 	{
-		return AuxiliaryEqualOperatorFunction( this->Root(),btRoot);
+
+		return AuxiliaryEqualOperatorFunction( Root(),binaryTree.Root());
 	}else return false;
 
 }
@@ -20,16 +32,16 @@ bool BinaryTree<DataType>::operator!=(const BinaryTree& binaryTree) const noexce
 }
 
 template <typename DataType>
-bool AuxiliaryEqualOperatorFunction (typename BinaryTree<DataType>::Node& node1, typename BinaryTree<DataType>::Node& node2){
+bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& node2) const {
 	if(node1.HasLeftChild()==node2.HasLeftChild()){
 		if(node1.HasLeftChild()){
-			AuxiliaryEqualOperator(node1.LeftChild(),node2.LeftChild());
+			AuxiliaryEqualOperatorFunction(node1.LeftChild(),node2.LeftChild());
 		}
 	}
 	else return false;
 	if(node1.HasRightChild()==node2.HasRightChild()){
 		if(node1.HasRightChild())
-			AuxiliaryEqualOperator(node1.RightChild(),node2.RightChild());
+			AuxiliaryEqualOperatorFunction(node1.RightChild(),node2.RightChild());
 	}
 	else return false;
 
@@ -40,8 +52,8 @@ bool AuxiliaryEqualOperatorFunction (typename BinaryTree<DataType>::Node& node1,
 	//mappable container functions
 	template <typename DataType>
 	void BinaryTree<DataType>::MapPreOrder(const MapFunctor function,void* param){
-		Node* root=this->Root();
-		MapPreOrder(function,param, root);
+
+		MapPreOrder(function,param, this->Root());
 	}
 	template <typename DataType>
 	void BinaryTree<DataType>::MapPostOrder(const MapFunctor function,void* param){
@@ -51,23 +63,24 @@ bool AuxiliaryEqualOperatorFunction (typename BinaryTree<DataType>::Node& node1,
 	// Auxiliary member functions (for MappableContainer)
 	template <typename DataType>
 	void BinaryTree<DataType>::MapPreOrder(const MapFunctor function, void* param, Node& node){// Accessory function executing from one node of the tree
-		if(node!=nullptr)
-		{
-			function(node.Element(),param);
+
+		function(node.Element(),param);
+		if(node.HasLeftChild())
 			MapPreOrder(function,param,node.LeftChild());
+		if(node.HasRightChild())
 			MapPreOrder(function,param,node.RightChild());
-		}
+
 
 	}
 	template <typename DataType>
 	void BinaryTree<DataType>::MapPostOrder(const MapFunctor function, void* param, Node& node){// Accessory function executing from one node of the tree
-		if(node!=nullptr)
-		{
 
+		if(node.HasLeftChild())
 			MapPreOrder(function,param,node.LeftChild());
+		if(node.HasRightChild())
 			MapPreOrder(function,param,node.RightChild());
-			function(node.Element(),param);
-		}
+		function(node.Element(),param);
+
 	}
 	/* ************************************************************************ */
 
@@ -85,21 +98,23 @@ bool AuxiliaryEqualOperatorFunction (typename BinaryTree<DataType>::Node& node1,
 	// Auxiliary member functions (for FoldableContainer)
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldPreOrder(const FoldFunctor function,const void*param, void* acc, Node& node) const{// Accessory function executing from one node of the tree
-		if(node!=nullptr)
-		{
-			function(node.Element(),param);
-			FoldPreOrder(function,param,node.LeftChild());
-			FoldPreOrder(function,param,node.RightChild());
-		}
+
+		function(node.Element(),param,acc);
+		if(node.HasLeftChild())
+			FoldPreOrder(function,param,acc,node.LeftChild());
+		if(node.HasRightChild())
+			FoldPreOrder(function,param,acc,node.RightChild());
+
 	}
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldPostOrder(const FoldFunctor function,const void* param, void* acc, Node& node) const{// Accessory function executing from one node of the tree
-		if(node!=nullptr)
-		{
+
+		if(node.HasLeftChild())
 			FoldPostOrder(function,param,acc,node.LeftChild());
+		if(node.HasRightChild())
 			FoldPostOrder(function,param,acc,node.RightChild());
-			function(node.Element(),param);
-		}
+		function(node.Element(),param,acc);
+
 	}
 	/* ************************************************************************ */
 	// Specific member functions (inherited from InOrderMappableContainer)
@@ -113,13 +128,14 @@ bool AuxiliaryEqualOperatorFunction (typename BinaryTree<DataType>::Node& node1,
 
 	template <typename DataType>
 	void BinaryTree<DataType>::MapInOrder(const MapFunctor function, void* param, Node& node){// Accessory function executing from one node of the tree
-		if(node!=nullptr)
-		{
+
+		if(node.HasLeftChild())
 			MapInOrder(function,param,node.LeftChild());
-			function(node.Element(),param);
+		function(node.Element(),param);
+		if(node.HasRightChild())
 			MapInOrder(function,param,node.RightChild());
 
-		}
+
 	}
 
 	/* ************************************************************************ */
@@ -128,42 +144,74 @@ bool AuxiliaryEqualOperatorFunction (typename BinaryTree<DataType>::Node& node1,
 
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldInOrder(const FoldFunctor function, const void* param,void* acc) const{
+		FoldInOrder(function,param,acc,Root());
 
 	} // Override InOrderFoldableContainer member
 
 	// Auxiliary member functions (for InOrderFoldableContainer)
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldInOrder(const FoldFunctor function,const void* param,void* acc, Node& node) const{// Accessory function executing from one node of the tree
-		if(node!=nullptr)
-		{
+
+		if(node.HasLeftChild())
 			FoldInOrder(function,param,acc,node.LeftChild());
-			function(node.Element(),param);
+		function(node.Element(),param,acc);
+		if(node.HasRightChild())
 			FoldInOrder(function,param,acc,node.RightChild());
 
 
-		}
 	}
 
 	/* ************************************************************************ */
 	// Specific member functions (inherited from BreadthMappableContainer)
 
 	template <typename DataType>
-	void BinaryTree<DataType>::MapBreadth(const MapFunctor, void* param) {} // Override BreadthMappableContainer member
+	void BinaryTree<DataType>::MapBreadth(const MapFunctor function, void* param) {// Override BreadthMappableContainer member
+		MapBreadth(function,param,this->Root());
+	}
 
 	// Auxiliary member functions (for BreadthMappableContainer)
 
 	template <typename DataType>
-	void BinaryTree<DataType>::MapBreadth(const MapFunctor function, void* param, Node&){} // Accessory function executing from one node of the tree
+	void BinaryTree<DataType>::MapBreadth(const MapFunctor function, void* param, Node& node){// Accessory function executing from one node of the tree
+
+		QueueLst<Node*> myQueue;
+
+		myQueue.Enqueue(&node);
+		while (myQueue.Size()>0) {
+			Node& n =  *myQueue.Head();
+			myQueue.Dequeue();
+			function(n.Element(),param);
+			if (n.HasLeftChild())
+				myQueue.Enqueue(&n.LeftChild());
+			if (n.HasRightChild())
+				myQueue.Enqueue(&n.RightChild());
+		}
+	}
 
 	/* ************************************************************************ */
 
 	// Specific member functions (inherited from BreadthFoldableContainer)
 
 	template <typename DataType>
-	void BinaryTree<DataType>::FoldBreadth(const FoldFunctor function, const void* param,void* acc) const {} // Override BreadthFoldableContainer member
+	void BinaryTree<DataType>::FoldBreadth(const FoldFunctor function, const void* param,void* acc) const {// Override BreadthFoldableContainer member
+		FoldBreadth(function,param,acc,this->Root());
+	}
 
 	// Auxiliary member functions (for BreadthFoldableContainer)
 
 	template <typename DataType>
-	void BinaryTree<DataType>::FoldBreadth(const FoldFunctor function,const void* param,void* acc, Node&) const{} // Accessory function executing from one node of the tree
+	void BinaryTree<DataType>::FoldBreadth(const FoldFunctor function,const void* param,void* acc, Node& node) const{// Accessory function executing from one node of the tree
+
+		QueueLst<Node*> myQueue;
+		myQueue.Enqueue(&node);
+		while (myQueue.Size()>0) {
+			Node& n =  *myQueue.Head();
+			myQueue.Dequeue();
+			function(n.Element(),param,acc);
+			if (n.HasLeftChild())
+				myQueue.Enqueue(&n.LeftChild());
+			if (n.HasRightChild())
+				myQueue.Enqueue(&n.RightChild());
+		}
+	}
 }
