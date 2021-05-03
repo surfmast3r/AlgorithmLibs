@@ -132,17 +132,17 @@ namespace lasd {
 				NodeLnk* copyNode = new NodeLnk(node->Element());
 				//copyNode->Element()=node->Element();
 				if(node->HasLeftChild())
-					binaryTreeCopy(&node->LeftChild());
+					copyNode->leftChild=binaryTreeCopy(&node->LeftChild());
 				if(node->HasRightChild())
-					binaryTreeCopy(&node->LeftChild());
+					copyNode->rightChild=binaryTreeCopy(&node->LeftChild());
 		    	return copyNode;
 		}
 
 	// Move constructor
 	template<typename DataType>
 	BinaryTreeLnk<DataType>::BinaryTreeLnk(BinaryTreeLnk&& binaryTree) noexcept{
-		std::swap(root, std::move(binaryTree.Root()));
-		std::swap(size, std::move(binaryTree.size));
+		std::swap(root, binaryTree.root);
+		std::swap(size, binaryTree.size);
 
 	}
 
@@ -190,8 +190,10 @@ namespace lasd {
 	        return;
 	    }
 
-	    deleteBinaryTree(&root->LeftChild());
-	    deleteBinaryTree(&root->RightChild());
+	    if(root->HasLeftChild())
+	    	deleteBinaryTree(&root->LeftChild());
+	    if(root->HasRightChild())
+	    	deleteBinaryTree(&root->RightChild());
 
 	    delete root;
 	    root = nullptr;

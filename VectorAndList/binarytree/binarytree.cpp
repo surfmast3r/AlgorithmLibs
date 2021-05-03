@@ -21,7 +21,6 @@ bool BinaryTree<DataType>::operator==(const BinaryTree<DataType>& binaryTree) co
 
 	if(size==binaryTree.size)
 	{
-
 		return AuxiliaryEqualOperatorFunction( Root(),binaryTree.Root());
 	}else return false;
 
@@ -33,19 +32,24 @@ bool BinaryTree<DataType>::operator!=(const BinaryTree& binaryTree) const noexce
 
 template <typename DataType>
 bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& node2) const {
-	if(node1.HasLeftChild()==node2.HasLeftChild()){
-		if(node1.HasLeftChild()){
-			AuxiliaryEqualOperatorFunction(node1.LeftChild(),node2.LeftChild());
-		}
-	}
-	else return false;
-	if(node1.HasRightChild()==node2.HasRightChild()){
-		if(node1.HasRightChild())
-			AuxiliaryEqualOperatorFunction(node1.RightChild(),node2.RightChild());
-	}
-	else return false;
 
-	return node1.Element()==node2.Element();
+	if(node1.Element()==node2.Element()){
+		if(node1.HasLeftChild()==node2.HasLeftChild()){
+			if(node1.HasLeftChild()){
+				return AuxiliaryEqualOperatorFunction(node1.LeftChild(),node2.LeftChild());
+			}
+		}
+		else return false;
+		if(node1.HasRightChild()==node2.HasRightChild()){
+			if(node1.HasRightChild())
+				return AuxiliaryEqualOperatorFunction(node1.RightChild(),node2.RightChild());
+		}
+		else return false;
+
+		return true;
+	}
+	else
+		return false;
 }
 
 /* ************************************************************************** */

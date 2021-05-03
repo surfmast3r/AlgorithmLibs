@@ -31,10 +31,6 @@ protected:
 
   protected:
 
-    // Comparison operators
-	bool operator==(const NodeLnk&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
-	bool operator!=(const NodeLnk&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
-
   public:
 	DataType data;
 	NodeLnk* leftChild= nullptr;
@@ -56,8 +52,8 @@ protected:
     /* ********************************************************************** */
 
     // Comparison operators
-    // type operator==(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
-    // type operator!=(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
+	bool operator==(const NodeLnk&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
+	bool operator!=(const NodeLnk&) const noexcept; // Comparison of abstract types is possible, but should not be visible.
 
     /* ********************************************************************** */
 
@@ -118,14 +114,14 @@ public:
 
   // Specific member functions (inherited from BinaryTree)
 
-   typename BinaryTree<DataType>::Node& Root() const; // Override BinaryTree member (throw std::length_error when empty)
+   typename BinaryTree<DataType>::Node& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-  void Clear(); // Override Container member
+  void Clear() override; // Override Container member
 
 protected:
   	NodeLnk* buildTreeFromLinearContainer(const LinearContainer<DataType>&, int, int);

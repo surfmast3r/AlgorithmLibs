@@ -48,7 +48,7 @@ public:
 
   public:
 
-    // friend class BinaryTree<Data>;
+    friend class BinaryTree<DataType>;
 
     /* ********************************************************************** */
 
