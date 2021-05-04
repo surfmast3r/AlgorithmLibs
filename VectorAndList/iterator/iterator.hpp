@@ -42,7 +42,7 @@ public:
 
   // Specific member functions
 
-   virtual DataType& operator*() = 0; // (concrete function must throw std::out_of_range when terminated)
+   virtual DataType& operator*() const = 0; // (concrete function must throw std::out_of_range when terminated)
 
    virtual bool Terminated() const = 0; // (concrete function should not throw exceptions)
 
