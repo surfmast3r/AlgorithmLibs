@@ -187,4 +187,20 @@ namespace lasd {
 		size=0;
 	} // Override Container member
 
+	template <typename DataType>
+	void BinaryTreeVec<DataType>::MapBreadth(const typename BinaryTree<DataType>::MapFunctor function, void* param) {// Override BreadthMappableContainer member
+
+		for(unsigned int i = 0; i<size;i++){
+			function(binaryTreeVector[i].Element(),param);
+		}
+	}
+	template <typename DataType>
+	void BinaryTreeVec<DataType>::FoldBreadth(const typename BinaryTree<DataType>::FoldFunctor function,const  void* param, void* acc) const{// Override BreadthMappableContainer member
+
+		for(unsigned int i = 0; i<size;i++){
+			function(binaryTreeVector[i].Element(),param,acc);
+		}
+	}
+
+
 }

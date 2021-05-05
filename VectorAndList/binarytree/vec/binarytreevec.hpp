@@ -122,6 +122,9 @@ public:
 
    typename BinaryTree<DataType>::Node& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
+   virtual void MapBreadth(const typename BinaryTree<DataType>::MapFunctor, void*) override; // Override BreadthMappableContainer member
+   virtual void FoldBreadth(const typename BinaryTree<DataType>::FoldFunctor, const void*,void*) const override; // Override BreadthFoldableContainer member
+
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)

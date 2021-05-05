@@ -8,8 +8,8 @@
 
 #include "../iterator/iterator.hpp"
 
-#include "../queue/queue.hpp"
-#include "../stack/stack.hpp"
+#include "../queue/lst/queuelst.hpp"
+#include "../stack/lst/stacklst.hpp"
 
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ private:
 protected:
 
   // ...
-	Stack<typename BinaryTree<DataType>::Node *>* stack = nullptr;
+	StackLst<typename BinaryTree<DataType>::Node *>* stack = nullptr;
 	typename BinaryTree<DataType>::Node* current = nullptr;
 
 public:
@@ -253,7 +253,7 @@ public:
 
   // Specific member functions (inherited from ForwardIterator)
 
-  	void operator++(); // (throw std::out_of_range when terminated)
+	BTPreOrderIterator& operator++(); // (throw std::out_of_range when terminated)
 
 };
 
@@ -270,7 +270,7 @@ protected:
 
 	typename BinaryTree<DataType>::Node* leftmostLeaf(typename BinaryTree<DataType>::Node*,Stack<typename BinaryTree<DataType>::Node *>*);
 
-	Stack<typename BinaryTree<DataType>::Node *>* stack = nullptr;
+	StackLst<typename BinaryTree<DataType>::Node *>* stack = nullptr;
 	typename BinaryTree<DataType>::Node* current = nullptr;
 
 public:
@@ -317,7 +317,7 @@ public:
 
   // Specific member functions (inherited from ForwardIterator)
 
-	void operator++(); // (throw std::out_of_range when terminated)
+	BTPostOrderIterator& operator++(); // (throw std::out_of_range when terminated)
 
 };
 
@@ -332,7 +332,8 @@ private:
 
 protected:
 
-	Stack<typename BinaryTree<DataType>::Node *>* stack = nullptr;
+	typename BinaryTree<DataType>::Node* leftmostNode(typename BinaryTree<DataType>::Node*,Stack<typename BinaryTree<DataType>::Node *>*);
+	StackLst<typename BinaryTree<DataType>::Node *>* stack = nullptr;
 	typename BinaryTree<DataType>::Node* current = nullptr;
 
 public:
@@ -379,7 +380,7 @@ public:
 
   // Specific member functions (inherited from ForwardIterator)
 
-   void operator++(); // (throw std::out_of_range when terminated)
+   BTInOrderIterator& operator++(); // (throw std::out_of_range when terminated)
 
 };
 
@@ -394,7 +395,7 @@ private:
 
 protected:
 
-	Queue<typename BinaryTree<DataType>::Node *>* queue = nullptr;
+	QueueLst<typename BinaryTree<DataType>::Node *>* queue = nullptr;
 	typename BinaryTree<DataType>::Node* current = nullptr;
 
 public:
@@ -405,10 +406,10 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-	BTBreadthIterator(const BTInOrderIterator<DataType>&);
+	BTBreadthIterator(const BTBreadthIterator<DataType>&);
 
   // Move constructor
-	BTBreadthIterator(BTInOrderIterator<DataType>&&) noexcept;
+	BTBreadthIterator(BTBreadthIterator<DataType>&&) noexcept;
 
   /* ************************************************************************ */
 
@@ -441,7 +442,7 @@ public:
 
   // Specific member functions (inherited from ForwardIterator)
 
-	void operator++(); // (throw std::out_of_range when terminated)
+	BTBreadthIterator& operator++(); // (throw std::out_of_range when terminated)
 
 };
 

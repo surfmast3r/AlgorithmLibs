@@ -238,7 +238,8 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Copy constructor
 	template<typename DataType>
 	BTPreOrderIterator<DataType>::BTPreOrderIterator(const BTPreOrderIterator<DataType>& iterator){
-		stack=StackLst<typename BinaryTree<DataType>::Node>(iterator.stack);
+
+		stack=new StackLst<typename BinaryTree<DataType>::Node *>(*iterator.stack);
 		current=iterator.current;
 	}
 
@@ -262,8 +263,10 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Copy assignment
 	template<typename DataType>
 	BTPreOrderIterator<DataType>& BTPreOrderIterator<DataType>::operator=(const BTPreOrderIterator & iterator){
-		stack=StackLst<typename BinaryTree<DataType>::Node>(iterator.stack);
-		current=iterator.current;
+
+		BTPreOrderIterator<DataType>* temp = new BTBreadthIterator<DataType>(iterator);
+		std::swap(*this,*temp);
+		delete temp;
 		return *this;
 	}
 
@@ -280,12 +283,12 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Comparison operators
 	template<typename DataType>
 	bool BTPreOrderIterator<DataType>::operator==(const BTPreOrderIterator& iterator) const noexcept{
-		return( (stack==iterator.stack) && (*current==*iterator.current) );
+		return( (*stack==*iterator.stack) && (current==iterator.current) );
 	}
 
 	template<typename DataType>
 	bool BTPreOrderIterator<DataType>::operator!=(const BTPreOrderIterator& iterator) const noexcept{
-		return !(this==iterator);
+		return !(*this==iterator);
 	}
 
 	/* ************************************************************************ */
@@ -306,7 +309,7 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Specific member functions (inherited from ForwardIterator)
 
 	template<typename DataType>
-	void BTPreOrderIterator<DataType>::operator++(){// (throw std::out_of_range when terminated)
+	BTPreOrderIterator<DataType>& BTPreOrderIterator<DataType>::operator++(){// (throw std::out_of_range when terminated)
 		if(!Terminated()){
 			if(current->HasLeftChild()){
 				if(current->HasRightChild())
@@ -325,6 +328,7 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 		}else throw std::out_of_range(" Iterator is terminated");
 
 
+		return *this;
 	}
 
 	/* ************************************************************************ */
@@ -347,7 +351,7 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Copy constructor
 	template<typename DataType>
 	BTPostOrderIterator<DataType>::BTPostOrderIterator(const BTPostOrderIterator<DataType>& iterator){
-		stack=StackLst<typename BinaryTree<DataType>::Node>(iterator.stack);
+		stack=new StackLst<typename BinaryTree<DataType>::Node*>(*iterator.stack);
 		current=iterator.current;
 	}
 
@@ -371,10 +375,12 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Copy assignment
 	template<typename DataType>
 	BTPostOrderIterator<DataType>& BTPostOrderIterator<DataType>::operator=(const BTPostOrderIterator & iterator){
-		stack=StackLst<typename BinaryTree<DataType>::Node>(iterator.stack);
-		current=iterator.current;
+
+		BTPostOrderIterator<DataType>* temp = new BTPostOrderIterator<DataType>(iterator);
+		std::swap(*this,*temp);
+		delete temp;
 		return *this;
-	}
+}
 
 	// Move assignment
 	template<typename DataType>
@@ -389,12 +395,12 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Comparison operators
 	template<typename DataType>
 	bool BTPostOrderIterator<DataType>::operator==(const BTPostOrderIterator& iterator) const noexcept{
-		return( (stack==iterator.stack) && (*current==*iterator.current) );
+		return( (*stack==*iterator.stack) && (current==iterator.current) );
 	}
 
 	template<typename DataType>
 	bool BTPostOrderIterator<DataType>::operator!=(const BTPostOrderIterator& iterator) const noexcept{
-		return !(this==iterator);
+		return !(*this==iterator);
 	}
 
 	/* ************************************************************************ */
@@ -415,7 +421,7 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	// Specific member functions (inherited from ForwardIterator)
 
 	template<typename DataType>
-	void BTPostOrderIterator<DataType>::operator++(){// (throw std::out_of_range when terminated)
+	BTPostOrderIterator<DataType>& BTPostOrderIterator<DataType>::operator++(){// (throw std::out_of_range when terminated)
 		if(!Terminated()){
 			if(stack->Size()>0){
 				if(current==&stack->Top()->LeftChild() && stack->Top()->HasRightChild()){ //se torno da sx e esiste il dx
@@ -430,6 +436,7 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 			else current=nullptr;
 		}else throw std::out_of_range(" Iterator is terminated");
 
+		return *this;
 
 	}
 
@@ -447,6 +454,232 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 			return root;
 	}
 
+	/* ************************************************************************ */
+		//BTInOrderIterator
+
+		// Specific constructors
+		template<typename DataType>
+		BTInOrderIterator<DataType>::BTInOrderIterator(const BinaryTree<DataType>& bt){ // An iterator over a given binary tree
+			stack= new StackLst<typename BinaryTree<DataType>::Node *>();
+			try{
+				current=leftmostNode(&bt.Root(),stack); //check if exists
+			}catch (std::length_error&) {
+				current=nullptr;
+			}
+
+
+		}
+		/* ************************************************************************ */
+
+		// Copy constructor
+		template<typename DataType>
+		BTInOrderIterator<DataType>::BTInOrderIterator(const BTInOrderIterator<DataType>& iterator){
+			stack= new StackLst<typename BinaryTree<DataType>::Node*>(*iterator.stack);
+			current=iterator.current;
+		}
+
+		// Move constructor
+		template<typename DataType>
+		BTInOrderIterator<DataType>::BTInOrderIterator(BTInOrderIterator<DataType>&& iterator) noexcept{
+			std::swap(stack, iterator.stack);
+			std::swap(current, iterator.current);
+		}
+
+		/* ************************************************************************ */
+
+		// Destructor
+		template<typename DataType>
+		BTInOrderIterator<DataType>::~BTInOrderIterator(){
+			delete stack;
+		}
+
+		/* ************************************************************************ */
+
+		// Copy assignment
+		template<typename DataType>
+		BTInOrderIterator<DataType>& BTInOrderIterator<DataType>::operator=(const BTInOrderIterator & iterator){
+
+			BTInOrderIterator<DataType>* temp = new BTInOrderIterator<DataType>(iterator);
+			std::swap(*this,*temp);
+			delete temp;
+			return *this;
+		}
+
+		// Move assignment
+		template<typename DataType>
+		BTInOrderIterator<DataType>& BTInOrderIterator<DataType>::operator=(BTInOrderIterator&& iterator) noexcept{
+			std::swap(stack, iterator.stack);
+			std::swap(current, iterator.current);
+			return *this;
+		}
+
+		/* ************************************************************************ */
+
+		// Comparison operators
+		template<typename DataType>
+		bool BTInOrderIterator<DataType>::operator==(const BTInOrderIterator& iterator) const noexcept{
+			return( (*stack==*iterator.stack) && (current==iterator.current) );
+		}
+
+		template<typename DataType>
+		bool BTInOrderIterator<DataType>::operator!=(const BTInOrderIterator& iterator) const noexcept{
+			return !(*this==iterator);
+		}
+
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from Iterator)
+		template<typename DataType>
+		DataType& BTInOrderIterator<DataType>::operator*() const{ // (throw std::out_of_range when terminated)
+			if(Terminated())
+				throw std::out_of_range(" Iterator is terminated");
+			return (*current).Element();
+		}
+		template<typename DataType>
+		bool BTInOrderIterator<DataType>::Terminated() const noexcept{ // (should not throw exceptions)
+			return (current==nullptr);
+		}
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from ForwardIterator)
+
+		template<typename DataType>
+		BTInOrderIterator<DataType>& BTInOrderIterator<DataType>::operator++(){// (throw std::out_of_range when terminated)
+			if(!Terminated()){
+
+				if(current->HasRightChild()){
+					current=leftmostNode(&current->RightChild(),stack);
+				}
+				else if(stack->Size()>0){
+					current=stack->Top();
+					stack->Pop();
+
+				}
+
+				else current=nullptr;
+			}else throw std::out_of_range(" Iterator is terminated");
+
+			return *this;
+		}
+
+		template<typename DataType>
+		typename BinaryTree<DataType>::Node* BTInOrderIterator<DataType>::leftmostNode(typename BinaryTree<DataType>::Node* root, Stack<typename BinaryTree<DataType>::Node *>* st){
+			if(root->HasLeftChild()){
+				st->Push(root);
+				return leftmostNode(&root->LeftChild(),st);
+			}
+			else
+				return root;
+		}
+
+	/* ************************************************************************ */
+		//BTBreadthIterator
+
+		// Specific constructors
+		template<typename DataType>
+		BTBreadthIterator<DataType>::BTBreadthIterator(const BinaryTree<DataType>& bt){ // An iterator over a given binary tree
+			try{
+				current=&bt.Root(); //check if exists
+			}catch (std::length_error&) {
+				current=nullptr;
+			}
+			queue= new QueueLst<typename BinaryTree<DataType>::Node *>();
+
+
+		}
+		/* ************************************************************************ */
+
+		// Copy constructor
+		template<typename DataType>
+		BTBreadthIterator<DataType>::BTBreadthIterator(const BTBreadthIterator<DataType>& iterator){
+			queue= new QueueLst<typename BinaryTree<DataType>::Node*>(*iterator.queue);
+			current=iterator.current;
+		}
+
+		// Move constructor
+		template<typename DataType>
+		BTBreadthIterator<DataType>::BTBreadthIterator(BTBreadthIterator<DataType>&& iterator) noexcept{
+			std::swap(queue, iterator.queue);
+			std::swap(current, iterator.current);
+		}
+
+		/* ************************************************************************ */
+
+		// Destructor
+		template<typename DataType>
+		BTBreadthIterator<DataType>::~BTBreadthIterator(){
+			delete queue;
+		}
+
+		/* ************************************************************************ */
+
+		// Copy assignment
+		template<typename DataType>
+		BTBreadthIterator<DataType>& BTBreadthIterator<DataType>::operator=(const BTBreadthIterator & iterator){
+			BTBreadthIterator<DataType>* temp = new BTBreadthIterator<DataType>(iterator);
+			std::swap(*this,*temp);
+			delete temp;
+			return *this;
+		}
+
+		// Move assignment
+		template<typename DataType>
+		BTBreadthIterator<DataType>& BTBreadthIterator<DataType>::operator=(BTBreadthIterator&& iterator) noexcept{
+			std::swap(queue, iterator.queue);
+			std::swap(current, iterator.current);
+			return *this;
+		}
+
+		/* ************************************************************************ */
+
+		// Comparison operators
+		template<typename DataType>
+		bool BTBreadthIterator<DataType>::operator==(const BTBreadthIterator& iterator) const noexcept{
+			return( (*queue==*iterator.queue) && (current==iterator.current) );
+		}
+
+		template<typename DataType>
+		bool BTBreadthIterator<DataType>::operator!=(const BTBreadthIterator& iterator) const noexcept{
+			return !(*this==iterator);
+		}
+
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from Iterator)
+		template<typename DataType>
+		DataType& BTBreadthIterator<DataType>::operator*() const{ // (throw std::out_of_range when terminated)
+			if(Terminated())
+				throw std::out_of_range(" Iterator is terminated");
+			return (*current).Element();
+		}
+		template<typename DataType>
+		bool BTBreadthIterator<DataType>::Terminated() const noexcept{ // (should not throw exceptions)
+			return (current==nullptr);
+		}
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from ForwardIterator)
+
+		template<typename DataType>
+		BTBreadthIterator<DataType>& BTBreadthIterator<DataType>::operator++(){// (throw std::out_of_range when terminated)
+			if(!Terminated()){
+
+				if(current->HasLeftChild()){
+					queue->Enqueue(&current->LeftChild());
+				}
+				if(current->HasRightChild()){
+					queue->Enqueue(&current->RightChild());
+				}
+				if(queue->Size()>0)
+				{
+					current=queue->Head();
+					queue->Dequeue();
+				}else
+					current=nullptr;
+			}else throw std::out_of_range(" Iterator is terminated");
+
+			return *this;
+		}
 
 }
 
