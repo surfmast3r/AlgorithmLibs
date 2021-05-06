@@ -11,8 +11,8 @@ FirstMenu::FirstMenu()
 {
 	menuText = std::string("\n--Main Menu--\n")
 				+"Please make your selection\n"
-				+ "1 - Stack\n"
-				+ "2 - Queue\n"
+				+ "1 - BinaryTreeVec\n"
+				+ "2 - BinaryTreeLnk\n"
 				+ "3 - start zlasd tests\n"
 				+ "4 - Quit\n"
 				+ "Selection: ";
@@ -24,12 +24,12 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			mainMenu = new StackMenu;
+			mainMenu = new BinaryTreeVecMenu;
 			break;
 		}
 		case 2:
 		{
-			mainMenu = new QueueMenu;
+			mainMenu = new BinaryTreeLnkMenu;
 			break;
 		}
 		case 3:
@@ -55,18 +55,18 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	return mainMenu;
 }
 
-StackMenu::StackMenu()
+BinaryTreeVecMenu::BinaryTreeVecMenu()
 {
-	menuText = std::string("\n--Stack Menu--\n")
+	menuText = std::string("\n--BinaryTreeVec Menu--\n")
 				+ "Please make your selection\n"
-				+ "1 - create random int Stack \n"
-				+ "2 - create random string Stack \n"
-				+ "3 - create random float Stack \n"
+				+ "1 - create random int BinaryTreeVec \n"
+				+ "2 - create random string BinaryTreeVec \n"
+				+ "3 - create random float BinaryTreeVec \n"
 				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
-BaseMenu *StackMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
+BaseMenu *BinaryTreeVecMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
 	BaseMenu *mainMenu = 0;
 
@@ -74,20 +74,20 @@ BaseMenu *StackMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			//testIntVector();
-			createIntStack();
+
+			createIntBinaryTreeVec();
 		}
 		break;
 		case 2:
 		{
-			//testStringVector();
-			createStringStack();
+
+			//createStringBinaryTreeVec();
 		}
 		break;
 		case 3:
 		{
-			//testFloatVector();
-			createFloatStack();
+
+			createFloatBinaryTreeVec();
 		}
 		break;
 		case 4:
@@ -106,18 +106,18 @@ BaseMenu *StackMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	return mainMenu;
 }
 
-QueueMenu::QueueMenu()
+BinaryTreeLnkMenu::BinaryTreeLnkMenu()
 {
-	menuText = std::string("\n--Queue Menu--\n")
+	menuText = std::string("\n--BinaryTreeLnk Menu--\n")
 				+ "Please make your selection\n"
-				+ "1 - create random int Queue\n"
-				+ "2 - create random string Queue\n"
-				+ "3 - create random float Queue\n"
+				+ "1 - create random int BinaryTreeLnk\n"
+				+ "2 - create random string BinaryTreeLnk\n"
+				+ "3 - create random float BinaryTreeLnk\n"
 				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
-BaseMenu *QueueMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
+BaseMenu *BinaryTreeLnkMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
 	BaseMenu *mainMenu = 0;
 
@@ -125,17 +125,17 @@ BaseMenu *QueueMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			createIntQueue();
+			createIntBinaryTreeLnk();
 		}
 		break;
 		case 2:
 		{
-			createStringQueue();
+			//createStringBinaryTreeLnk();
 		}
 		break;
 		case 3:
 		{
-			createFloatQueue();
+			createFloatBinaryTreeLnk();
 		}
 		break;
 		case 4:

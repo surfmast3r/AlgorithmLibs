@@ -22,7 +22,10 @@ bool BinaryTree<DataType>::operator==(const BinaryTree<DataType>& binaryTree) co
 
 	if(size==binaryTree.size)
 	{
-		return AuxiliaryEqualOperatorFunction( Root(),binaryTree.Root());
+		if(size>0)
+			return AuxiliaryEqualOperatorFunction( Root(),binaryTree.Root());
+		else
+			return true; //equals couse both empty
 	}else return false;
 
 }
@@ -57,11 +60,18 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	template <typename DataType>
 	void BinaryTree<DataType>::MapPreOrder(const MapFunctor function,void* param){
 
-		MapPreOrder(function,param, this->Root());
+		try{
+			MapPreOrder(function,param, this->Root());//check root
+		} catch(std::length_error& exc) {}
+
+
 	}
 	template <typename DataType>
 	void BinaryTree<DataType>::MapPostOrder(const MapFunctor function,void* param){
-		MapPostOrder(function,param, this->Root());
+
+		try{
+			MapPostOrder(function,param, this->Root());//check root
+		} catch(std::length_error& exc) {}
 	}
 
 	// Auxiliary member functions (for MappableContainer)
@@ -92,11 +102,17 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldPreOrder(const FoldFunctor function, const void* param, void*acc) const {// Override FoldableContainer member
-		FoldPreOrder(function,param,acc, this->Root());
+
+		try{
+			FoldPreOrder(function,param,acc, this->Root());//check root
+		} catch(std::length_error& exc) {}
 	}
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldPostOrder(const FoldFunctor function, const void* param, void*acc) const {// Override FoldableContainer member
-		FoldPostOrder(function,param,acc, this->Root());
+
+		try{
+			FoldPostOrder(function,param,acc, this->Root());//check root
+		} catch(std::length_error& exc) {}
 	};
 
 	// Auxiliary member functions (for FoldableContainer)
@@ -125,7 +141,10 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 
 	template <typename DataType>
 	void BinaryTree<DataType>::MapInOrder(const MapFunctor function, void* param) {// Override InOrderMappableContainer member
-		MapInOrder(function,param,this->Root());
+
+		try{
+			MapInOrder(function,param,this->Root());//check root
+		} catch(std::length_error& exc) {}
 	}
 
 	// Auxiliary member functions (for InOrderMappableContainer)
@@ -148,7 +167,10 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldInOrder(const FoldFunctor function, const void* param,void* acc) const{
-		FoldInOrder(function,param,acc,Root());
+
+		try{
+			FoldInOrder(function,param,acc,Root()); //check root
+		} catch(std::length_error& exc) {}
 
 	} // Override InOrderFoldableContainer member
 
@@ -170,7 +192,10 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 
 	template <typename DataType>
 	void BinaryTree<DataType>::MapBreadth(const MapFunctor function, void* param) {// Override BreadthMappableContainer member
-		MapBreadth(function,param,this->Root());
+
+		try{
+			MapBreadth(function,param,this->Root()); //check root
+		} catch(std::length_error& exc) {}
 	}
 
 	// Auxiliary member functions (for BreadthMappableContainer)
@@ -198,7 +223,10 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 
 	template <typename DataType>
 	void BinaryTree<DataType>::FoldBreadth(const FoldFunctor function, const void* param,void* acc) const {// Override BreadthFoldableContainer member
-		FoldBreadth(function,param,acc,this->Root());
+
+		try{
+			FoldBreadth(function,param,acc,this->Root());
+		} catch(std::length_error& exc) {}
 	}
 
 	// Auxiliary member functions (for BreadthFoldableContainer)
@@ -343,7 +371,6 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 		}catch (std::length_error&) {
 			current=nullptr;
 		}
-
 
 	}
 	/* ************************************************************************ */

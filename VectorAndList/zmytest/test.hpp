@@ -14,7 +14,18 @@
 #include "../queue/vec/queuevec.hpp"
 #include "../stack/lst/stacklst.hpp"
 #include "../stack/vec/stackvec.hpp"
+#include "../binarytree/binarytree.hpp"
+#include "../binarytree/vec/binarytreevec.hpp"
+#include "../binarytree/lnk/binarytreelnk.hpp"
+
 #include <string>
+
+typedef std::function<void(void*,std::string)> readInputFunctor;
+
+void readInput(const readInputFunctor&);
+void readIntValue(void*, std::string);
+void readFloatValue(void*,std::string);
+void readStringValue(void*,std::string);
 
 void populateRandomIntVector(lasd::Vector<int>&);
 void populateRandomFloatVector(lasd::Vector<float>&);
@@ -56,6 +67,28 @@ void floatQueueTest(lasd::Queue<float>& queue);
 void stringQueueTest(lasd::Queue<std::string>& queue);
 
 /* ************************************************************************** */
+/* BinaryTreeVecMenu */
+
+void createIntBinaryTreeVec();
+void createFloatBinaryTreeVec();
+void createStringBinaryTreeVec();
+
+/* BinaryTreeLnkMenu */
+void createIntBinaryTreeLnk();
+void createFloatBinaryTreeLnk();
+void createStringBinaryTreeLnk();
+
+void intBinaryTreeTest(lasd::BinaryTree<int>& bt);
+void floatBinaryTreeTest(lasd::BinaryTree<float>& bt);
+void stringBinaryTreeTest(lasd::BinaryTree<std::string>& bt);
+
+template<typename DataType>
+void navigateBinaryTree(lasd::BinaryTree<DataType>& bt,const readInputFunctor&);
+
+template<typename DataType>
+void startIteratorNavigation(lasd::BinaryTree<DataType>& bt);
+
+/* ************************************************************************** */
 // MappableContainer functions
 
 template <typename DataType>
@@ -73,6 +106,15 @@ void mapDoubleElementValue(DataType& data,void* _) {
 	data=2*data;
 }
 
+template <typename DataType>
+void mapTripleElementValue(DataType& data,void* _) {
+	data=3*data;
+}
+
+template <typename DataType>
+void mapPowerElementValue(DataType& data,void* power) {
+	data=pow(data, *static_cast<DataType*>(power));
+}
 template <typename DataType>
 void mapSquareElementValue(DataType& data,void* _) {
 	data*=data;
@@ -114,6 +156,21 @@ template <typename DataType>
 void foldSumLessThan(const DataType& data,const void* n,void* acc) {
 	if(data<*((DataType*)n)){
 		*((DataType*) acc)+=data;
+	}
+
+}
+template <typename DataType>
+void foldSumBiggerThan(const DataType& data,const void* n,void* acc) {
+	if(data>*((DataType*)n)){
+		*((DataType*) acc)+=data;
+	}
+
+}
+
+template <typename DataType>
+void foldMultiplyLessThan(const DataType& data,const void* n,void* acc) {
+	if(data<*((DataType*)n)){
+		*((DataType*) acc)*=data;
 	}
 
 }

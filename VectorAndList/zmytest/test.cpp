@@ -6,6 +6,346 @@
 #include "test.hpp"
 using namespace std;
 
+
+/* ************************************************************************** */
+/* Binary Tree int*/
+template <typename DataType>
+void navigateBinaryTree(lasd::BinaryTree<DataType>& bt, const readInputFunctor& readFunction){
+	bool isQuitOptionSelected=false;
+
+	typename lasd::BinaryTree<DataType>::Node * curr = &bt.Root();
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Navigate Tree Menu--\n");
+			std::cout<<"Please make your selection"<<endl;
+			std::cout<<"1: Read current Element"<<endl;
+			std::cout<<"2: Write current Element"<<endl;
+			std::cout<<"3: Check HasLeftChild"<<endl;
+			std::cout<<"4: Check HasRightChild"<<endl;
+			std::cout<<"5: Go Left"<<endl;
+			std::cout<<"6: Go Right"<<endl;
+			std::cout<<"7: Navigate with Iterator"<<endl;
+			std::cout<<"8: Back"<<endl;
+			std::cout<<"Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only: ";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					cout<<"Current Element: "<<curr->Element();
+
+				}
+				break;
+				case 2:{
+					DataType value;
+					readFunction((void*)&value, "Insert new value");
+					curr->Element()=value;
+				}
+				break;
+				case 3:{
+					if(curr->HasLeftChild())
+						cout<<"Has Left Child"<<endl;
+					else
+						cout<<"No Left Child"<<endl;
+				}
+				break;
+				case 4:{
+					if(curr->HasRightChild())
+						cout<<"Has Right Child"<<endl;
+					else
+						cout<<"No Right Child"<<endl;
+				}
+				break;
+				case 5:{
+					if(curr->HasLeftChild())
+						curr=&curr->LeftChild();
+					else
+						cout<<"No Left Child"<<endl;
+				}
+				break;
+				case 6:{
+					if(curr->HasRightChild())
+						curr=&curr->RightChild();
+					else
+						cout<<"No Right Child"<<endl;
+				}
+				break;
+				case 7:{
+					//startIteratorNavigation(bt);
+				}
+				break;
+				case 8:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+}
+
+void createIntBinaryTreeLnk(){
+	unsigned long size;
+
+		std::cout<<"insert Tree size\n";
+		while(!(std::cin >> size)){
+			std::cout << "Please enter numbers only: "<<endl;
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout<<"insert Stack size\n";
+		}
+		cout<<"Tree Vector "<<endl;
+		lasd::Vector<int> vec(size);
+		populateRandomIntVector(vec);
+		lasd::BinaryTreeLnk<int> btVec(vec);
+		intBinaryTreeTest(btVec);
+}
+void createIntBinaryTreeVec(){
+	unsigned long size;
+
+	std::cout<<"insert Tree size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert Stack size\n";
+	}
+	cout<<"Tree Vector "<<endl;
+	lasd::Vector<int> vec(size);
+	populateRandomIntVector(vec);
+	lasd::BinaryTreeVec<int> btVec(vec);
+	intBinaryTreeTest(btVec);
+
+}
+void intBinaryTreeTest(lasd::BinaryTree<int>& bt){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Int BinaryTree Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - PreOrder visit\n"
+								+ "2 - PostOrder visit\n"
+								+ "3 - Breadth Visit\n"
+								+ "4 - InOrder Visit\n"
+								+ "5 - Find Element\n"
+								+ "6 - 3n Function\n"
+								+ "7 - Multiply less then Function\n"
+								+ "8 - Navigate tree\n"
+								+ "9 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					bt.MapPreOrder(&mapPrint<int>, (void*)0);
+				}
+				break;
+				case 2:{
+					bt.MapPostOrder(&mapPrint<int>, (void*)0);
+				}
+				break;
+				case 3:{
+
+					bt.MapBreadth(&mapPrint<int>, (void*)0);
+				}
+				break;
+				case 4:{
+					bt.MapInOrder(&mapPrint<int>, (void*)0);
+				}
+				break;
+				case 5:{
+
+					int value;
+					unsigned long index=0;
+					cout<<"insert element to find:"<<endl;
+					while(!(std::cin >> value)){
+							std::cout << "Please enter numbers only: "<<endl;
+							std::cin.clear();
+							std::cin.ignore(10000, '\n');
+							cout<<"insert element to find:"<<endl;
+					}
+					bt.FoldPreOrder(&foldFind<int>, &value, &index);
+
+				}
+				break;
+				case 6:{
+
+					bt.MapPreOrder(&mapTripleElementValue<int>, (void*)0);
+					cout<<"Breadth visit:"<<endl;
+					bt.MapBreadth(&mapPrint<int>, 0);
+					cout<<endl;
+
+				}
+				break;
+				case 7:{
+					int value;
+					unsigned long acc=1;
+					cout<<"insert n size:"<<endl;
+					while(!(std::cin >> value)){
+							std::cout << "Please enter numbers only: "<<endl;
+							std::cin.clear();
+							std::cin.ignore(10000, '\n');
+							cout<<"insert n size:"<<endl;
+					}
+					bt.FoldPreOrder(&foldMultiplyLessThan<int>, &value, &acc);
+					cout<<"product is: "<<acc<<endl;
+
+				}
+				break;
+				case 8:{
+					navigateBinaryTree<int>(bt,&readIntValue);
+				}
+				break;
+				case 9:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+}
+
+/* ************************************************************************** */
+/* Binary Tree float*/
+
+void createFloatBinaryTreeLnk(){
+	unsigned long size;
+
+		std::cout<<"insert Tree size\n";
+		while(!(std::cin >> size)){
+			std::cout << "Please enter numbers only: "<<endl;
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout<<"insert Stack size\n";
+		}
+		cout<<"Tree Vector "<<endl;
+		lasd::Vector<float> vec(size);
+		populateRandomFloatVector(vec);
+		lasd::BinaryTreeLnk<float> btVec(vec);
+		floatBinaryTreeTest(btVec);
+}
+void createFloatBinaryTreeVec(){
+	unsigned long size;
+
+	std::cout<<"insert Tree size\n";
+	while(!(std::cin >> size)){
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<"insert Stack size\n";
+	}
+	cout<<"Tree Vector "<<endl;
+	lasd::Vector<float> vec(size);
+	populateRandomFloatVector(vec);
+	lasd::BinaryTreeVec<float> btVec(vec);
+	floatBinaryTreeTest(btVec);
+
+}
+void floatBinaryTreeTest(lasd::BinaryTree<float>& bt){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+		{
+			cout<<std::string("\n--Int BinaryTree Test Menu--\n")
+								+ "Please make your selection\n"
+								+ "1 - PreOrder visit\n"
+								+ "2 - PostOrder visit\n"
+								+ "3 - Breadth Visit\n"
+								+ "4 - InOrder Visit\n"
+								+ "5 - Find Element\n"
+								+ "6 - n^3 Function\n"
+								+ "7 - sum bigger then Function\n"
+								+ "8 - Navigate tree\n"
+								+ "9 - back to main menu\n"
+								+ "Selection: ";
+			int choice = 0;
+
+			if(!(std::cin >> choice)){
+				std::cout << "Please enter numbers only";
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+			}
+			switch (choice){
+				case 1:{
+					bt.MapPreOrder(&mapPrint<float>, (void*)0);
+				}
+				break;
+				case 2:{
+					bt.MapPostOrder(&mapPrint<float>, (void*)0);
+				}
+				break;
+				case 3:{
+					bt.MapBreadth(&mapPrint<float>, (void*)0);
+				}
+				break;
+				case 4:{
+					bt.MapInOrder(&mapPrint<float>, (void*)0);
+				}
+				break;
+				case 5:{
+
+					float value;
+					unsigned long index=0;
+					readFloatValue(static_cast<void*>(&value), "insert element to find:");
+
+					bt.FoldPreOrder(&foldFloatFind<float>, &value, &index);
+
+				}
+				break;
+				case 6:{
+
+					float power=3.0;
+					bt.MapPreOrder(&mapPowerElementValue<float>, static_cast<void*>(&power));
+					bt.MapBreadth(&mapPrint<float>, 0);
+					cout<<endl;
+
+				}
+				break;
+				case 7:{
+					float value;
+					float acc=0;
+					readFloatValue(static_cast<void*>(&value), "insert n size:");
+					cout<<"value is: "<<value<<endl;
+					bt.FoldPreOrder(&foldSumBiggerThan<float>, &value, &acc);
+					cout<<"sum is: "<<acc<<endl;
+
+				}
+				break;
+				case 8:{
+					navigateBinaryTree<float>(bt,&readFloatValue);
+				}
+				break;
+				case 9:{
+					isQuitOptionSelected=true;
+				}
+				break;
+				default:
+				{
+					// Do nothing
+				}
+			}
+		}
+
+}
+
 /* ************************************************************************** */
 /* Stack */
 void createIntStack(){
@@ -20,6 +360,11 @@ void createIntStack(){
 		std::cin.ignore(10000, '\n');
 		std::cout<<"insert Stack size\n";
 	}
+	cout<<"Stack Vector "<<endl;
+	lasd::Vector<int> vec(size);
+	populateRandomIntVector(vec);
+	lasd::StackVec<int> stackVec(vec);
+	intStackTest(stackVec);
 
 	while (!isQuitOptionSelected)
 		{
@@ -495,28 +840,7 @@ void stringStackTest(lasd::Stack<string>& stack){
 /* Queue */
 void myQueueTest(){
 
-	lasd::Vector<int>vec1(6);
-	lasd::Vector<int>vec2(8);
-	populateRandomIntVector(vec1);
-	lasd::QueueVec<int>queue1(vec1);
-	lasd::QueueVec<int>queue2(vec2);
-	queue2.Dequeue();
-	queue2.Enqueue(10);
-	queue2.Dequeue();
-	queue2.Enqueue(26);
-	queue2.Dequeue();
-	queue2.Enqueue(21);
-	queue2.Dequeue();
-	queue2.Enqueue(20);
-	queue2.Dequeue();
-	queue2.Enqueue(25);
-	queue2.Dequeue();
-		queue2.Enqueue(17);
-		queue2.Dequeue();
-		queue2.Dequeue();
-	if(queue1==queue2){
-		cout<<"uguali";
-	}
+
 
 }
 void createIntQueue(){
@@ -1815,6 +2139,32 @@ void capitalizeString(string& s)
 {
     transform(s.begin(), s.end(), s.begin(),
                    [](unsigned char c){ return toupper(c); });
+}
+
+void readIntValue(void *input,string msg){
+	std::cout<<msg<<endl;
+	while(!(std::cin >> *static_cast<int*>(input))){
+
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<msg<<endl;
+	}
+}
+void readFloatValue(void *input,string msg){
+	std::cout<<msg<<endl;
+	while(!(std::cin >>  *static_cast<float*>(input))){
+
+			std::cout << "Please enter numbers only: "<<endl;
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout<<msg<<endl;
+		}
+}
+void readStringValue(void *input,string msg){
+	std::cout<<msg<<endl;
+	cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+	getline(cin, *static_cast<std::string*>(input));
 }
 
 

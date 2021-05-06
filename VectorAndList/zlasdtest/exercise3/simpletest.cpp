@@ -30,6 +30,17 @@ void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, uint& testnum, uint& testerr)
     FoldInOrder(loctestnum, loctesterr, bt, true, &FoldAdd<int>, 0, 0, 6);
     FoldBreadth(loctestnum, loctesterr, bt, true, &FoldAdd<int>, 0, 0, 6);
     MapBreadth(loctestnum, loctesterr, bt, true, &MapPrint<int>, 0);
+    lasd::BinaryTreeVec<int> btvec;
+    cout << endl << "Start map and fold with empty vec " << endl;
+    MapBreadth(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
+    MapInOrder(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
+    MapPreOrder(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
+    MapPostOrder(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
+	FoldPreOrder(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
+	FoldPostOrder(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
+	FoldInOrder(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
+	FoldBreadth(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
+
   } catch(...) {
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
@@ -43,7 +54,19 @@ void stestBinaryTreeInt(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of BinaryTreeVec<int> Test" << endl;
   try {
+
+    lasd::BinaryTreeLnk<int> btvec3;
+	lasd::BinaryTreeLnk<int> btvec4=btvec3;
+	Empty(loctestnum, loctesterr, btvec4, true);
+
+	cout << endl << "Test empty BinaryTreeVec<int> equals" << endl;
+	if(btvec3==btvec4)
+		cout << endl << "equals" << endl;
     lasd::Vector<int> vec(4);
+    btvec4=lasd::BinaryTreeLnk<int>(vec);
+    Empty(loctestnum, loctesterr, btvec4, false);
+    btvec4.Clear();
+    Empty(loctestnum, loctesterr, btvec4, true);
     SetAt(loctestnum, loctesterr, vec, true, 0, 0);
     SetAt(loctestnum, loctesterr, vec, true, 1, 1);
     SetAt(loctestnum, loctesterr, vec, true, 2, 2);
