@@ -81,7 +81,7 @@ BaseMenu *BinaryTreeVecMenu::getMenuSelection(int choice, bool& iIsQuitOptionSel
 		case 2:
 		{
 
-			//createStringBinaryTreeVec();
+			createStringBinaryTreeVec();
 		}
 		break;
 		case 3:
@@ -130,7 +130,7 @@ BaseMenu *BinaryTreeLnkMenu::getMenuSelection(int choice, bool& iIsQuitOptionSel
 		break;
 		case 2:
 		{
-			//createStringBinaryTreeLnk();
+			createStringBinaryTreeLnk();
 		}
 		break;
 		case 3:

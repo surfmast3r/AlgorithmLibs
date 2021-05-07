@@ -17,8 +17,9 @@
 #include "../binarytree/binarytree.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
 #include "../binarytree/lnk/binarytreelnk.hpp"
-
 #include <string>
+
+
 
 typedef std::function<void(void*,std::string)> readInputFunctor;
 
@@ -88,6 +89,9 @@ void navigateBinaryTree(lasd::BinaryTree<DataType>& bt,const readInputFunctor&);
 template<typename DataType>
 void startIteratorNavigation(lasd::BinaryTree<DataType>& bt);
 
+template<typename DataType>
+void iteratorNavigation(lasd::ForwardIterator<DataType>& iterator);
+
 /* ************************************************************************** */
 // MappableContainer functions
 
@@ -122,6 +126,7 @@ void mapSquareElementValue(DataType& data,void* _) {
 
 void capitalizeString(std::string& s);
 void mapUppercase(std::string& data,void* _);
+void mapConcatInHead(std::string& data,void*);
 
 // FoldableContainer functions
 template <typename DataType>
@@ -184,7 +189,6 @@ void foldMultiplyGreaterThan(const DataType& data,const void* n,void* acc) {
 }
 
 void foldStringLessEqThan(const std::string& data,const void* n,void* acc);
-void testacaso();
 
 /* ************************************************************************** */
 
