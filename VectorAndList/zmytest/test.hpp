@@ -23,6 +23,7 @@
 
 typedef std::function<void(void*,std::string)> readInputFunctor;
 
+void readSizeInput(unsigned long &size,std::string msg);
 void readInput(const readInputFunctor&);
 void readIntValue(void*, std::string);
 void readFloatValue(void*,std::string);

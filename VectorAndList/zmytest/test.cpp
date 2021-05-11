@@ -158,7 +158,7 @@ void startIteratorNavigation(lasd::BinaryTree<DataType>& bt){
 template<typename DataType>
 void iteratorNavigation(lasd::ForwardIterator<DataType>& iterator){
 	bool isQuitOptionSelected=false;
-	cout<<"Current Element: "<<*iterator;
+	cout<<"Current Element: "<<*iterator<<endl;
 	while (!isQuitOptionSelected)
 		{
 			cout<<std::string("\n--Iterator Menu--\n");
@@ -176,7 +176,7 @@ void iteratorNavigation(lasd::ForwardIterator<DataType>& iterator){
 			switch (choice){
 				case 1:{
 					try{
-						cout<<"Current Element: "<<*++iterator;
+						cout<<"Current Element: "<<*++iterator<<endl;
 					}catch (std::out_of_range&) {
 						cout<<"Iterator Terminated"<<endl;
 					}
@@ -197,29 +197,17 @@ void iteratorNavigation(lasd::ForwardIterator<DataType>& iterator){
 void createIntBinaryTreeLnk(){
 	unsigned long size;
 
-		std::cout<<"insert Tree size\n";
-		while(!(std::cin >> size)){
-			std::cout << "Please enter numbers only: "<<endl;
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-			std::cout<<"insert Tree size\n";
-		}
-		cout<<"Tree Vector "<<endl;
-		lasd::Vector<int> vec(size);
-		populateRandomIntVector(vec);
-		lasd::BinaryTreeLnk<int> btVec(vec);
-		intBinaryTreeTest(btVec);
+	readSizeInput(size, "insert Tree size");
+	cout<<"Tree Vector "<<endl;
+	lasd::Vector<int> vec(size);
+	populateRandomIntVector(vec);
+	lasd::BinaryTreeLnk<int> btVec(vec);
+	intBinaryTreeTest(btVec);
 }
 void createIntBinaryTreeVec(){
 	unsigned long size;
 
-	std::cout<<"insert Tree size\n";
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert Tree size\n";
-	}
+	readSizeInput(size, "insert Tree size");
 	cout<<"Tree Vector "<<endl;
 	lasd::Vector<int> vec(size);
 	populateRandomIntVector(vec);
@@ -335,30 +323,17 @@ void intBinaryTreeTest(lasd::BinaryTree<int>& bt){
 
 void createFloatBinaryTreeLnk(){
 	unsigned long size;
-
-		std::cout<<"insert Tree size\n";
-		while(!(std::cin >> size)){
-			std::cout << "Please enter numbers only: "<<endl;
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-			std::cout<<"insert Stack size\n";
-		}
-		cout<<"Tree Vector "<<endl;
-		lasd::Vector<float> vec(size);
-		populateRandomFloatVector(vec);
-		lasd::BinaryTreeLnk<float> btVec(vec);
-		floatBinaryTreeTest(btVec);
+	readSizeInput(size, "insert Tree size");
+	cout<<"Tree Vector "<<endl;
+	lasd::Vector<float> vec(size);
+	populateRandomFloatVector(vec);
+	lasd::BinaryTreeLnk<float> btVec(vec);
+	floatBinaryTreeTest(btVec);
 }
 void createFloatBinaryTreeVec(){
 	unsigned long size;
 
-	std::cout<<"insert Tree size\n";
-	while(!(std::cin >> size)){
-		std::cout << "Please enter numbers only: "<<endl;
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout<<"insert Stack size\n";
-	}
+	readSizeInput(size, "insert Tree size");
 	cout<<"Tree Vector "<<endl;
 	lasd::Vector<float> vec(size);
 	populateRandomFloatVector(vec);
@@ -462,8 +437,7 @@ void floatBinaryTreeTest(lasd::BinaryTree<float>& bt){
 /* Binary Tree string*/
 void createStringBinaryTreeLnk(){
 	unsigned long size;
-	readIntValue(static_cast<void*>(&size), "insert Tree size");
-
+	readSizeInput(size, "insert Tree size");
 	cout<<"Tree Link "<<endl;
 	lasd::Vector<std::string> vec(size);
 	populateRandomStringVector(vec);
@@ -473,7 +447,7 @@ void createStringBinaryTreeLnk(){
 void createStringBinaryTreeVec(){
 	unsigned long size;
 
-	readIntValue(static_cast<void*>(&size), "insert Tree size");
+	readSizeInput(size, "insert Tree size");
 	cout<<"Tree Vector "<<endl;
 	lasd::Vector<std::string> vec(size);
 	populateRandomStringVector(vec);
@@ -578,7 +552,7 @@ void stringBinaryTreeTest(lasd::BinaryTree<std::string>& bt){
 
 void populateRandomIntVector(lasd::Vector<int>& vec){
 	std::cout<< "populating int vector\n";
-	unsigned int size=vec.Size();
+	unsigned long size=vec.Size();
 	srand(time(NULL));
 
 	default_random_engine genx(random_device{}());
@@ -594,7 +568,7 @@ void populateRandomIntVector(lasd::Vector<int>& vec){
 };
 void populateRandomFloatVector(lasd::Vector<float>& vec){
 	std::cout<< "populating float vector\n";
-	unsigned int size=vec.Size();
+	unsigned long size=vec.Size();
 	srand(time(NULL));
 	default_random_engine genx(random_device{}());
 	uniform_real_distribution<float> distx(0.0, 10.0);
@@ -610,7 +584,7 @@ void populateRandomFloatVector(lasd::Vector<float>& vec){
 };
 void populateRandomStringVector(lasd::Vector<string>& vec){
 	std::cout<< "populating string vector\n";
-	unsigned int size=vec.Size();
+	unsigned long size=vec.Size();
 	unsigned int stringSize=0;
 	srand(time(NULL));
 	for(unsigned long i = 0; i<size; i++){
@@ -696,6 +670,16 @@ void capitalizeString(string& s)
                    [](unsigned char c){ return toupper(c); });
 }
 
+void readSizeInput(unsigned long &size,string msg){
+	std::cout<<msg<<endl;
+	while(!(std::cin >> size)){
+
+		std::cout << "Please enter numbers only: "<<endl;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout<<msg<<endl;
+	}
+}
 void readIntValue(void *input,string msg){
 	std::cout<<msg<<endl;
 	while(!(std::cin >> *static_cast<int*>(input))){
