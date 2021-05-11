@@ -40,7 +40,7 @@ namespace lasd {
 	} // Immutable access to the element (concrete function should not throw exceptions)
 
 	template<typename DataType>
-	bool BinaryTreeLnk<DataType>::NodeLnk::IsLeaf() noexcept{
+	bool BinaryTreeLnk<DataType>::NodeLnk::IsLeaf() const noexcept{
 		return (!HasLeftChild()&&!HasRightChild());
 	} // (concrete function should not throw exceptions)
 
@@ -55,7 +55,7 @@ namespace lasd {
 	} // (concrete function should not throw exceptions)
 
 	template<typename DataType>
-	typename BinaryTreeLnk<DataType>::NodeLnk& BinaryTreeLnk<DataType>::NodeLnk::LeftChild() {
+	typename BinaryTreeLnk<DataType>::NodeLnk& BinaryTreeLnk<DataType>::NodeLnk::LeftChild() const{
 		if(HasLeftChild())
 			return *leftChild;
 		else
@@ -63,7 +63,7 @@ namespace lasd {
 	} // (concrete function must throw std::out_of_range when not existent)
 
 	template<typename DataType>
-	typename BinaryTreeLnk<DataType>::NodeLnk& BinaryTreeLnk<DataType>::NodeLnk::RightChild() {
+	typename BinaryTreeLnk<DataType>::NodeLnk& BinaryTreeLnk<DataType>::NodeLnk::RightChild() const{
 		if(HasRightChild())
 			return *rightChild;
 		else

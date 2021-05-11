@@ -157,8 +157,8 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& tes
     Terminated(loctestnum, loctesterr, itr3, true);
 
     lasd::BTPostOrderIterator<double> itr4(bt);
-    lasd::BTPostOrderIterator<double> itr9(bt);
-    itr9=itr4;
+    lasd::BTPostOrderIterator<double> itr9(itr4);
+    //itr9=itr4;
     if(itr9==itr4)
     	cout<<"itr9 and 4 are equals"<<endl;
     GetItrValue(loctestnum, loctesterr, itr9, true, 2.1);

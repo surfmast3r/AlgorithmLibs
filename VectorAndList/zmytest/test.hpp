@@ -37,35 +37,6 @@ void populateRandomFloatList(lasd::List<float>& container,unsigned long& );
 void populateRandomStringList(lasd::List<std::string>& container,unsigned long& );
 std::string createRandomString(int stringSize);
 
-//void testFloatVector();
-//void testStringVector();
-//void testIntVector();
-
-//void testFloatList();
-//void testStringList();
-//void testIntList();
-
-/* ************************************************************************** */
-/* Stack */
-
-void createIntStack();
-void createFloatStack();
-void createStringStack();
-void intStackTest(lasd::Stack<int>& stack);
-void floatStackTest(lasd::Stack<float>& stack);
-void stringStackTest(lasd::Stack<std::string>& stack);
-
-/* ************************************************************************** */
-/* Queue */
-void myQueueTest();
-
-void createIntQueue();
-void createFloatQueue();
-void createStringQueue();
-
-void intQueueTest(lasd::Queue<int>& queue);
-void floatQueueTest(lasd::Queue<float>& queue);
-void stringQueueTest(lasd::Queue<std::string>& queue);
 
 /* ************************************************************************** */
 /* BinaryTreeVecMenu */

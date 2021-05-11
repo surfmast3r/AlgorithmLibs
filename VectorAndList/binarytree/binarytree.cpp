@@ -16,6 +16,11 @@ bool BinaryTree<DataType>::Node::operator!=(const Node& node) const noexcept{
 	return !(*this==node);
 }
 
+template<typename DataType>
+bool BinaryTree<DataType>::Node::IsLeaf() const noexcept{
+	return (!HasLeftChild()&&!HasRightChild());
+} // (concrete function should not throw exceptions)
+
 /* ************************************************************************** */
 template <typename DataType>
 bool BinaryTree<DataType>::operator==(const BinaryTree<DataType>& binaryTree) const noexcept{
@@ -44,6 +49,7 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 			}
 		}
 		else return false;
+
 		if(node1.HasRightChild()==node2.HasRightChild()){
 			if(node1.HasRightChild())
 				return AuxiliaryEqualOperatorFunction(node1.RightChild(),node2.RightChild());

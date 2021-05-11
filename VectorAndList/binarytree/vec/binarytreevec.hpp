@@ -68,12 +68,12 @@ protected:
     DataType& Element() noexcept ; // Mutable access to the element (concrete function should not throw exceptions)
     const DataType& Element() const noexcept ; // Immutable access to the element (concrete function should not throw exceptions)
 
-    bool IsLeaf() noexcept; // (concrete function should not throw exceptions)
+    bool IsLeaf() const noexcept; // (concrete function should not throw exceptions)
     bool HasLeftChild() const noexcept; // (concrete function should not throw exceptions)
     bool HasRightChild() const noexcept ; // (concrete function should not throw exceptions)
 
-    NodeVec& LeftChild() ; // (concrete function must throw std::out_of_range when not existent)
-    NodeVec& RightChild() ; // (concrete function must throw std::out_of_range when not existent)
+    NodeVec& LeftChild() const; // (concrete function must throw std::out_of_range when not existent)
+    NodeVec& RightChild() const; // (concrete function must throw std::out_of_range when not existent)
 
   };
 

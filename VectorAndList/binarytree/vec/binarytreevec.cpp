@@ -41,7 +41,7 @@ namespace lasd {
 	} // Immutable access to the element (concrete function should not throw exceptions)
 
 	template<typename DataType>
-	bool BinaryTreeVec<DataType>::NodeVec::IsLeaf() noexcept{
+	bool BinaryTreeVec<DataType>::NodeVec::IsLeaf() const noexcept{
 		return (!HasLeftChild()&&!HasRightChild());
 	} // (concrete function should not throw exceptions)
 
@@ -68,7 +68,7 @@ namespace lasd {
 	} // (concrete function should not throw exceptions)
 
 	template<typename DataType>
-	typename BinaryTreeVec<DataType>::NodeVec& BinaryTreeVec<DataType>::NodeVec::LeftChild() {
+	typename BinaryTreeVec<DataType>::NodeVec& BinaryTreeVec<DataType>::NodeVec::LeftChild() const{
 		if(HasLeftChild()){
 			return (*btVec)[(index*2+1)];
 		}
@@ -78,7 +78,7 @@ namespace lasd {
 	} // (concrete function must throw std::out_of_range when not existent)
 
 	template<typename DataType>
-	typename BinaryTreeVec<DataType>::NodeVec& BinaryTreeVec<DataType>::NodeVec::RightChild() {
+	typename BinaryTreeVec<DataType>::NodeVec& BinaryTreeVec<DataType>::NodeVec::RightChild() const{
 		if(HasRightChild()){
 			return (*btVec)[(index*2+2)];
 		}
