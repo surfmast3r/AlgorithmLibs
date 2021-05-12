@@ -92,7 +92,7 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-   BinaryTreeVec(const BinaryTreeVec&) noexcept;
+   BinaryTreeVec(const BinaryTreeVec&);
 
   // Move constructor
    BinaryTreeVec(BinaryTreeVec&&) noexcept;

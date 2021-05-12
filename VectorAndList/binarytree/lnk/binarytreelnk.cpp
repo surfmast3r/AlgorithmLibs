@@ -117,7 +117,7 @@ namespace lasd {
 
 	// Copy constructor
 	template<typename DataType>
-	BinaryTreeLnk<DataType>::BinaryTreeLnk(const BinaryTreeLnk& binaryTree) noexcept{
+	BinaryTreeLnk<DataType>::BinaryTreeLnk(const BinaryTreeLnk& binaryTree) {
 
 		size=binaryTree.size;
 		if(size>0){

@@ -37,7 +37,7 @@ void navigateBinaryTree(lasd::BinaryTree<DataType>& bt, const readInputFunctor& 
 				}
 				switch (choice){
 					case 1:{
-						cout<<"Current Element: "<<curr->Element();
+						cout<<"Current Element: "<<curr->Element()<<endl;
 
 					}
 					break;
@@ -64,7 +64,7 @@ void navigateBinaryTree(lasd::BinaryTree<DataType>& bt, const readInputFunctor& 
 					case 5:{
 						if(curr->HasLeftChild()){
 							curr=&curr->LeftChild();
-							cout<<"Current Element: "<<curr->Element();
+							cout<<"Current Element: "<<curr->Element()<<endl;
 						}
 						else
 							cout<<"No Left Child"<<endl;
@@ -73,7 +73,7 @@ void navigateBinaryTree(lasd::BinaryTree<DataType>& bt, const readInputFunctor& 
 					case 6:{
 						if(curr->HasRightChild()){
 							curr=&curr->RightChild();
-							cout<<"Current Element: "<<curr->Element();
+							cout<<"Current Element: "<<curr->Element()<<endl;
 						}
 
 						else
@@ -648,7 +648,6 @@ string createRandomString(int stringSize)
 		ran=ran + letters[rand() % 26];
 	return ran;
 }
-
 
 void foldStringLessEqThan(const std::string& data,const void* n,void* acc) {
 	if(data.size()<=*(unsigned int*)n){

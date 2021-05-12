@@ -86,7 +86,7 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-  BinaryTreeLnk(const BinaryTreeLnk&) noexcept;
+  BinaryTreeLnk(const BinaryTreeLnk&) ;
 
   // Move constructor
   BinaryTreeLnk(BinaryTreeLnk&&) noexcept;

@@ -116,7 +116,7 @@ namespace lasd {
 
 	// Copy constructor
 	template<typename DataType>
-	BinaryTreeVec<DataType>::BinaryTreeVec(const BinaryTreeVec& btVec) noexcept{
+	BinaryTreeVec<DataType>::BinaryTreeVec(const BinaryTreeVec& btVec) {
 		binaryTreeVector= Vector<NodeVec>(btVec.binaryTreeVector);
 		size= btVec.size;
 	}
