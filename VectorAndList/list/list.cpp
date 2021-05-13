@@ -57,13 +57,13 @@ List<DataType>::List(List<DataType>&& list ) noexcept{
 template <typename DataType>
 List<DataType>::~List(){
 
-	Node* temp = new Node();
+	Node* temp;
 	while(head != nullptr) {
 		temp = head;
 		head = head->next;
 		delete(temp);
 	}
-	//std::cout<<"List destructed\n";
+//	std::cout<<"List destructed\n";
 }
 
 //copy assignment
@@ -213,7 +213,7 @@ DataType& List<DataType>::operator[](const unsigned long index) const {
 
 template <typename DataType>
 void List<DataType>::Clear() {
-	Node* temp = new Node();
+	Node* temp;
 	while(head != nullptr) {
 		temp = head;
 		head = head->next;

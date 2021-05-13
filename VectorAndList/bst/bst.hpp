@@ -99,16 +99,18 @@ protected:
 
   // type DataNDelete(argument) specifiers;
 
-   NodeLnk& Detach(NodeLnk&);
+   NodeLnk* Detach(NodeLnk*&);
 
-   NodeLnk& DetachMin(NodeLnk&); //argument root of subTree
-   NodeLnk& DetachMax(NodeLnk&); //argument root of subTree
+   NodeLnk* DetachMin(NodeLnk*&); //argument root of subTree
+   NodeLnk* DetachMax(NodeLnk*&); //argument root of subTree
 
-   NodeLnk*& SkipOnLeft(NodeLnk&);
-   NodeLnk*& SkipOnRight(NodeLnk&);
+   NodeLnk* SkipOnLeft(NodeLnk*&);
+   NodeLnk* SkipOnRight(NodeLnk*&);
 
-   NodeLnk*& FindPointerToMin(const NodeLnk&) const;//argument root of subTree
-   NodeLnk*& FindPointerToMax(const NodeLnk&) const;//argument root of subTree
+   NodeLnk*& FindPointerToMin(const NodeLnk*&) const;//argument root of subTree
+   NodeLnk* const& FindPointerToMin(const NodeLnk*&) const;
+
+   NodeLnk*& FindPointerToMax(const NodeLnk*&) const;//argument root of subTree
 
    NodeLnk*& FindPointerTo(const NodeLnk&,const DataType&) const;//argument root of subTree and data to find
 

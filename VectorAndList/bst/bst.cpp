@@ -68,9 +68,9 @@ namespace lasd {
 			if(value==curr->Element())
 				return curr;
 			if(value<curr->Element())
-				curr=curr->leftChild;
+				curr=&curr->leftChild;
 			else if(value>curr->Element())
-				curr=curr->rightChild;
+				curr=&curr->rightChild;
 		}
 		return curr;
 	}
@@ -96,9 +96,134 @@ namespace lasd {
 	void BST<DataType>::Remove(const DataType& value) noexcept{
 		NodeLnk*& curr=FindPointerTo(*root,value);
 		if(curr!=nullptr){
-
-			size--;
+			delete Detach(curr);
 		}
 	}
+	template<typename DataType>
+	const DataType& BST<DataType>::Min() const{ // (concrete function must throw std::length_error when empty)
+		if(size>0){
+			NodeLnk*& min=FindPointerToMin(*root);
+			return min->data;
+		}
+		else
+			throw std::length_error("Tree is empty");
 
+
+	}
+
+	template<typename DataType>
+	DataType BST<DataType>::MinNRemove(){ // (concrete function must throw std::length_error when empty)
+
+		if(size>0){
+			NodeLnk*& min=DetachMin(*root);
+			DataType value=min->data;
+			delete min;
+			min= nullptr;
+			return value;
+		}
+		else
+			throw std::length_error("Tree is empty");
+	}
+
+	template<typename DataType>
+	void BST<DataType>::RemoveMin(){ // (concrete function must throw std::length_error when empty)
+
+		if(size>0){
+			NodeLnk*& min=DetachMin(*root);
+			delete min;
+			min= nullptr;
+
+		}
+		else
+			throw std::length_error("Tree is empty");
+	}
+
+	template<typename DataType>
+	const DataType& BST<DataType>::Max() const{ // (concrete function must throw std::length_error when empty)
+	}
+
+	template<typename DataType>
+	DataType BST<DataType>::MaxNRemove(){ // (concrete function must throw std::length_error when empty)
+	}
+
+	template<typename DataType>
+	void BST<DataType>::RemoveMax(){ // (concrete function must throw std::length_error when empty)
+	}
+
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>* BST<DataType>::Detach(NodeLnk<DataType>*& nodeLnk){
+
+		if(nodeLnk->leftChild==nullptr){
+			return SkipOnRight(nodeLnk);
+		}
+		else if(nodeLnk->rightChild==nullptr){
+			return SkipOnLeft(nodeLnk);
+		}
+		else{
+			NodeLnk* temp= DetachMin(nodeLnk->rightChild);
+			std::swap(temp->data,nodeLnk->data);
+			return temp;
+		}
+
+	}
+
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>* BST<DataType>::DetachMin(NodeLnk<DataType>*& nodeLnk){ //argument root of subTree
+		return SkipOnRight(FindPointerToMin(NodeLnk));
+	}
+
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>* BST<DataType>::DetachMax(NodeLnk<DataType>*& nodeLnk){ //argument root of subTree
+
+		return SkipOnLeft(FindPointerToMax(NodeLnk));
+	}
+
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>* BST<DataType>::SkipOnLeft(NodeLnk<DataType>*& nodeLnk){
+		NodeLnk* temp=nodeLnk;
+		if(nodeLnk!= nullptr){
+			nodeLnk=nodeLnk->leftChild;
+			temp->leftChild=nullptr;
+			size--;
+		}
+		return temp;
+	}
+
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>* BST<DataType>::SkipOnRight(NodeLnk<DataType>*& nodeLnk){
+		NodeLnk* temp=nodeLnk;
+		if(nodeLnk!= nullptr){
+			nodeLnk=nodeLnk->rightChild;
+			temp->rightChild=nullptr;
+			size--;
+		}
+		return temp;
+
+	}
+
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>*& BST<DataType>::FindPointerToMin(const NodeLnk<DataType>*& root) const{
+		NodeLnk*&curr=root;
+		while(curr->leftChild!=nullptr){
+			curr=&curr->leftChild;
+		}
+		return curr;
+	}
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>*& BST<DataType>::FindPointerToMax(const NodeLnk<DataType>*& root) const{
+		NodeLnk*&curr=root;
+		while(curr->rightChild!=nullptr){
+			curr=&curr->rightChild;
+		}
+		return curr;
+	}
+
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>*& BST<DataType>::FindPointerToPredecessor(const NodeLnk<DataType>& root,const DataType& value) const{
+
+	}
+	template<typename DataType>
+	BST<DataType>::NodeLnk<DataType>*& BST<DataType>::FindPointerToSuccessor(const NodeLnk<DataType>& root,const DataType& value) const{
+
+	}
 }
