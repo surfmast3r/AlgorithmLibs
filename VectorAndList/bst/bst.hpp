@@ -99,23 +99,27 @@ protected:
 
   // type DataNDelete(argument) specifiers;
 
-   NodeLnk* Detach(NodeLnk*&);
+   typename BST<DataType>::NodeLnk* Detach(typename BST<DataType>::NodeLnk*&);
 
-   NodeLnk* DetachMin(NodeLnk*&); //argument root of subTree
-   NodeLnk* DetachMax(NodeLnk*&); //argument root of subTree
+   typename BST<DataType>::NodeLnk* DetachMin(typename BST<DataType>::NodeLnk*&); //argument root of subTree
+   typename BST<DataType>::NodeLnk* DetachMax(typename BST<DataType>::NodeLnk*&); //argument root of subTree
 
-   NodeLnk* SkipOnLeft(NodeLnk*&);
-   NodeLnk* SkipOnRight(NodeLnk*&);
+   typename BST<DataType>::NodeLnk* SkipOnLeft(typename BST<DataType>::NodeLnk*&);
+   typename BST<DataType>::NodeLnk* SkipOnRight(typename BST<DataType>::NodeLnk*&);
 
-   NodeLnk*& FindPointerToMin(const NodeLnk*&) const;//argument root of subTree
-   NodeLnk* const& FindPointerToMin(const NodeLnk*&) const;
+   typename BST<DataType>::NodeLnk*& FindPointerToMin(typename BST<DataType>::NodeLnk*&);//argument root of subTree
+   typename BST<DataType>::NodeLnk* const& FindPointerToMin( typename BST<DataType>::NodeLnk * const&) const;
 
-   NodeLnk*& FindPointerToMax(const NodeLnk*&) const;//argument root of subTree
+   typename BST<DataType>::NodeLnk*& FindPointerToMax(typename BST<DataType>::NodeLnk*&) ;//argument root of subTree
+   typename BST<DataType>::NodeLnk* const& FindPointerToMax( typename BST<DataType>::NodeLnk * const&) const;
 
-   NodeLnk*& FindPointerTo(const NodeLnk&,const DataType&) const;//argument root of subTree and data to find
+   typename BST<DataType>::NodeLnk*& FindPointerTo( typename BST<DataType>::NodeLnk*& ,const DataType&) ;//argument root of subTree and data to find
+   typename BST<DataType>::NodeLnk* const& FindPointerTo(typename BST<DataType>::NodeLnk* const&,const DataType&) const;//argument root of subTree and data to find
 
-   NodeLnk*& FindPointerToPredecessor(const NodeLnk&,const DataType&) const;
-   NodeLnk*& FindPointerToSuccessor(const NodeLnk&,const DataType&) const;
+   typename BST<DataType>::NodeLnk*& FindPointerToPredecessor( typename BST<DataType>::NodeLnk*&,const DataType&) const;
+   typename BST<DataType>::NodeLnk* const& FindPointerToPredecessor( typename BST<DataType>::NodeLnk*const&,const DataType&) const;
+   typename BST<DataType>::NodeLnk*& FindPointerToSuccessor( typename BST<DataType>::NodeLnk*&,const DataType&) const;
+   typename BST<DataType>::NodeLnk* const& FindPointerToSuccessor( typename BST<DataType>::NodeLnk*const&,const DataType&) const;
 
 };
 
