@@ -73,7 +73,7 @@ void stestBinaryTreeInt(uint& testnum, uint& testerr) {
     SetAt(loctestnum, loctesterr, vec, true, 3, 3);
 
     lasd::BinaryTreeVec<int> btvec(vec);
-    lasd::BinaryTreeVec<int> btvec2=btvec;
+    lasd::BinaryTreeVec<int> btvec2(btvec);
     cout << endl << "Begin of BinaryTreeVec<int> Test:" << endl;
     stestBinaryTreeInt(btvec2, loctestnum, loctesterr);
     lasd::BinaryTreeLnk<int> btlnk(vec);

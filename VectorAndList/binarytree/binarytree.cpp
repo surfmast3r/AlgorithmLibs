@@ -42,7 +42,7 @@ bool BinaryTree<DataType>::operator!=(const BinaryTree& binaryTree) const noexce
 template <typename DataType>
 bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& node2) const {
 
-	if(node1.Element()==node2.Element()){
+	if(node1==node2){
 		if(node1.HasLeftChild()==node2.HasLeftChild()){
 			if(node1.HasLeftChild()){
 				return AuxiliaryEqualOperatorFunction(node1.LeftChild(),node2.LeftChild());
@@ -213,13 +213,13 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 
 		myQueue.Enqueue(&node);
 		while (myQueue.Size()>0) {
-			Node& n =  *myQueue.Head();
+			Node* n =  myQueue.Head();
 			myQueue.Dequeue();
-			function(n.Element(),param);
-			if (n.HasLeftChild())
-				myQueue.Enqueue(&n.LeftChild());
-			if (n.HasRightChild())
-				myQueue.Enqueue(&n.RightChild());
+			function(n->Element(),param);
+			if (n->HasLeftChild())
+				myQueue.Enqueue(&n->LeftChild());
+			if (n->HasRightChild())
+				myQueue.Enqueue(&n->RightChild());
 		}
 	}
 

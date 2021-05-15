@@ -47,24 +47,32 @@ namespace lasd {
 
 	template<typename DataType>
 	bool BinaryTreeVec<DataType>::NodeVec::HasLeftChild()const noexcept{
-		try{
-			(*btVec)[(index*2+1)];
-		}
-		catch (std::out_of_range&) {
-			return false;
-		}
-		return true;
+
+		if((index*2+1)< btVec->Size())
+			return true;
+		else return false;
+//		try{
+//			(*btVec)[(index*2+1)];
+//		}
+//		catch (std::out_of_range&) {
+//			return false;
+//		}
+//		return true;
 	} // (concrete function should not throw exceptions)
 
 	template<typename DataType>
 	bool BinaryTreeVec<DataType>::NodeVec::HasRightChild()const noexcept{
-		try{
-			(*btVec)[(index*2+2)];
-		}
-		catch (std::out_of_range&) {
-			return false;
-		}
-		return true;
+
+		if((index*2+2)< btVec->Size())
+			return true;
+		else return false;
+//		try{
+//			(*btVec)[(index*2+2)];
+//		}
+//		catch (std::out_of_range&) {
+//			return false;
+//		}
+//		return true;
 	} // (concrete function should not throw exceptions)
 
 	template<typename DataType>

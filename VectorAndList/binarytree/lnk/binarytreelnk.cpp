@@ -103,8 +103,9 @@ namespace lasd {
 		if (i < n)
 		{
 			NodeLnk* temp= new NodeLnk();
-			// insert left child
+
 			temp->data=container[i];
+			// insert left child
 			temp->leftChild = buildTreeFromLinearContainer(container, 2 * i + 1, n);
 			// insert right child
 			temp->rightChild = buildTreeFromLinearContainer(container, 2 * i + 2, n);
@@ -130,7 +131,7 @@ namespace lasd {
 	typename BinaryTreeLnk<DataType>::NodeLnk* BinaryTreeLnk<DataType>::binaryTreeCopy( NodeLnk* node)
 		{
 				NodeLnk* copyNode = new NodeLnk(node->Element());
-				//copyNode->Element()=node->Element();
+
 				if(node->HasLeftChild())
 					copyNode->leftChild=binaryTreeCopy(&node->LeftChild());
 				if(node->HasRightChild())
