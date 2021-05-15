@@ -96,9 +96,9 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	void BinaryTree<DataType>::MapPostOrder(const MapFunctor function, void* param, Node& node){// Accessory function executing from one node of the tree
 
 		if(node.HasLeftChild())
-			MapPreOrder(function,param,node.LeftChild());
+			MapPostOrder(function,param,node.LeftChild());
 		if(node.HasRightChild())
-			MapPreOrder(function,param,node.RightChild());
+			MapPostOrder(function,param,node.RightChild());
 		function(node.Element(),param);
 
 	}

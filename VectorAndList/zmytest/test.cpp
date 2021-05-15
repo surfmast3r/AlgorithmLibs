@@ -273,7 +273,7 @@ void intBinaryTreeTest(lasd::BinaryTree<int>& bt){
 							std::cin.ignore(10000, '\n');
 							cout<<"insert element to find:"<<endl;
 					}
-					bt.FoldPreOrder(&foldFind<int>, &value, &index);
+					bt.FoldBreadth(&foldFind<int>, &value, &index);
 
 				}
 				break;
@@ -393,7 +393,7 @@ void floatBinaryTreeTest(lasd::BinaryTree<float>& bt){
 					unsigned long index=0;
 					readFloatValue(static_cast<void*>(&value), "insert element to find:");
 
-					bt.FoldPreOrder(&foldFloatFind<float>, &value, &index);
+					bt.FoldBreadth(&foldFloatFind<float>, &value, &index);
 
 				}
 				break;
@@ -507,7 +507,7 @@ void stringBinaryTreeTest(lasd::BinaryTree<std::string>& bt){
 					unsigned long index=0;
 					readStringValue(static_cast<void*>(&value), "insert element to find:");
 
-					bt.FoldPreOrder(&foldFind<std::string>, &value, &index);
+					bt.FoldBreadth(&foldFind<std::string>, &value, &index);
 
 				}
 				break;
@@ -525,7 +525,7 @@ void stringBinaryTreeTest(lasd::BinaryTree<std::string>& bt){
 					std::string acc="";
 					int value;
 					readIntValue(static_cast<void*>(&value), "insert n:");
-					bt.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
+					bt.FoldBreadth(&foldStringLessEqThan, &value, &acc);
 					cout<<"Concatenated string: "<<acc<<endl;
 
 
