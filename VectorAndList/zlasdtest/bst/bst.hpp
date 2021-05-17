@@ -218,6 +218,7 @@ void PredecessorNRemove(uint& testnum, uint& testerr, lasd::BST<Data>& bst, bool
   testnum++;
   try {
     std::cout << " " << testnum << " (" << testerr << ") Remove predecessor of " << prd << " from the the bst: \"" << bst.Predecessor(prd) << "\": ";
+    std::cout <<"";
     std::cout << ((tst = ((bst.PredecessorNRemove(prd) == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::length_error exc) {
     std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;

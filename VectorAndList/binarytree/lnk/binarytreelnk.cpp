@@ -135,7 +135,7 @@ namespace lasd {
 				if(node->HasLeftChild())
 					copyNode->leftChild=binaryTreeCopy(&node->LeftChild());
 				if(node->HasRightChild())
-					copyNode->rightChild=binaryTreeCopy(&node->LeftChild());
+					copyNode->rightChild=binaryTreeCopy(&node->RightChild());
 		    	return copyNode;
 		}
 

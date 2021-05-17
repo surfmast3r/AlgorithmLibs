@@ -362,17 +362,44 @@ namespace lasd {
 	}
 
 	template<typename DataType>
-	typename BST<DataType>::NodeLnk*& BST<DataType>::FindPointerToPredecessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) const{
-		return root;
+	typename BST<DataType>::NodeLnk*& BST<DataType>::FindPointerToPredecessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) {
+		return const_cast<typename BST<DataType>::NodeLnk*&>(static_cast<const BST<DataType>*>(this)->FindPointerToPredecessor(root, value));
 	}
 	template<typename DataType>
-	typename BST<DataType>::NodeLnk*& BST<DataType>::FindPointerToSuccessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) const{
+	typename BST<DataType>::NodeLnk*& BST<DataType>::FindPointerToSuccessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) {
 		return root;
 	}
 
 	template<typename DataType>
 	typename BST<DataType>::NodeLnk*const& BST<DataType>::FindPointerToPredecessor( typename BST<DataType>::NodeLnk*const& root,const DataType& value) const{
-		return root;
+		typename BST<DataType>::NodeLnk* const* currAddress= &root;
+		typename BST<DataType>::NodeLnk* const* predAddress= nullptr;
+		typename BST<DataType>::NodeLnk* curr=root;
+
+		while(curr!=nullptr){
+
+			if(curr->data<value)
+			{
+				predAddress=currAddress;
+				currAddress=&curr->rightChild;
+				curr=curr->rightChild;
+			}
+			else if (curr->data>value)
+			{
+				currAddress=&curr->leftChild;
+				curr=curr->leftChild;
+			}
+			else{
+
+				if(curr->HasLeftChild()){
+					return FindPointerToMax(curr->leftChild);
+				}
+				else return *predAddress;
+
+			}
+
+		}
+		return *predAddress;
 	}
 	template<typename DataType>
 	typename BST<DataType>::NodeLnk*const& BST<DataType>::FindPointerToSuccessor( typename BST<DataType>::NodeLnk*const& root,const DataType& value) const{

@@ -457,7 +457,7 @@ bool BinaryTree<DataType>::AuxiliaryEqualOperatorFunction( Node& node1,  Node& n
 	BTPostOrderIterator<DataType>& BTPostOrderIterator<DataType>::operator++(){// (throw std::out_of_range when terminated)
 		if(!Terminated()){
 			if(stack->Size()>0){
-				if(current==&stack->Top()->LeftChild() && stack->Top()->HasRightChild()){ //se torno da sx e esiste il dx
+				if(stack->Top()->HasLeftChild() && current==&stack->Top()->LeftChild() && stack->Top()->HasRightChild()){ //se torno da sx e esiste il dx
 					current=leftmostLeaf(&stack->Top()->RightChild(),stack);
 				}
 				else{
