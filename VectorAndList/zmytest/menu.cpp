@@ -11,10 +11,9 @@ FirstMenu::FirstMenu()
 {
 	menuText = std::string("\n--Main Menu--\n")
 				+"Please make your selection\n"
-				+ "1 - BinaryTreeVec\n"
-				+ "2 - BinaryTreeLnk\n"
-				+ "3 - start zlasd tests\n"
-				+ "4 - Quit\n"
+				+ "1 - BinarySearchTree\n"
+				+ "2 - start zlasd tests\n"
+				+ "3 - Quit\n"
 				+ "Selection: ";
 }
 BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
@@ -24,21 +23,21 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			mainMenu = new BinaryTreeVecMenu;
+			mainMenu = new BinarySearchTreeMenu;
 			break;
 		}
+//		case 2:
+//		{
+//			mainMenu = new BinaryTreeLnkMenu;
+//			break;
+//		}
 		case 2:
-		{
-			mainMenu = new BinaryTreeLnkMenu;
-			break;
-		}
-		case 3:
 		{
 			lasdtest();
 			break;
 		}
 
-		case 4:
+		case 3:
 		{
 
 			iIsQuitOptionSelected = true;
@@ -55,18 +54,18 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	return mainMenu;
 }
 
-BinaryTreeVecMenu::BinaryTreeVecMenu()
+BinarySearchTreeMenu::BinarySearchTreeMenu()
 {
 	menuText = std::string("\n--BinaryTreeVec Menu--\n")
 				+ "Please make your selection\n"
-				+ "1 - create random int BinaryTreeVec \n"
-				+ "2 - create random string BinaryTreeVec \n"
-				+ "3 - create random float BinaryTreeVec \n"
+				+ "1 - create random int BinarySearchTree \n"
+				+ "2 - create random string BinarySearchTree \n"
+				+ "3 - create random float BinarySearchTree \n"
 				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
-BaseMenu *BinaryTreeVecMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
+BaseMenu *BinarySearchTreeMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
 	BaseMenu *mainMenu = 0;
 
@@ -75,19 +74,19 @@ BaseMenu *BinaryTreeVecMenu::getMenuSelection(int choice, bool& iIsQuitOptionSel
 		case 1:
 		{
 
-			createIntBinaryTreeVec();
+			createIntBST();
 		}
 		break;
 		case 2:
 		{
 
-			createStringBinaryTreeVec();
+			createStringBST();
 		}
 		break;
 		case 3:
 		{
 
-			createFloatBinaryTreeVec();
+			createFloatBST();
 		}
 		break;
 		case 4:

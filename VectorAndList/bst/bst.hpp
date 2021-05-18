@@ -116,10 +116,10 @@ protected:
    typename BST<DataType>::NodeLnk*& FindPointerTo( typename BST<DataType>::NodeLnk*& ,const DataType&) ;//argument root of subTree and data to find
    typename BST<DataType>::NodeLnk* const& FindPointerTo(typename BST<DataType>::NodeLnk* const&,const DataType&) const;//argument root of subTree and data to find
 
-   typename BST<DataType>::NodeLnk*& FindPointerToPredecessor( typename BST<DataType>::NodeLnk*&,const DataType&) ;
-   typename BST<DataType>::NodeLnk* const& FindPointerToPredecessor( typename BST<DataType>::NodeLnk*const&,const DataType&) const;
-   typename BST<DataType>::NodeLnk*& FindPointerToSuccessor( typename BST<DataType>::NodeLnk*&,const DataType&);
-   typename BST<DataType>::NodeLnk* const& FindPointerToSuccessor( typename BST<DataType>::NodeLnk*const&,const DataType&) const;
+   typename BST<DataType>::NodeLnk** FindPointerToPredecessor( typename BST<DataType>::NodeLnk*&,const DataType&) ;
+   typename BST<DataType>::NodeLnk* const* FindPointerToPredecessor( typename BST<DataType>::NodeLnk*const&,const DataType&) const;
+   typename BST<DataType>::NodeLnk** FindPointerToSuccessor( typename BST<DataType>::NodeLnk*&,const DataType&);
+   typename BST<DataType>::NodeLnk* const* FindPointerToSuccessor( typename BST<DataType>::NodeLnk*const&,const DataType&) const;
 
 };
 

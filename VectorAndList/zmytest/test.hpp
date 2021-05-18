@@ -17,6 +17,7 @@
 #include "../binarytree/binarytree.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
 #include "../binarytree/lnk/binarytreelnk.hpp"
+#include "../bst/bst.hpp"
 #include <string>
 
 
@@ -38,7 +39,17 @@ void populateRandomFloatList(lasd::List<float>& container,unsigned long& );
 void populateRandomStringList(lasd::List<std::string>& container,unsigned long& );
 std::string createRandomString(int stringSize);
 
+/* ************************************************************************** */
+/* BinarySearchTreeMenu */
 
+void createIntBST();
+void createFloatBST();
+void createStringBST();
+
+template <typename DataType>
+void editBST(lasd::BST<DataType>& bt, const readInputFunctor& readFunction);
+
+void intBSTTest(lasd::BST<int>& );
 /* ************************************************************************** */
 /* BinaryTreeVecMenu */
 

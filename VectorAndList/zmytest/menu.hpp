@@ -35,11 +35,11 @@ public:
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 };
 
-class BinaryTreeVecMenu : public BaseMenu
+class BinarySearchTreeMenu : public BaseMenu
 {
 public:
-	BinaryTreeVecMenu();
-    ~BinaryTreeVecMenu()= default;
+	BinarySearchTreeMenu();
+    ~BinarySearchTreeMenu()= default;
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 
 };

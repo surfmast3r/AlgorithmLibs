@@ -166,9 +166,10 @@ namespace lasd {
 	template<typename DataType>
 	const DataType& BST<DataType>::Predecessor(const DataType& value) const{ // (concrete function must throw std::length_error when empty OR not found)
 
-		typename BST<DataType>::NodeLnk*const& pred=FindPointerToPredecessor(root, value);
+		typename BST<DataType>::NodeLnk*const* pred=FindPointerToPredecessor(root, value);
 		if(pred!=nullptr){
-			return pred->data;
+
+			return (*pred)->data;
 		}
 		else
 			throw std::length_error("Not Found");
@@ -177,10 +178,10 @@ namespace lasd {
 	template<typename DataType>
 	DataType BST<DataType>::PredecessorNRemove(const DataType& value){ // (concrete function must throw std::length_error when empty OR not found)
 
-		typename BST<DataType>::NodeLnk*& pred=FindPointerToPredecessor(root, value);
+		typename BST<DataType>::NodeLnk** pred=FindPointerToPredecessor(root, value);
 		if(pred!=nullptr){
-			DataType retValue=pred->data;
-			delete Detach(pred);
+			DataType retValue=(*pred)->data;
+			delete Detach(*pred);
 			return retValue;
 		}
 		else
@@ -190,9 +191,9 @@ namespace lasd {
 	template<typename DataType>
 	void BST<DataType>::RemovePredecessor(const DataType& value){ // (concrete function must throw std::length_error when empty OR not found)
 
-		typename BST<DataType>::NodeLnk*& pred=FindPointerToPredecessor(root, value);
+		typename BST<DataType>::NodeLnk** pred=FindPointerToPredecessor(root, value);
 		if(pred!=nullptr){
-			delete Detach(pred);
+			delete Detach(*pred);
 		}
 		else
 			throw std::length_error("Not Found");
@@ -202,9 +203,9 @@ namespace lasd {
 	template<typename DataType>
 	const DataType& BST<DataType>::Successor(const DataType& value) const{ // (concrete function must throw std::length_error when empty OR not found)
 
-		typename BST<DataType>::NodeLnk*const& succ=FindPointerToSuccessor(root, value);
+		typename BST<DataType>::NodeLnk*const* succ=FindPointerToSuccessor(root, value);
 		if(succ!=nullptr){
-			return succ->data;
+			return (*succ)->data;
 		}
 		else
 			throw std::length_error("Not Found");
@@ -212,11 +213,11 @@ namespace lasd {
 
 	template<typename DataType>
 	DataType BST<DataType>::SuccessorNRemove(const DataType& value){ // (concrete function must throw std::length_error when empty OR not found)
-		typename BST<DataType>::NodeLnk*& succ=FindPointerToSuccessor(root, value);
+		typename BST<DataType>::NodeLnk** succ=FindPointerToSuccessor(root, value);
 		if(succ!=nullptr){
 
-			DataType retValue=succ->data;
-			delete Detach(succ);
+			DataType retValue=(*succ)->data;
+			delete Detach(*succ);
 			return retValue;
 		}
 		else
@@ -226,10 +227,10 @@ namespace lasd {
 
 	template<typename DataType>
 	void BST<DataType>::RemoveSuccessor(const DataType& value){ // (concrete function must throw std::length_error when empty OR not found)
-		typename BST<DataType>::NodeLnk*& succ=FindPointerToSuccessor(root, value);
+		typename BST<DataType>::NodeLnk** succ=FindPointerToSuccessor(root, value);
 		if(succ!=nullptr){
 
-			delete Detach(succ);
+			delete Detach(*succ);
 		}
 		else
 			throw std::length_error("Not Found");
@@ -362,16 +363,16 @@ namespace lasd {
 	}
 
 	template<typename DataType>
-	typename BST<DataType>::NodeLnk*& BST<DataType>::FindPointerToPredecessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) {
-		return const_cast<typename BST<DataType>::NodeLnk*&>(static_cast<const BST<DataType>*>(this)->FindPointerToPredecessor(root, value));
+	typename BST<DataType>::NodeLnk** BST<DataType>::FindPointerToPredecessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) {
+		return const_cast<typename BST<DataType>::NodeLnk**>(static_cast<const BST<DataType>*>(this)->FindPointerToPredecessor(root, value));
 	}
 	template<typename DataType>
-	typename BST<DataType>::NodeLnk*& BST<DataType>::FindPointerToSuccessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) {
-		return root;
+	typename BST<DataType>::NodeLnk** BST<DataType>::FindPointerToSuccessor( typename BST<DataType>::NodeLnk*& root,const DataType& value) {
+		return const_cast<typename BST<DataType>::NodeLnk**>(static_cast<const BST<DataType>*>(this)->FindPointerToSuccessor(root, value));
 	}
 
 	template<typename DataType>
-	typename BST<DataType>::NodeLnk*const& BST<DataType>::FindPointerToPredecessor( typename BST<DataType>::NodeLnk*const& root,const DataType& value) const{
+	typename BST<DataType>::NodeLnk*const* BST<DataType>::FindPointerToPredecessor( typename BST<DataType>::NodeLnk*const& root,const DataType& value) const{
 		typename BST<DataType>::NodeLnk* const* currAddress= &root;
 		typename BST<DataType>::NodeLnk* const* predAddress= nullptr;
 		typename BST<DataType>::NodeLnk* curr=root;
@@ -392,17 +393,47 @@ namespace lasd {
 			else{
 
 				if(curr->HasLeftChild()){
-					return FindPointerToMax(curr->leftChild);
+					return &FindPointerToMax(curr->leftChild);
 				}
-				else return *predAddress;
+				else {
+					return predAddress;
+				}
 
 			}
 
 		}
-		return *predAddress;
+
+		return predAddress;
 	}
 	template<typename DataType>
-	typename BST<DataType>::NodeLnk*const& BST<DataType>::FindPointerToSuccessor( typename BST<DataType>::NodeLnk*const& root,const DataType& value) const{
-		return root;
+	typename BST<DataType>::NodeLnk*const* BST<DataType>::FindPointerToSuccessor( typename BST<DataType>::NodeLnk*const& root,const DataType& value) const{
+		typename BST<DataType>::NodeLnk* const* currAddress= &root;
+		typename BST<DataType>::NodeLnk* const* succAddress= nullptr;
+		typename BST<DataType>::NodeLnk* curr=root;
+
+		while(curr!=nullptr){
+
+			if(curr->data>value)
+			{
+				succAddress=currAddress;
+				currAddress=&curr->leftChild;
+				curr=curr->leftChild;
+			}
+			else if (curr->data<value)
+			{
+				currAddress=&curr->rightChild;
+				curr=curr->rightChild;
+			}
+			else{
+
+				if(curr->HasRightChild()){
+					return &FindPointerToMin(curr->rightChild);
+				}
+				else return succAddress;
+
+			}
+
+		}
+		return succAddress;
 	}
 }

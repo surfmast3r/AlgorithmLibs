@@ -45,6 +45,10 @@ void stestBSTInt(uint& testnum, uint& testerr) {
 
     MapInOrder(loctestnum, loctesterr, bst, true, &MapPrint<int>, 0);
 
+    Predecessor(loctestnum, loctesterr, bst, true, 1, 0);
+
+	Successor(loctestnum, loctesterr, bst, true, 4, 5);
+
     Min(loctestnum, loctesterr, bst, true, 0);
     Max(loctestnum, loctesterr, bst, true, 5);
 

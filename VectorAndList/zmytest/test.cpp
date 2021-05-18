@@ -8,6 +8,269 @@ using namespace std;
 
 
 /* ************************************************************************** */
+/* Binary Search Tree */
+
+template <typename DataType>
+void editBST(lasd::BST<DataType>& bt, const readInputFunctor& readFunction){
+	bool isQuitOptionSelected=false;
+
+	if(!bt.Empty()){
+
+		while (!isQuitOptionSelected)
+			{
+				cout<<std::string("\n--Edit Binary Search Tree Menu--\n");
+				std::cout<<"Please make your selection"<<endl;
+				std::cout<<"1: Insert Element"<<endl;
+				std::cout<<"2: Remove Element"<<endl;
+				std::cout<<"3: Read Min"<<endl;
+				std::cout<<"4: ReadNRemove Min"<<endl;
+				std::cout<<"5: Remove Min"<<endl;
+				std::cout<<"6: Read Max"<<endl;
+				std::cout<<"7: ReadNRemove Max"<<endl;
+				std::cout<<"8: Remove Max"<<endl;
+				std::cout<<"9: Successor of Element"<<endl;
+				std::cout<<"10: Predecessor of Element"<<endl;
+				std::cout<<"11: Back"<<endl;
+				std::cout<<"Selection: ";
+				int choice = 0;
+
+				if(!(std::cin >> choice)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
+				switch (choice){
+					case 1:{
+						DataType value;
+						readFunction((void*)&value, "Insert new element");
+						bt.Insert(std::move(value));
+
+					}
+					break;
+					case 2:{
+						DataType value;
+						readFunction((void*)&value, "Insert element to remove");
+						bt.Remove(value);
+					}
+					break;
+					case 3:{
+
+						try{
+							cout<<"BST min: "<<bt.Min()<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+
+					}
+					break;
+					case 4:{
+
+						try{
+							cout<<"BST MinNRemove: "<<bt.MinNRemove()<<endl;
+							cout<<"BST new min: "<<bt.Min()<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+
+
+					}
+					break;
+					case 5:{
+						try{
+							bt.RemoveMin();
+							cout<<"BST new min: "<<bt.Min()<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+					}
+					break;
+					case 6:{
+						try{
+							cout<<"BST max: "<<bt.Max()<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+					}
+					break;
+					case 7:{
+						try{
+							cout<<"BST MaxNRemove: "<<bt.MaxNRemove()<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+					}
+					break;
+					case 8:{
+						try{
+							bt.MaxNRemove();
+							cout<<"BST new max: "<<bt.Max()<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+					}
+					break;
+					case 9:{
+						DataType value;
+						readFunction((void*)&value, "Insert element");
+						try{
+
+							cout<<"Successor of "<<value<< ": "<<bt.Successor(value)<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+					}
+					break;
+					case 10:{
+						DataType value;
+						readFunction((void*)&value, "Insert element");
+						try{
+
+							cout<<"Predecessor of "<<value<< ": "<<bt.Predecessor(value)<<endl;
+						}catch(std::length_error& exc){
+							std::cout << exc.what() << std::endl;
+						}
+					}
+					break;
+					case 11:{
+						isQuitOptionSelected=true;
+					}
+					break;
+					default:
+					{
+						// Do nothing
+					}
+				}
+			}
+	}else
+		cout<<"Binary Tree is empty"<<endl;
+
+}
+
+void createIntBST(){
+	unsigned long size;
+
+	readSizeInput(size, "insert Tree size");
+	cout<<"Tree Vector "<<endl;
+	lasd::Vector<int> vec(size);
+	populateRandomIntVector(vec);
+	lasd::BST<int> bst(vec);
+	intBSTTest(bst);
+}
+void createFloatBST(){
+	unsigned long size;
+	readSizeInput(size, "insert Tree size");
+	cout<<"Tree Vector "<<endl;
+	lasd::Vector<float> vec(size);
+	populateRandomFloatVector(vec);
+	lasd::BST<float> bst(vec);
+	//floatBinaryTreeTest(btVec);
+}
+
+void createStringBST(){
+	unsigned long size;
+	readSizeInput(size, "insert Tree size");
+	cout<<"Tree Link "<<endl;
+	lasd::Vector<std::string> vec(size);
+	populateRandomStringVector(vec);
+	lasd::BST<std::string> bst(vec);
+//	stringBinaryTreeTest(btLnk);
+}
+
+void intBSTTest(lasd::BST<int>& bt){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+	{
+		cout<<std::string("\n--Int BinaryTree Test Menu--\n")
+							+ "Please make your selection\n"
+							+ "1 - PreOrder visit\n"
+							+ "2 - PostOrder visit\n"
+							+ "3 - Breadth Visit\n"
+							+ "4 - InOrder Visit\n"
+							+ "5 - Find Element\n"
+							+ "6 - Multiply less then Function\n"
+							+ "7 - Edit BST\n"
+							+ "8 - Navigate tree\n"
+							+ "9 - back to main menu\n"
+							+ "Selection: ";
+		int choice = 0;
+
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
+		switch (choice){
+			case 1:{
+				bt.MapPreOrder(&mapPrint<int>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 2:{
+				bt.MapPostOrder(&mapPrint<int>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 3:{
+
+				bt.MapBreadth(&mapPrint<int>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 4:{
+				bt.MapInOrder(&mapPrint<int>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 5:{
+
+				int value;
+				unsigned long index=0;
+				cout<<"insert element to find:"<<endl;
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						cout<<"insert element to find:"<<endl;
+				}
+				bt.FoldBreadth(&foldFind<int>, &value, &index);
+
+			}
+			break;
+			case 6:{
+
+				int value;
+				unsigned long acc=1;
+				readIntValue(static_cast<void*>(&value), "insert n:");
+				bt.FoldPreOrder(&foldMultiplyLessThan<int>, &value, &acc);
+				cout<<"product is: "<<acc<<endl;
+
+			}
+			break;
+			case 7:{
+
+				editBST(bt,&readIntValue);
+			}
+			break;
+			case 8:{
+				navigateBinaryTree<int>(bt,&readIntValue);
+			}
+			break;
+			case 9:{
+				isQuitOptionSelected=true;
+			}
+			break;
+			default:
+			{
+				// Do nothing
+			}
+		}
+	}
+
+}
+
+/* ************************************************************************** */
 /* Binary Tree int*/
 template <typename DataType>
 void navigateBinaryTree(lasd::BinaryTree<DataType>& bt, const readInputFunctor& readFunction){
