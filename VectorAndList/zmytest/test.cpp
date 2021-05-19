@@ -163,7 +163,7 @@ void createFloatBST(){
 	lasd::Vector<float> vec(size);
 	populateRandomFloatVector(vec);
 	lasd::BST<float> bst(vec);
-	//floatBinaryTreeTest(btVec);
+	floatBSTTest(bst);
 }
 
 void createStringBST(){
@@ -173,7 +173,7 @@ void createStringBST(){
 	lasd::Vector<std::string> vec(size);
 	populateRandomStringVector(vec);
 	lasd::BST<std::string> bst(vec);
-//	stringBinaryTreeTest(btLnk);
+	stringBSTTest(bst);
 }
 
 void intBSTTest(lasd::BST<int>& bt){
@@ -241,7 +241,7 @@ void intBSTTest(lasd::BST<int>& bt){
 			case 6:{
 
 				int value;
-				unsigned long acc=1;
+				long acc=1;
 				readIntValue(static_cast<void*>(&value), "insert n:");
 				bt.FoldPreOrder(&foldMultiplyLessThan<int>, &value, &acc);
 				cout<<"product is: "<<acc<<endl;
@@ -255,6 +255,183 @@ void intBSTTest(lasd::BST<int>& bt){
 			break;
 			case 8:{
 				navigateBinaryTree<int>(bt,&readIntValue);
+			}
+			break;
+			case 9:{
+				isQuitOptionSelected=true;
+			}
+			break;
+			default:
+			{
+				// Do nothing
+			}
+		}
+	}
+
+}
+
+void floatBSTTest(lasd::BST<float>& bt){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+	{
+		cout<<std::string("\n--Int BinaryTree Test Menu--\n")
+							+ "Please make your selection\n"
+							+ "1 - PreOrder visit\n"
+							+ "2 - PostOrder visit\n"
+							+ "3 - Breadth Visit\n"
+							+ "4 - InOrder Visit\n"
+							+ "5 - Find Element\n"
+							+ "6 - Sum bigger then n Function\n"
+							+ "7 - Edit BST\n"
+							+ "8 - Navigate tree\n"
+							+ "9 - back to main menu\n"
+							+ "Selection: ";
+		int choice = 0;
+
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
+		switch (choice){
+			case 1:{
+				bt.MapPreOrder(&mapPrint<float>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 2:{
+				bt.MapPostOrder(&mapPrint<float>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 3:{
+
+				bt.MapBreadth(&mapPrint<float>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 4:{
+				bt.MapInOrder(&mapPrint<float>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 5:{
+
+				float value;
+				unsigned long index=0;
+				readFloatValue(static_cast<void*>(&value), "insert element to find:");
+				bt.FoldBreadth(&foldFind<int>, &value, &index);
+
+			}
+			break;
+			case 6:{
+
+				float value;
+				float acc=0;
+				readFloatValue(static_cast<void*>(&value), "insert n:");
+				bt.FoldPreOrder(&foldSumBiggerThan<float>, &value, &acc);
+				cout<<"sum is: "<<acc<<endl;
+
+			}
+			break;
+			case 7:{
+
+				editBST(bt,&readFloatValue);
+			}
+			break;
+			case 8:{
+				navigateBinaryTree<float>(bt,&readFloatValue);
+			}
+			break;
+			case 9:{
+				isQuitOptionSelected=true;
+			}
+			break;
+			default:
+			{
+				// Do nothing
+			}
+		}
+	}
+
+}
+
+void stringBSTTest(lasd::BST<string>& bt){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+	{
+		cout<<std::string("\n--Int BinaryTree Test Menu--\n")
+							+ "Please make your selection\n"
+							+ "1 - PreOrder visit\n"
+							+ "2 - PostOrder visit\n"
+							+ "3 - Breadth Visit\n"
+							+ "4 - InOrder Visit\n"
+							+ "5 - Find Element\n"
+							+ "6 - Concatenate less then n Function\n"
+							+ "7 - Edit BST\n"
+							+ "8 - Navigate tree\n"
+							+ "9 - back to main menu\n"
+							+ "Selection: ";
+		int choice = 0;
+
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
+		switch (choice){
+			case 1:{
+				bt.MapPreOrder(&mapPrint<string>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 2:{
+				bt.MapPostOrder(&mapPrint<string>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 3:{
+
+				bt.MapBreadth(&mapPrint<string>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 4:{
+				bt.MapInOrder(&mapPrint<string>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 5:{
+
+				string value;
+				unsigned long index=0;
+				readStringValue(static_cast<void*>(&value), "insert element to find:");
+
+				bt.FoldBreadth(&foldFind<string>, &value, &index);
+
+			}
+			break;
+			case 6:{
+
+				int value;
+				string acc="";
+				readIntValue(static_cast<void*>(&value), "insert n:");
+				bt.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
+				cout<<"Concatenated String: "<<acc<<endl;
+
+			}
+			break;
+			case 7:{
+
+				editBST(bt,&readStringValue);
+			}
+			break;
+			case 8:{
+				navigateBinaryTree<string>(bt,&readFloatValue);
 			}
 			break;
 			case 9:{

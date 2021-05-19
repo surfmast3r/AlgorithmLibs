@@ -50,6 +50,8 @@ template <typename DataType>
 void editBST(lasd::BST<DataType>& bt, const readInputFunctor& readFunction);
 
 void intBSTTest(lasd::BST<int>& );
+void floatBSTTest(lasd::BST<float>& );
+void stringBSTTest(lasd::BST<std::string>& );
 /* ************************************************************************** */
 /* BinaryTreeVecMenu */
 
