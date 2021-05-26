@@ -24,6 +24,7 @@ protected:
    using BinaryTreeLnk<DataType>::size;
    using BinaryTreeLnk<DataType>::root;
 
+
   // ...
 
 public:

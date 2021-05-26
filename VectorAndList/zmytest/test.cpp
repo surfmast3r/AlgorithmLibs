@@ -95,6 +95,7 @@ void editBST(lasd::BST<DataType>& bt, const readInputFunctor& readFunction){
 					case 7:{
 						try{
 							cout<<"BST MaxNRemove: "<<bt.MaxNRemove()<<endl;
+							cout<<"BST new max: "<<bt.Max()<<endl;
 						}catch(std::length_error& exc){
 							std::cout << exc.what() << std::endl;
 						}
@@ -115,6 +116,7 @@ void editBST(lasd::BST<DataType>& bt, const readInputFunctor& readFunction){
 						try{
 
 							cout<<"Successor of "<<value<< ": "<<bt.Successor(value)<<endl;
+
 						}catch(std::length_error& exc){
 							std::cout << exc.what() << std::endl;
 						}
@@ -431,7 +433,7 @@ void stringBSTTest(lasd::BST<string>& bt){
 			}
 			break;
 			case 8:{
-				navigateBinaryTree<string>(bt,&readFloatValue);
+				navigateBinaryTree<string>(bt,&readStringValue);
 			}
 			break;
 			case 9:{

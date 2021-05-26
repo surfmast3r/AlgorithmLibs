@@ -39,7 +39,7 @@ namespace lasd {
   // Comparison operators
 	template<typename DataType>
 	bool BST<DataType>::operator==(const BST<DataType>& searchTree) const noexcept{
-		if(this->Size()==searchTree.Size()){
+		if(size==searchTree.Size()){
 			BTInOrderIterator<DataType> iterator1 (*this);
 			BTInOrderIterator<DataType> iterator2 (searchTree);
 			while(!iterator1.Terminated()){
