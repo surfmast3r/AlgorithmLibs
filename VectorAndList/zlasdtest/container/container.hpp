@@ -4,7 +4,6 @@
 
 #include "../../container/container.hpp"
 
-
 /* ************************************************************************** */
 
 // Container member functions!
@@ -22,7 +21,7 @@ void GetFront(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& c
   bool tst;
   testnum++;
   try {
-    std::cout << " " << testnum << " The front of the linear container is \"" << con.Front() << "\": ";
+    std::cout << " " << testnum << " (" << testerr << ") The front of the linear container is \"" << con.Front() << "\": ";
     std::cout << ((tst = ((con.Front() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
@@ -38,7 +37,7 @@ void SetFront(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& c
   bool tst;
   testnum++;
   try {
-    std::cout << " " << testnum << " Setting the front of the linear container to \"" << val << "\": ";
+    std::cout << " " << testnum << " (" << testerr << ") Setting the front of the linear container to \"" << val << "\": ";
     con.Front() = val;
     std::cout << ((tst = ((con.Front() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::length_error exc) {
@@ -55,7 +54,7 @@ void GetBack(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& co
   bool tst;
   testnum++;
   try {
-    std::cout << " " << testnum << " The back of the linear container is \"" << con.Back() << "\": ";
+    std::cout << " " << testnum << " (" << testerr << ") The back of the linear container is \"" << con.Back() << "\": ";
     std::cout << ((tst = ((con.Back() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
@@ -71,7 +70,7 @@ void SetBack(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& co
   bool tst;
   testnum++;
   try {
-    std::cout << " " << testnum << " Setting the back of the linear container to \"" << val << "\": ";
+    std::cout << " " << testnum << " (" << testerr << ") Setting the back of the linear container to \"" << val << "\": ";
     con.Back() = val;
     std::cout << ((tst = ((con.Back() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::length_error exc) {
@@ -88,7 +87,7 @@ void GetAt(uint& testnum, uint& testerr, lasd::LinearContainer<Data>& con, bool 
   bool tst;
   testnum++;
   try {
-    std::cout << " " << testnum << " Get of the linear container at index \"" << ind << "\" with value \"" << con[ind] << "\": ";
+    std::cout << " " << testnum << " (" << testerr << ") Get of the linear container at index \"" << ind << "\" with value \"" << con[ind] << "\": ";
     std::cout << ((tst = ((con[ind] == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::out_of_range exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
@@ -104,7 +103,7 @@ void SetAt(uint& testnum, uint& testerr, lasd::LinearContainer<Data>& con, bool 
   bool tst;
   testnum++;
   try {
-    std::cout << " " << testnum << " Set of the linear container at index \"" << ind << "\" with value \"" << val << "\": ";
+    std::cout << " " << testnum << " (" << testerr << ") Set of the linear container at index \"" << ind << "\" with value \"" << val << "\": ";
     con[ind] = val;
     std::cout << ((tst = ((con[ind] == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::out_of_range exc) {
@@ -124,7 +123,7 @@ template <typename Data>
 void Exists(uint& testnum, uint& testerr, const lasd::TestableContainer<Data>& con, bool chk, const Data& val) {
   bool tst;
   testnum++;
-  std::cout << " " << testnum << " Data \"" << val << "\" " << ((tst = con.Exists(val)) ? "does" : "does not") << " exist: ";
+  std::cout << " " << testnum << " (" << testerr << ") Data \"" << val << "\" " << ((tst = con.Exists(val)) ? "does" : "does not") << " exist: ";
   std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
   testerr += (1 - (uint) tst);
 }
@@ -139,7 +138,7 @@ void MapPreOrder(uint& testnum, uint& testerr, lasd::MappableContainer<Data>& co
   testnum++;
   Parameter par = {inipar};
   try {
-    std::cout << " " << testnum << " Executing map in pre order - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing map in pre order - ";
     con.MapPreOrder(fun, &par);
     std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
@@ -154,7 +153,7 @@ void MapPostOrder(uint& testnum, uint& testerr, lasd::MappableContainer<Data>& c
   testnum++;
   Parameter par = {inipar};
   try {
-    std::cout << " " << testnum << " Executing map in post order - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing map in post order - ";
     con.MapPostOrder(fun, &par);
     std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
@@ -215,6 +214,8 @@ void MapParityInvert(Data& dat, void* _) {
 
 void MapStringAppend(std::string&, void*);
 
+void MapStringNonEmptyAppend(std::string&, void*);
+
 /* ************************************************************************** */
 
 // FoldableContainer member functions!
@@ -226,7 +227,7 @@ void FoldPreOrder(uint& testnum, uint& testerr, const lasd::FoldableContainer<Da
   Parameter par = {inipar};
   Value val = inival;
   try {
-    std::cout << " " << testnum << " Executing fold in pre order - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing fold in pre order - ";
     con.FoldPreOrder(fun, &par, &val);
     std::cout << "obtained value is \"" << val << "\": ";
     std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
@@ -243,7 +244,7 @@ void FoldPostOrder(uint& testnum, uint& testerr, const lasd::FoldableContainer<D
   Parameter par = {inipar};
   Value val = inival;
   try {
-    std::cout << " " << testnum << " Executing fold in post order - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing fold in post order - ";
     con.FoldPostOrder(fun, &par, &val);
     std::cout << "obtained value is \"" << val << "\": ";
     std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
@@ -277,7 +278,7 @@ void MapInOrder(uint& testnum, uint& testerr, lasd::InOrderMappableContainer<Dat
   testnum++;
   Parameter par = {inipar};
   try {
-    std::cout << " " << testnum << " Executing map in order - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing map in order - ";
     con.MapInOrder(fun, &par);
     std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
@@ -297,7 +298,7 @@ void FoldInOrder(uint& testnum, uint& testerr, const lasd::InOrderFoldableContai
   Parameter par = {inipar};
   Value val = inival;
   try {
-    std::cout << " " << testnum << " Executing fold in order - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing fold in order - ";
     con.FoldInOrder(fun, &par, &val);
     std::cout << "obtained value is \"" << val << "\": ";
     std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
@@ -317,7 +318,7 @@ void MapBreadth(uint& testnum, uint& testerr, lasd::BreadthMappableContainer<Dat
   testnum++;
   Parameter par = {inipar};
   try {
-    std::cout << " " << testnum << " Executing map in breadth - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing map in breadth - ";
     con.MapBreadth(fun, &par);
     std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
@@ -337,7 +338,7 @@ void FoldBreadth(uint& testnum, uint& testerr, const lasd::BreadthFoldableContai
   Parameter par = {inipar};
   Value val = inival;
   try {
-    std::cout << " " << testnum << " Executing fold in breadth - ";
+    std::cout << " " << testnum << " (" << testerr << ") Executing fold in breadth - ";
     con.FoldBreadth(fun, &par, &val);
     std::cout << "obtained value is \"" << val << "\": ";
     std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
@@ -346,7 +347,6 @@ void FoldBreadth(uint& testnum, uint& testerr, const lasd::BreadthFoldableContai
   }
   testerr += (1 - (uint) tst);
 }
-
 
 /* ************************************************************************** */
 

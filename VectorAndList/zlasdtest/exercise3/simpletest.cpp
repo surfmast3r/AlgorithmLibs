@@ -29,75 +29,51 @@ void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, uint& testnum, uint& testerr)
     FoldPostOrder(loctestnum, loctesterr, bt, true, &FoldAdd<int>, 0, 0, 6);
     FoldInOrder(loctestnum, loctesterr, bt, true, &FoldAdd<int>, 0, 0, 6);
     FoldBreadth(loctestnum, loctesterr, bt, true, &FoldAdd<int>, 0, 0, 6);
-    MapBreadth(loctestnum, loctesterr, bt, true, &MapPrint<int>, 0);
-    lasd::BinaryTreeVec<int> btvec;
-    cout << endl << "Start map and fold with empty vec " << endl;
-    MapBreadth(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
-    MapInOrder(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
-    MapPreOrder(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
-    MapPostOrder(loctestnum, loctesterr, btvec, true, &MapPrint<int>, 0);
-	FoldPreOrder(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
-	FoldPostOrder(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
-	FoldInOrder(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
-	FoldBreadth(loctestnum, loctesterr, btvec, true, &FoldAdd<int>, 0, 0, 0);
-
   } catch(...) {
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
   }
-  cout << "End of BinaryTreeVec<int> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+  cout << "End of BinaryTree<int> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
   testnum += loctestnum;
   testerr += loctesterr;
 }
-//
+
 void stestBinaryTreeInt(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
-  cout << endl << "Begin of BinaryTreeVec<int> Test" << endl;
+  cout << endl << "Begin of BinaryTree<int> Test" << endl;
   try {
-
-    lasd::BinaryTreeLnk<int> btvec3;
-	lasd::BinaryTreeLnk<int> btvec4=btvec3;
-	Empty(loctestnum, loctesterr, btvec4, true);
-
-	cout << endl << "Test empty BinaryTreeVec<int> equals" << endl;
-	if(btvec3==btvec4)
-		cout << endl << "equals" << endl;
     lasd::Vector<int> vec(4);
-    btvec4=lasd::BinaryTreeLnk<int>(vec);
-    Empty(loctestnum, loctesterr, btvec4, false);
-    btvec4.Clear();
-    Empty(loctestnum, loctesterr, btvec4, true);
     SetAt(loctestnum, loctesterr, vec, true, 0, 0);
     SetAt(loctestnum, loctesterr, vec, true, 1, 1);
     SetAt(loctestnum, loctesterr, vec, true, 2, 2);
     SetAt(loctestnum, loctesterr, vec, true, 3, 3);
 
     lasd::BinaryTreeVec<int> btvec(vec);
-    lasd::BinaryTreeVec<int> btvec2(btvec);
     cout << endl << "Begin of BinaryTreeVec<int> Test:" << endl;
-    stestBinaryTreeInt(btvec2, loctestnum, loctesterr);
+    stestBinaryTreeInt(btvec, loctestnum, loctesterr);
     lasd::BinaryTreeLnk<int> btlnk(vec);
     cout << endl << "Begin of BinaryTreeLnk<int> Test:" << endl;
     stestBinaryTreeInt(btlnk, loctestnum, loctesterr);
     cout << "\n";
 
     lasd::BinaryTreeVec<int> copbtvec(btvec);
-    EqualTrees(loctestnum, loctesterr, copbtvec, btvec, true);
+    EqualBT(loctestnum, loctesterr, copbtvec, btvec);
     btvec.Clear();
     btvec = move(copbtvec);
-    EqualTrees(loctestnum, loctesterr, copbtvec, btvec, false);
+    NonEqualBT(loctestnum, loctesterr, copbtvec, btvec);
     Empty(loctestnum, loctesterr, copbtvec, true);
 
     lasd::BinaryTreeLnk<int> copbtlnk(btlnk);
-    EqualTrees(loctestnum, loctesterr, copbtlnk, btlnk, true);
+    EqualBT(loctestnum, loctesterr, copbtlnk, btlnk);
     btlnk.Clear();
     btlnk = move(copbtlnk);
-    EqualTrees(loctestnum, loctesterr, copbtlnk, btlnk, false);
+    NonEqualBT(loctestnum, loctesterr, copbtlnk, btlnk);
     Empty(loctestnum, loctesterr, copbtlnk, true);
   } catch(...) {
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
   }
+  cout << "End of BinaryTree<int> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
   testnum += loctestnum;
   testerr += loctesterr;
 }
@@ -107,12 +83,7 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& tes
   try {
     lasd::BTPreOrderIterator<double> itr1(bt);
     GetItrValue(loctestnum, loctesterr, itr1, true, 1.2);
-    lasd::BTPreOrderIterator<double> itr6=++itr1;
-    if(itr6==itr1)
-		cout<<"itr6 and 1 are equals"<<endl;
-	else if(itr6!=itr1)
-		cout<<"itr6 and 1 are different"<<endl;
-    GetItrValue(loctestnum, loctesterr, itr6, true, 0.3);
+    ++itr1;
     GetItrValue(loctestnum, loctesterr, itr1, true, 0.3);
     ++itr1;
     GetItrValue(loctestnum, loctesterr, itr1, true, 2.1);
@@ -123,14 +94,7 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& tes
 
     lasd::BTBreadthIterator<double> itr2(bt);
     GetItrValue(loctestnum, loctesterr, itr2, true, 1.2);
-
-    lasd::BTBreadthIterator<double> itr7(++itr2);
-    if(itr7==itr2)
-        cout<<"itr7 and 2 are equals"<<endl;
-    else if(itr7!=itr2)
-    	cout<<"itr7 and 2 are different"<<endl;
-    GetItrValue(loctestnum, loctesterr, itr7, true, 0.3);
-
+    ++itr2;
     GetItrValue(loctestnum, loctesterr, itr2, true, 0.3);
     ++itr2;
     GetItrValue(loctestnum, loctesterr, itr2, true, 3.0);
@@ -142,12 +106,6 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& tes
     lasd::BTInOrderIterator<double> itr3(bt);
     GetItrValue(loctestnum, loctesterr, itr3, true, 2.1);
     ++itr3;
-    lasd::BTInOrderIterator<double> itr8(itr3);
-    ++itr8;
-    if(itr8==itr3)
-		cout<<"itr8 and 3 are equals"<<endl;
-	else if(itr8!=itr3)
-		cout<<"itr8 and 3 are different"<<endl;
     GetItrValue(loctestnum, loctesterr, itr3, true, 0.3);
     ++itr3;
     GetItrValue(loctestnum, loctesterr, itr3, true, 1.2);
@@ -157,19 +115,6 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& tes
     Terminated(loctestnum, loctesterr, itr3, true);
 
     lasd::BTPostOrderIterator<double> itr4(bt);
-    lasd::BTPostOrderIterator<double> itr9(itr4);
-    //itr9=itr4;
-    if(itr9==itr4)
-    	cout<<"itr9 and 4 are equals"<<endl;
-    GetItrValue(loctestnum, loctesterr, itr9, true, 2.1);
-        ++itr9;
-        GetItrValue(loctestnum, loctesterr, itr9, true, 0.3);
-        ++itr9;
-        GetItrValue(loctestnum, loctesterr, itr9, true, 3.0);
-        ++itr9;
-        GetItrValue(loctestnum, loctesterr, itr9, true, 1.2);
-        ++itr9;
-        Terminated(loctestnum, loctesterr, itr9, true);
     GetItrValue(loctestnum, loctesterr, itr4, true, 2.1);
     ++itr4;
     GetItrValue(loctestnum, loctesterr, itr4, true, 0.3);
@@ -179,25 +124,18 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, uint& testnum, uint& tes
     GetItrValue(loctestnum, loctesterr, itr4, true, 1.2);
     ++itr4;
     Terminated(loctestnum, loctesterr, itr4, true);
-    itr9=move(itr4);
-    Terminated(loctestnum, loctesterr, itr9, true);
-
-    lasd::BinaryTreeVec<double> btvec;
-    lasd::BTPostOrderIterator<double> itr10(btvec);
-    Terminated(loctestnum, loctesterr, itr10, true);
-
   } catch(...) {
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
   }
-  cout << "End of BinaryTreeVec<double> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+  cout << "End of BinaryTree<double> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
   testnum += loctestnum;
   testerr += loctesterr;
 }
 
 void stestBinaryTreeFloat(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
-  cout << endl << "Begin of BinaryTreeVec<double> Test" << endl;
+  cout << endl << "Begin of BinaryTree<double> Test" << endl;
   try {
     lasd::List<double> lst;
     InsertAtFront(loctestnum, loctesterr, lst, true, 0.3);
@@ -215,19 +153,20 @@ void stestBinaryTreeFloat(uint& testnum, uint& testerr) {
 
     lasd::BinaryTreeVec<double> copbtvec(move(btvec));
     Empty(loctestnum, loctesterr, btvec, true);
-    EqualTrees(loctestnum, loctesterr, copbtvec, btvec, false);
+    NonEqualBT(loctestnum, loctesterr, copbtvec, btvec);
     btvec = copbtvec;
-    EqualTrees(loctestnum, loctesterr, copbtvec, btvec, true);
+    EqualBT(loctestnum, loctesterr, copbtvec, btvec);
 
     lasd::BinaryTreeLnk<double> copbtlnk(move(btlnk));
     Empty(loctestnum, loctesterr, btlnk, true);
-    EqualTrees(loctestnum, loctesterr, copbtlnk, btlnk, false);
+    NonEqualBT(loctestnum, loctesterr, copbtlnk, btlnk);
     btlnk = copbtlnk;
-    EqualTrees(loctestnum, loctesterr, copbtlnk, btlnk, true);
+    EqualBT(loctestnum, loctesterr, copbtlnk, btlnk);
   } catch(...) {
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
   }
+  cout << "End of BinaryTree<double> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
   testnum += loctestnum;
   testerr += loctesterr;
 }
@@ -244,14 +183,14 @@ void stestBinaryTreeString(lasd::BinaryTree<string>& bt, uint& testnum, uint& te
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
   }
-  cout << "End of BinaryTreeVec<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+  cout << "End of BinaryTree<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
   testnum += loctestnum;
   testerr += loctesterr;
 }
 
 void stestBinaryTreeString(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
-  cout << endl << "Begin of BinaryTreeVec<string> Test" << endl;
+  cout << endl << "Begin of BinaryTree<string> Test" << endl;
   try {
     lasd::Vector<string> vec(4);
     SetAt(loctestnum, loctesterr, vec, true, 0, string("A"));
@@ -262,23 +201,24 @@ void stestBinaryTreeString(uint& testnum, uint& testerr) {
     cout << endl << "Begin of BinaryTreeVec<string> Test:" << endl;
     lasd::BinaryTreeVec<string> btvec(vec);
     stestBinaryTreeString(btvec, loctestnum, loctesterr);
-    cout << endl << "Begin of BinaryTreeLnk<string> Test:" << endl;
+    cout << endl << "Begin of BinaryTreeVec<string> Test:" << endl;
     lasd::BinaryTreeLnk<string> btlnk(vec);
     stestBinaryTreeString(btlnk, loctestnum, loctesterr);
     cout << "\n";
 
-    EqualTrees(loctestnum, loctesterr, btvec, btlnk, true);
+    EqualBT(loctestnum, loctesterr, btvec, btlnk);
     btvec.Root().LeftChild().LeftChild().Element() = string("S");
-    EqualTrees(loctestnum, loctesterr, btlnk, btvec, false);
+    NonEqualBT(loctestnum, loctesterr, btlnk, btvec);
     btlnk.Root().RightChild().Element() = string("X");
-    EqualTrees(loctestnum, loctesterr, btvec, btlnk, false);
+    NonEqualBT(loctestnum, loctesterr, btvec, btlnk);
     btvec.Root().RightChild().Element() = string("X");
     btlnk.Root().LeftChild().LeftChild().Element() = string("S");
-    EqualTrees(loctestnum, loctesterr, btlnk, btvec, true);
+    EqualBT(loctestnum, loctesterr, btlnk, btvec);
   } catch(...) {
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
   }
+  cout << "End of BinaryTree<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
   testnum += loctestnum;
   testerr += loctesterr;
 }
