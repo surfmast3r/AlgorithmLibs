@@ -74,7 +74,7 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapDecrement<long>, 0);
 
     SetColumnNumber(loctestnum, loctesterr, mat, true, 5);
-
+    MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetCell<long>(loctestnum, loctesterr, mat, true, 1, 4, 8);
     SetCell<long>(loctestnum, loctesterr, mat, true, 3, 4, 9);
 
@@ -202,7 +202,7 @@ void stestMatrixInt(uint& testnum, uint& testerr) {
   try {
     lasd::MatrixVec<long> matvec;
     cout << endl << "Begin of MatrixVec<long> Test:" << endl;
-//    stestMatrixInt(matvec, loctestnum, loctesterr);
+    stestMatrixInt(matvec, loctestnum, loctesterr);
     lasd::MatrixCSR<long> matcsr;
     cout << endl << "Begin of MatrixCSR<long> Test:" << endl;
 //    stestMatrixInt(matcsr, loctestnum, loctesterr);

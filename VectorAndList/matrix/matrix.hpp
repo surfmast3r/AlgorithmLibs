@@ -21,7 +21,8 @@ private:
 
 protected:
 
-  // ...
+  unsigned long rowNumber = 0;
+  unsigned long columnNumber = 0;
 
 public:
 
@@ -45,16 +46,16 @@ public:
 
   // Specific member functions
 
-   virtual unsigned long& RowNumber() const noexcept = 0; // (concrete function should not throw exceptions)
-   virtual unsigned long& ColumnNumber() const noexcept = 0; // (concrete function should not throw exceptions)
+   unsigned long const& RowNumber() const noexcept; // (concrete function should not throw exceptions)
+   unsigned long const& ColumnNumber() const noexcept; // (concrete function should not throw exceptions)
 
-   virtual void RowResize() = 0;
-   virtual void ColumnResize() = 0;
+   virtual void RowResize(unsigned long&) = 0;
+   virtual void ColumnResize(unsigned long&) = 0;
 
-   virtual bool ExistsCell() const noexcept = 0; // (concrete function should not throw exceptions)
+   virtual bool ExistsCell(const unsigned long&, const unsigned long&) const noexcept = 0; // (concrete function should not throw exceptions)
 
-   virtual DataType& operator()() = 0; // Mutable access to the element (concrete function should throw exceptions only when out of range)
-   virtual DataType const& operator()() const = 0; // Immutable access to the element (concrete function should throw exceptions when not present)
+   virtual DataType& operator()(const unsigned long &,const unsigned long &) = 0; // Mutable access to the element (concrete function should throw exceptions only when out of range)
+   virtual DataType const& operator()(const unsigned long &, const unsigned long&) const = 0; // Immutable access to the element (concrete function should throw exceptions when not present)
 
 };
 
