@@ -5,7 +5,7 @@ namespace lasd {
 
 // Specific constructors
 	template <typename DataType>
-	MatrixVec<DataType>::MatrixVec(unsigned long& row, unsigned long& column) : Vector<DataType>(row*column){// A matrix of some specified dimension
+	MatrixVec<DataType>::MatrixVec(const unsigned long& row,const unsigned long& column) : Vector<DataType>(row*column){// A matrix of some specified dimension
 		rowNumber=row;
 		columnNumber=column;
 	}

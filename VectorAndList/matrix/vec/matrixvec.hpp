@@ -39,7 +39,7 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-   MatrixVec(unsigned long&, unsigned long&); // A matrix of some specified dimension
+   MatrixVec(const unsigned long&,const unsigned long&); // A matrix of some specified dimension
 
   /* ************************************************************************ */
 
