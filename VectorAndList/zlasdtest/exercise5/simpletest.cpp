@@ -77,10 +77,11 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetCell<long>(loctestnum, loctesterr, mat, true, 1, 4, 8);
     SetCell<long>(loctestnum, loctesterr, mat, true, 3, 4, 9);
-
+    MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetColumnNumber(loctestnum, loctesterr, mat, true, 3);
+    MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetColumnNumber(loctestnum, loctesterr, mat, true, 4);
-
+    MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0);
     MapPostOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0);
 
@@ -205,7 +206,7 @@ void stestMatrixInt(uint& testnum, uint& testerr) {
     stestMatrixInt(matvec, loctestnum, loctesterr);
     lasd::MatrixCSR<long> matcsr;
     cout << endl << "Begin of MatrixCSR<long> Test:" << endl;
-//    stestMatrixInt(matcsr, loctestnum, loctesterr);
+    stestMatrixInt(matcsr, loctestnum, loctesterr);
     cout << "\n";
   } catch(...) {
     loctestnum++; loctesterr++;

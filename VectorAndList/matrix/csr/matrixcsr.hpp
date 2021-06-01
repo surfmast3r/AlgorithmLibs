@@ -42,7 +42,7 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-   MatrixCSR(unsigned long&, unsigned long&); // A matrix of some specified dimension
+   MatrixCSR(unsigned long , unsigned long ); // A matrix of some specified dimension
 
   /* ************************************************************************ */
 
@@ -109,6 +109,7 @@ private:
    void expandRowVector(unsigned long newRowSize);
    void reduceRowVector(unsigned long newRowSize);
    void deleteListFrom(typename List<std::pair<DataType,unsigned long>>::Node* ptr);
+
 
 };
 

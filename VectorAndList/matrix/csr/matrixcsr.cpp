@@ -5,7 +5,7 @@ namespace lasd {
 
   // Default constructor
 	template <typename DataType>
-	MatrixCSR<DataType>::MatrixCSR(){
+	MatrixCSR<DataType>::MatrixCSR() {
 		rowVector[0]=&head;
 
 	}
@@ -14,12 +14,12 @@ namespace lasd {
 
   // Specific constructors
 	template <typename DataType>
-	MatrixCSR<DataType>::MatrixCSR(unsigned long& row, unsigned long& col){
+	MatrixCSR<DataType>::MatrixCSR(unsigned long row, unsigned long col) {
 
 		rowNumber=row;
 		columnNumber=col;
 		rowVector.Resize(row+1);
-		for(unsigned long i=0;i<=rowVector.Size(); i++){
+		for(unsigned long i=0;i<rowVector.Size(); i++){
 			rowVector[i]=&head;
 		}
 
@@ -29,15 +29,16 @@ namespace lasd {
 
   // Copy constructor
 	template <typename DataType>
-	MatrixCSR<DataType>::MatrixCSR(const MatrixCSR& matrix){
-		rowNumber=matrix.rowNumber;
-		columnNumber=matrix.columnNumber;
-		rowVector.Resize(rowNumber+1);
+	MatrixCSR<DataType>::MatrixCSR(const MatrixCSR& matrix) : MatrixCSR<DataType>::MatrixCSR( matrix.rowNumber, matrix.columnNumber) {
+
+//		rowNumber=matrix.rowNumber;
+//		columnNumber=matrix.columnNumber;
+//		rowVector.Resize(rowNumber+1);
 		typename List<std::pair<DataType,unsigned long>>::Node** pointer;
-		for(unsigned long i=0;i<matrix.rowVector.Size(); i++){
+		for(unsigned long i=0;i<matrix.rowNumber; i++){
 			pointer=matrix.rowVector[i];
 			while(pointer!=matrix.rowVector[i+1]){
-				typename List<std::pair<DataType,unsigned long>>::Node newNode=**matrix.rowVector[i];
+				typename List<std::pair<DataType,unsigned long>>::Node newNode=**pointer;
 				(*this)(i,newNode.value.second)= newNode.value.first;
 				pointer=&((*pointer)->next);
 			}
@@ -46,10 +47,11 @@ namespace lasd {
 
   // Move constructor
 	template <typename DataType>
-	MatrixCSR<DataType>::MatrixCSR(MatrixCSR&& matrix) noexcept : List<std::pair<DataType,unsigned long>>(std::move(matrix)){
+	MatrixCSR<DataType>::MatrixCSR(MatrixCSR&& matrix) noexcept : List<std::pair<DataType,unsigned long>>(std::move(matrix)){ //controllare puntatore head
 		std::swap(rowNumber,matrix.rowNumber);
 		std::swap(columnNumber,matrix.columnNumber);
 		std::swap(rowVector,matrix.rowVector);
+		rowVector[0]=&head;
 
 	}
 
@@ -58,7 +60,7 @@ namespace lasd {
   // Copy assignment
 	template <typename DataType>
 	MatrixCSR<DataType>& MatrixCSR<DataType>::operator=(const MatrixCSR<DataType>& matrix) noexcept{
-		MatrixCSR<DataType> temp= new Matrix<DataType>(matrix);
+		MatrixCSR<DataType>* temp= new MatrixCSR<DataType>(matrix);
 		std::swap(*this,*temp);
 		delete temp;
 		return *this;
@@ -68,7 +70,7 @@ namespace lasd {
   // Move assignment
 	template <typename DataType>
 	MatrixCSR<DataType>& MatrixCSR<DataType>::operator=(MatrixCSR<DataType>&& matrix) noexcept{
-		MatrixCSR<DataType> temp= new Matrix<DataType>(std::move(matrix));
+		MatrixCSR<DataType>* temp= new MatrixCSR<DataType>(std::move(matrix));
 		std::swap(*this,*temp);
 		delete temp;
 		return *this;
@@ -105,8 +107,8 @@ namespace lasd {
 	template <typename DataType>
 	void MatrixCSR<DataType>::expandRowVector(unsigned long newRowSize){
 		rowVector.Resize(newRowSize+1);
-		for(unsigned long i=rowNumber+1; i<=newRowSize+1;i++)
-			rowVector[i]=nullptr;
+		for(unsigned long i=rowNumber+1; i<=newRowSize;i++)
+			rowVector[i]=rowVector[i-1];
 		rowNumber=newRowSize;
 	}
 	template <typename DataType>
@@ -160,65 +162,149 @@ namespace lasd {
 						tail=node;
 
 					typename List<std::pair<DataType,unsigned long>>::Node* temp = *ptr;
-					typename List<std::pair<DataType,unsigned long>>::Node** tempPtr = ptr;
+					*ptr=*nextRowPtr;//unisco colonna a riga successiva
+					*nextRowPtr=nullptr; //stacco il nodo dalla lista
+					deleteListFrom(temp);//cancello gli elementi
 
-					while(tempPtr!=rowVector[nextRowIndex])
+					while(nextRowIndex<=rowNumber&&rowVector[nextRowIndex]==nextRowPtr)
 					{
-						temp=*tempPtr;
-						tempPtr=&(*tempPtr)->next;
-
+						rowVector[nextRowIndex]=ptr;
+						nextRowIndex++;
 					}
-					temp->next=nullptr; //stacco il nodo dalla lista
-					deleteListFrom(*ptr);//cancello gli elementi
-					*nextRowPtr=*ptr;//unisco colonna a riga successiva
-
-					//NON FUNZIONA, DA COMPLETARE
-
-
-
-
 
 				}
 			}
 
 		}
 
+		columnNumber=newColumnSize;
+
 	} // Override Matrix member
 
 	template <typename DataType>
-	bool MatrixCSR<DataType>::ExistsCell(const unsigned long&,const unsigned long&) const noexcept {} // Override Matrix member (should not throw exceptions)
+	bool MatrixCSR<DataType>::ExistsCell(const unsigned long& rowIndex,const unsigned long&columnIndex) const noexcept {
+		if(rowIndex<rowNumber&&columnIndex<columnNumber)
+		{
+			typename List<std::pair<DataType,unsigned long>>::Node** ptr=rowVector[rowIndex];
+			typename List<std::pair<DataType,unsigned long>>::Node* node=*ptr;
+			while(ptr!=rowVector[rowIndex+1]&&node->value.second<=columnIndex){
+				if(node->value.second==columnIndex)
+					return true;
+				ptr=&(node->next);
+				node=node->next;
+			}
+			return false;
+		}
+		else
+			return false;
+	} // Override Matrix member (should not throw exceptions)
+
 
 	template <typename DataType>
-	DataType& MatrixCSR<DataType>::operator()(const unsigned long&,const unsigned long&) {} // Override Matrix member (mutable access to the element; throw out_of_range when out of range)
+	DataType& MatrixCSR<DataType>::operator()(const unsigned long& rowIndex,const unsigned long&columnIndex) {
+		if(rowIndex<rowNumber&&columnIndex<columnNumber)
+		{
+			typename List<std::pair<DataType,unsigned long>>::Node** ptr=rowVector[rowIndex];
+			typename List<std::pair<DataType,unsigned long>>::Node* node=nullptr;
+			while(ptr!=rowVector[rowIndex+1]&&(*ptr)->value.second<=columnIndex){
+				node=*ptr;
+				if(node->value.second==columnIndex)
+					return node->value.first;
+				ptr=&(node->next);
+				node=node->next;
+			}
+			//node punta al successivo del nodo da creare
+			//ptr punta al puntatore a node (precedente nella lista)
+			DataType newData;
+			typename List<std::pair<DataType,unsigned long>>::Node* newNode= new typename List<std::pair<DataType,unsigned long>>::Node(std::pair<DataType,unsigned long>(newData,columnIndex));
+			newNode->next=node;
+			unsigned long nextRowIndex=rowIndex+1;
+			while(nextRowIndex<=rowNumber&&rowVector[nextRowIndex]==ptr)
+			{
+				rowVector[nextRowIndex]=&newNode->next;
+				nextRowIndex++;
+			}
+
+			if(*ptr==head)
+				head=newNode;
+			*ptr=newNode;
+			size++;
+			return (newNode->value.first);
+
+		}
+		else
+			throw std::out_of_range("Out of range index: ["+ std::to_string(rowIndex)+"] ["+ std::to_string(columnIndex)+"]");
+	} // Override Matrix member (mutable access to the element; throw out_of_range when out of range)
 
 	template <typename DataType>
-	DataType const& MatrixCSR<DataType>::operator()(const unsigned long&,const unsigned long&) const {} // Override Matrix member (immutable access to the element; throw out_of_range when out of range and length_error when not present)
+	DataType const& MatrixCSR<DataType>::operator()(const unsigned long& rowIndex,const unsigned long&columnIndex) const {
+		if(rowIndex<rowNumber&&columnIndex<columnNumber)
+		{
+			typename List<std::pair<DataType,unsigned long>>::Node** ptr=rowVector[rowIndex];
+			typename List<std::pair<DataType,unsigned long>>::Node* node=nullptr;
+			while(ptr!=rowVector[rowIndex+1]&&(*ptr)->value.second<=columnIndex){
+				node=*ptr;
+				if(node->value.second==columnIndex)
+					return node->value.first;
+				ptr=&(node->next);
+				node=node->next;
+			}
+			throw std::length_error("Element with index: ["+ std::to_string(rowIndex)+"] ["+ std::to_string(columnIndex)+"] not present");
+
+		}
+		else
+			throw std::out_of_range("Out of range index: ["+ std::to_string(rowIndex)+"] ["+ std::to_string(columnIndex)+"]");
+	} // Override Matrix member (immutable access to the element; throw out_of_range when out of range and length_error when not present)
 
 
 /* ************************************************************************** */
 	// Specific member functions (inherited from Container)
 
 	template <typename DataType>
-	void MatrixCSR<DataType>::Clear() {} // Override Container member
+	void MatrixCSR<DataType>::Clear() {
+
+		List<std::pair<DataType,unsigned long>>::Clear();
+		rowVector.Resize(1);
+		rowVector[0]=&head;
+		rowNumber=0;
+		columnNumber=0;
+	} // Override Container member
 
 	/* ************************************************************************ */
 
 	// Specific member functions (inherited from MappableContainer)
 
 	template <typename DataType>
-	void MatrixCSR<DataType>::MapPreOrder(const MapFunctor, void*) {} // Override MappableContainer member
+	void MatrixCSR<DataType>::MapPreOrder(const MapFunctor fun, void* param) {
+		List<std::pair<DataType,unsigned long>>::MapPreOrder(
+				[&fun](std::pair<DataType,unsigned long>& data, void*param){fun(data.first,param);}
+				,param);
+	} // Override MappableContainer member
 
 	template <typename DataType>
-	void MatrixCSR<DataType>::MapPostOrder(const MapFunctor, void*) {} // Override MappableContainer member
+	void MatrixCSR<DataType>::MapPostOrder(const MapFunctor fun, void* param) {
+		List<std::pair<DataType,unsigned long>>::MapPostOrder(
+				[&fun](std::pair<DataType,unsigned long>& data, void*param){fun(data.first,param);}
+				,param);
+	} // Override MappableContainer member
 
 	/* ************************************************************************ */
 
 	// Specific member functions (inherited from FoldableContainer)
 	template <typename DataType>
-	void MatrixCSR<DataType>::FoldPreOrder(const FoldFunctor,const void*,void*) const {} // Override FoldableContainer member
+	void MatrixCSR<DataType>::FoldPreOrder(const FoldFunctor fun,const void* data,void*acc) const {
+		List<std::pair<DataType,unsigned long>>::FoldPreOrder(
+				[&fun](const std::pair<DataType,unsigned long>& data, const void*param,void*acc){fun(data.first,param,acc);}
+				,data,acc);
+
+	} // Override FoldableContainer member
 
 	template <typename DataType>
-	void MatrixCSR<DataType>::FoldPostOrder(const FoldFunctor,const void*,void*) const {} // Override FoldableContainer member
+	void MatrixCSR<DataType>::FoldPostOrder(const FoldFunctor fun,const void* data,void*acc) const {
+		List<std::pair<DataType,unsigned long>>::FoldPostOrder(
+				[&fun](const std::pair<DataType,unsigned long>& data, const void*param,void*acc){fun(data.first,param,acc);}
+				,data,acc);
+	} // Override FoldableContainer member
 
 
 }
