@@ -31,9 +31,6 @@ namespace lasd {
 	template <typename DataType>
 	MatrixCSR<DataType>::MatrixCSR(const MatrixCSR& matrix) : MatrixCSR<DataType>::MatrixCSR( matrix.rowNumber, matrix.columnNumber) {
 
-//		rowNumber=matrix.rowNumber;
-//		columnNumber=matrix.columnNumber;
-//		rowVector.Resize(rowNumber+1);
 		typename List<std::pair<DataType,unsigned long>>::Node** pointer;
 		for(unsigned long i=0;i<matrix.rowNumber; i++){
 			pointer=matrix.rowVector[i];
@@ -61,7 +58,7 @@ namespace lasd {
 	template <typename DataType>
 	MatrixCSR<DataType>& MatrixCSR<DataType>::operator=(const MatrixCSR<DataType>& matrix) noexcept{
 		MatrixCSR<DataType>* temp= new MatrixCSR<DataType>(matrix);
-		std::swap(*this,*temp);
+		std::swap(*temp,*this);
 		delete temp;
 		return *this;
 
@@ -70,9 +67,23 @@ namespace lasd {
   // Move assignment
 	template <typename DataType>
 	MatrixCSR<DataType>& MatrixCSR<DataType>::operator=(MatrixCSR<DataType>&& matrix) noexcept{
-		MatrixCSR<DataType>* temp= new MatrixCSR<DataType>(std::move(matrix));
-		std::swap(*this,*temp);
-		delete temp;
+//		MatrixCSR<DataType>* temp= new MatrixCSR<DataType>(std::move(matrix));
+//		std::swap(*this,*temp);
+//		delete temp;
+
+		typename List<std::pair<DataType,unsigned long>>::Node** mHead = &(matrix.head);
+		std::swap(head,matrix.head);
+		std::swap(tail,matrix.tail);
+		std::swap(size, matrix.size);
+		std::swap(rowNumber,matrix.rowNumber);
+		std::swap(columnNumber,matrix.columnNumber);
+		std::swap(rowVector,matrix.rowVector);
+
+		unsigned long index=0;
+		while(index<rowNumber&&rowVector[index]==mHead){
+
+			rowVector[index]=&head;
+		}
 		return *this;
 
 	}
@@ -82,7 +93,27 @@ namespace lasd {
   // Comparison operators
 	template <typename DataType>
 	bool MatrixCSR<DataType>::operator==(const MatrixCSR<DataType>&matrix) const noexcept{
-		return true;
+
+		if(rowNumber==matrix.rowNumber && columnNumber==matrix.columnNumber ){
+
+			for(unsigned long row=0;row<rowNumber;row++)
+				for(unsigned long col=0;col<columnNumber;col++){
+					bool exist=ExistsCell(row,col);
+					if(exist==matrix.ExistsCell(row,col)){
+						if(exist==true){
+							if((*this)(row,col)!=matrix(row,col))
+								return false;
+						}
+					}else
+						return false;
+
+				}
+
+
+			return true;
+		}else
+			return false;
+
 	}
 
 	template <typename DataType>
@@ -113,10 +144,18 @@ namespace lasd {
 	}
 	template <typename DataType>
 	void MatrixCSR<DataType>::reduceRowVector(unsigned long newRowSize){
-		typename List<std::pair<DataType,unsigned long>>::Node* newTail=*rowVector[newRowSize];
+
+		typename List<std::pair<DataType,unsigned long>>::Node* nodeToDelete=*rowVector[newRowSize];
 		rowVector.Resize(newRowSize+1);
-		tail=newTail;
-		deleteListFrom(newTail);
+
+		deleteListFrom(nodeToDelete);
+		*rowVector[newRowSize]=nullptr;
+
+		//ripristino tail
+		typename List<std::pair<DataType,unsigned long>>::Node* ptr=head;
+		while(ptr!=nullptr)
+			ptr=ptr->next;
+		tail=ptr;
 		rowNumber=newRowSize;
 
 	}
@@ -125,14 +164,14 @@ namespace lasd {
 	void MatrixCSR<DataType>::deleteListFrom(typename List<std::pair<DataType,unsigned long>>::Node* ptr) {
 
 		typename List<std::pair<DataType,unsigned long>>::Node* temp;
-		unsigned long deletedItems=0;
+
 		while(ptr != nullptr) {
 			temp = ptr;
 			ptr = ptr->next;
 			delete(temp);
-			deletedItems++;
+			size--;
 		}
-		size=size-deletedItems;
+
 
 
 	}
@@ -147,7 +186,8 @@ namespace lasd {
 			typename List<std::pair<DataType,unsigned long>>::Node** ptr = &head;
 			typename List<std::pair<DataType,unsigned long>>::Node* node = *ptr;
 
-			for(unsigned long nextRowIndex=1; nextRowIndex<=rowNumber;nextRowIndex++){
+			unsigned long nextRowIndex=1;
+			while( nextRowIndex<=rowNumber){
 
 				typename List<std::pair<DataType,unsigned long>>::Node** nextRowPtr = rowVector[nextRowIndex];
 				//search for columns in the list of data
@@ -166,13 +206,13 @@ namespace lasd {
 					*nextRowPtr=nullptr; //stacco il nodo dalla lista
 					deleteListFrom(temp);//cancello gli elementi
 
-					while(nextRowIndex<=rowNumber&&rowVector[nextRowIndex]==nextRowPtr)
-					{
-						rowVector[nextRowIndex]=ptr;
-						nextRowIndex++;
-					}
-
 				}
+				while(nextRowIndex<=rowNumber&&rowVector[nextRowIndex]==nextRowPtr)
+				{
+					rowVector[nextRowIndex]=ptr;
+					nextRowIndex++;
+				}
+
 			}
 
 		}
@@ -205,9 +245,9 @@ namespace lasd {
 		if(rowIndex<rowNumber&&columnIndex<columnNumber)
 		{
 			typename List<std::pair<DataType,unsigned long>>::Node** ptr=rowVector[rowIndex];
-			typename List<std::pair<DataType,unsigned long>>::Node* node=nullptr;
+			typename List<std::pair<DataType,unsigned long>>::Node* node=*ptr;;
 			while(ptr!=rowVector[rowIndex+1]&&(*ptr)->value.second<=columnIndex){
-				node=*ptr;
+
 				if(node->value.second==columnIndex)
 					return node->value.first;
 				ptr=&(node->next);

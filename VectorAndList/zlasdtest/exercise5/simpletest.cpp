@@ -76,12 +76,12 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
     SetColumnNumber(loctestnum, loctesterr, mat, true, 5);
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetCell<long>(loctestnum, loctesterr, mat, true, 1, 4, 8);
+    MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetCell<long>(loctestnum, loctesterr, mat, true, 3, 4, 9);
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetColumnNumber(loctestnum, loctesterr, mat, true, 3);
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     SetColumnNumber(loctestnum, loctesterr, mat, true, 4);
-    MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0); //mio
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0);
     MapPostOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0);
 
@@ -178,6 +178,8 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
     GetRowNumber(loctestnum, loctesterr, movmat, true, 0);
     GetColumnNumber(loctestnum, loctesterr, movmat, true, 0);
 
+//    Mat<long> matCSR(std::move(mat));
+//    mat=std::move(matCSR);
     mat = copmat;
     copmat.Clear();
 
@@ -270,9 +272,9 @@ void stestMatrixFloat(uint& testnum, uint& testerr) {
     lasd::MatrixVec<double> matvec(4,3);
     cout << endl << "Begin of MatrixVec<double> Test:" << endl;
     stestMatrixFloat(matvec, loctestnum, loctesterr);
-//    lasd::MatrixCSR<double> matcsr(4, 3);
+    lasd::MatrixCSR<double> matcsr(4, 3);
     cout << endl << "Begin of MatrixCSR<double> Test:" << endl;
-//    stestMatrixFloat(matcsr, loctestnum, loctesterr);
+    stestMatrixFloat(matcsr, loctestnum, loctesterr);
     cout << "\n";
   } catch(...) {
     loctestnum++; loctesterr++;
@@ -331,9 +333,9 @@ void stestMatrixString(uint& testnum, uint& testerr) {
     lasd::MatrixVec<string> matvec(3, 3);
     cout << endl << "Begin of MatrixVec<string> Test:" << endl;
     stestMatrixString(matvec, loctestnum, loctesterr);
-//    lasd::MatrixCSR<string> matcsr(3, 3);
+    lasd::MatrixCSR<string> matcsr(3, 3);
     cout << endl << "Begin of MatrixCSR<string> Test:" << endl;
-//    stestMatrixString(matcsr, loctestnum, loctesterr);
+    stestMatrixString(matcsr, loctestnum, loctesterr);
     cout << "\n";
   } catch(...) {
     loctestnum++; loctesterr++;
