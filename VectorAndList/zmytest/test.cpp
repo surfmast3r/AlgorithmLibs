@@ -8,6 +8,364 @@ using namespace std;
 
 
 /* ************************************************************************** */
+/* Matrix */
+template <typename DataType>
+void editMatrix(lasd::Matrix<DataType>& mat, const readInputFunctor& readFunction){
+	bool isQuitOptionSelected=false;
+
+	if(!mat.Empty()){
+
+		while (!isQuitOptionSelected)
+			{
+				cout<<std::string("\n--Edit Matrix Menu--\n");
+				std::cout<<"Please make your selection"<<endl;
+				std::cout<<"1: Exists cell"<<endl;
+				std::cout<<"2: Read cell"<<endl;
+				std::cout<<"3: Insert element"<<endl;
+				std::cout<<"4: Resize row"<<endl;
+				std::cout<<"5: Resize column"<<endl;
+				std::cout<<"6: Back"<<endl;
+				std::cout<<"Selection: ";
+				int choice = 0;
+
+				if(!(std::cin >> choice)){
+					std::cout << "Please enter numbers only: ";
+					std::cin.clear();
+					std::cin.ignore(10000, '\n');
+				}
+				switch (choice){
+					case 1:{
+						unsigned long column;
+						unsigned long row;
+						readSizeInput(row, "insert row index");
+						readSizeInput(column, "insert column index");
+						if(mat.ExistsCell(row,column))
+							cout<<"Cell exists"<<endl;
+						else
+							cout<<"Cell not exists"<<endl;
+
+
+					}
+					break;
+					case 2:{
+						unsigned long column;
+						unsigned long row;
+						readSizeInput(row, "insert row index");
+						readSizeInput(column, "insert column index");
+						try{
+							cout<<"cell value is "<<static_cast<const lasd::Matrix<DataType>*>(&mat)->operator()(row,column)<<endl;
+
+						}catch(out_of_range& exc){
+							std::cout << exc.what() << std::endl;
+						}
+					}
+					break;
+					case 3:{
+
+						unsigned long column;
+						unsigned long row;
+						readSizeInput(row, "insert row index");
+						readSizeInput(column, "insert column index");
+						DataType value;
+						readFunction((void*)&value, "Insert element");
+						try{
+							mat(row,column)=value;
+							cout<<"cell value is "<<static_cast<const lasd::Matrix<DataType>*>(&mat)->operator()(row,column)<<endl;
+						}catch(out_of_range& exc){
+							std::cout << exc.what() << std::endl;
+						}
+
+					}
+					break;
+					case 4:{
+						unsigned long row;
+						readSizeInput(row, "insert new row number");
+						try{
+							mat.RowResize(row);
+							cout<<"Matrix after resize: "<<endl;
+							mat.MapPreOrder(&mapPrint<DataType>, (void*)0);
+							cout << endl;
+						} catch(std::exception& exc) {
+						    cout << "\"" << exc.what() << "\": " << "Error!" <<endl;
+						}
+
+
+					}
+					break;
+					case 5:{
+						unsigned long col;
+						readSizeInput(col, "insert new column number");
+						try{
+							mat.ColumnResize(col);
+							cout<<"Matrix after resize: "<<endl;
+							mat.MapPreOrder(&mapPrint<DataType>, (void*)0);
+							cout << endl;
+						} catch(std::exception& exc) {
+							cout << "\"" << exc.what() << "\": " << "Error!" <<endl;
+						}
+
+					}
+					break;
+
+					case 6:{
+						isQuitOptionSelected=true;
+					}
+					break;
+					default:
+					{
+						// Do nothing
+					}
+				}
+			}
+	}else
+		cout<<"Binary Tree is empty"<<endl;
+
+}
+
+void intMatrixTest(lasd::Matrix<int>& matrix){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+	{
+		cout<<std::string("\n--Int Matrix Test Menu--\n")
+							+ "Please make your selection\n"
+							+ "1 - PreOrder visit\n"
+							+ "2 - PostOrder visit\n"
+							+ "3 - Find Element\n"
+							+ "4 - Multiply less then Function\n"
+							+ "5 - Apply 2n function\n"
+							+ "6 - Edit Matrix\n"
+							+ "7 - back to main menu\n"
+							+ "Selection: ";
+		int choice = 0;
+
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
+		switch (choice){
+			case 1:{
+				matrix.MapPreOrder(&mapPrint<int>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 2:{
+				matrix.MapPostOrder(&mapPrint<int>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 3:{
+				int value;
+				unsigned long index=0;
+				cout<<"insert element to find:"<<endl;
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						cout<<"insert element to find:"<<endl;
+				}
+				matrix.FoldPreOrder(&foldFind<int>, &value, &index);
+			}
+			break;
+			case 4:{
+				int value;
+				long acc=1;
+				readIntValue(static_cast<void*>(&value), "insert n:");
+				matrix.FoldPreOrder(&foldMultiplyLessThan<int>, &value, &acc);
+				cout<<"product is: "<<acc<<endl;
+
+			}
+			break;
+			case 5:{
+				matrix.MapPreOrder(&mapDoubleElementValue<int>, (void*)0);
+				matrix.MapPreOrder(&mapPrint<int>, 0);
+				cout<<endl;
+
+
+			}
+			break;
+
+			case 6:{
+
+				editMatrix(matrix,&readIntValue);
+			}
+			break;
+			case 7:{
+				isQuitOptionSelected=true;
+			}
+			break;
+			default:
+			{
+				// Do nothing
+			}
+		}
+	}
+
+}
+void floatMatrixTest(lasd::Matrix<float>& matrix){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+	{
+		cout<<std::string("\n--Int Matrix Test Menu--\n")
+							+ "Please make your selection\n"
+							+ "1 - PreOrder visit\n"
+							+ "2 - PostOrder visit\n"
+							+ "3 - Find Element\n"
+							+ "4 - Sum greater then Function\n"
+							+ "5 - Apply -n^3 function\n"
+							+ "6 - Edit Matrix\n"
+							+ "7 - back to main menu\n"
+							+ "Selection: ";
+		int choice = 0;
+
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
+		switch (choice){
+			case 1:{
+				matrix.MapPreOrder(&mapPrint<float>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 2:{
+				matrix.MapPostOrder(&mapPrint<float>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 3:{
+				float value;
+				unsigned long index=0;
+				cout<<"insert element to find:"<<endl;
+				while(!(std::cin >> value)){
+						std::cout << "Please enter numbers only: "<<endl;
+						std::cin.clear();
+						std::cin.ignore(10000, '\n');
+						cout<<"insert element to find:"<<endl;
+				}
+				matrix.FoldPreOrder(&foldFloatFind, &value, &index);
+			}
+			break;
+			case 4:{
+				float value;
+				float acc=0;
+				readFloatValue(static_cast<void*>(&value), "insert n size:");
+				cout<<"value is: "<<value<<endl;
+				matrix.FoldPreOrder(&foldSumBiggerThan<float>, &value, &acc);
+				cout<<"sum is: "<<acc<<endl;
+
+			}
+			break;
+			case 5:{
+				int power=3;
+				matrix.MapPreOrder(&mapPowerNegativeElementValue<float>, (void*)&power);
+				matrix.MapPreOrder(&mapPrint<float>, 0);
+				cout<<endl;
+
+
+			}
+			break;
+
+			case 6:{
+
+				editMatrix(matrix,&readFloatValue);
+			}
+			break;
+			case 7:{
+				isQuitOptionSelected=true;
+			}
+			break;
+			default:
+			{
+				// Do nothing
+			}
+		}
+	}
+}
+void stringMatrixTest(lasd::Matrix<std::string>& matrix ){
+
+	bool isQuitOptionSelected=false;
+
+	while (!isQuitOptionSelected)
+	{
+		cout<<std::string("\n--String Matrix Test Menu--\n")
+							+ "Please make your selection\n"
+							+ "1 - PreOrder visit\n"
+							+ "2 - PostOrder visit\n"
+							+ "3 - Find Element\n"
+							+ "4 - Concatenate less then n Function\n"
+							+ "5 - Concatenate head\n"
+							+ "6 - Edit Matrix\n"
+							+ "7 - back to main menu\n"
+							+ "Selection: ";
+		int choice = 0;
+
+		if(!(std::cin >> choice)){
+			std::cout << "Please enter numbers only";
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+		}
+		switch (choice){
+			case 1:{
+				matrix.MapPreOrder(&mapPrint<string>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+			case 2:{
+				matrix.MapPostOrder(&mapPrint<string>, (void*)0);
+				std::cout << endl;
+			}
+			break;
+
+			case 3:{
+
+				string value;
+				unsigned long index=0;
+				readStringValue(static_cast<void*>(&value), "insert element to find:");
+
+				matrix.FoldPreOrder(&foldFind<string>, &value, &index);
+
+			}
+			break;
+			case 4:{
+
+				int value;
+				string acc="";
+				readIntValue(static_cast<void*>(&value), "insert n:");
+				matrix.FoldPreOrder(&foldStringLessEqThan, &value, &acc);
+				cout<<"Concatenated String: "<<acc<<endl;
+
+			}
+			break;
+			case 5:{
+				string value;
+				readStringValue(static_cast<void*>(&value), "insert string to concatenate:");
+				matrix.MapPreOrder(&mapConcatInHead, (void*)&value);
+				matrix.MapPreOrder(&mapPrint<string>, (void*)0);
+			}
+			break;
+			case 6:{
+				editMatrix(matrix,&readStringValue);
+			}
+			break;
+			case 7:{
+				isQuitOptionSelected=true;
+			}
+			break;
+			default:
+			{
+				// Do nothing
+			}
+		}
+	}
+
+}
+/* ************************************************************************** */
 /* Binary Search Tree */
 
 template <typename DataType>
@@ -835,7 +1193,7 @@ void floatBinaryTreeTest(lasd::BinaryTree<float>& bt){
 					unsigned long index=0;
 					readFloatValue(static_cast<void*>(&value), "insert element to find:");
 
-					bt.FoldBreadth(&foldFloatFind<float>, &value, &index);
+					bt.FoldBreadth(&foldFloatFind, &value, &index);
 
 				}
 				break;
@@ -992,6 +1350,8 @@ void stringBinaryTreeTest(lasd::BinaryTree<std::string>& bt){
 }
 /* ************************************************************************** */
 
+
+
 void populateRandomIntVector(lasd::Vector<int>& vec){
 	std::cout<< "populating int vector\n";
 	unsigned long size=vec.Size();
@@ -1091,6 +1451,12 @@ string createRandomString(int stringSize)
 	return ran;
 }
 
+void foldFloatFind(const float& data,const void* target,void* index) {
+	if(almost_equal<float>(data, *((float*)target),10)){
+		std::cout<<"found element at index:"<<*((unsigned long*) index)<<std::endl;
+	}
+	*((unsigned long*) index) += 1;
+}
 void foldStringLessEqThan(const std::string& data,const void* n,void* acc) {
 	if(data.size()<=*(unsigned int*)n){
 		((std::string*) acc)->append(data);

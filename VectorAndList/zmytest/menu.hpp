@@ -35,20 +35,20 @@ public:
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 };
 
-class BinarySearchTreeMenu : public BaseMenu
+class MatrixVectorMenu : public BaseMenu
 {
 public:
-	BinarySearchTreeMenu();
-    ~BinarySearchTreeMenu()= default;
+	MatrixVectorMenu();
+    ~MatrixVectorMenu()= default;
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 
 };
 
-class BinaryTreeLnkMenu : public BaseMenu
+class MatrixYaleMenu : public BaseMenu
 {
 public:
-	BinaryTreeLnkMenu();
-    ~BinaryTreeLnkMenu()= default;
+	MatrixYaleMenu();
+    ~MatrixYaleMenu()= default;
     BaseMenu *getMenuSelection(int choice, bool& iIsQuitOptionSelected);
 
 };

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <cmath>
 #include <limits>
+
+#include <random>
 #include <iomanip>
 #include <type_traits>
 #include <algorithm>
@@ -18,6 +20,9 @@
 #include "../binarytree/vec/binarytreevec.hpp"
 #include "../binarytree/lnk/binarytreelnk.hpp"
 #include "../bst/bst.hpp"
+#include "../matrix/matrix.hpp"
+#include "../matrix/vec/matrixvec.hpp"
+#include "../matrix/csr/matrixcsr.hpp"
 #include <string>
 
 
@@ -105,6 +110,10 @@ void mapPowerElementValue(DataType& data,void* power) {
 	data=pow(data, *static_cast<DataType*>(power));
 }
 template <typename DataType>
+void mapPowerNegativeElementValue(DataType& data,void* power) {
+	data=pow(-1*data, *static_cast<int*>(power));
+}
+template <typename DataType>
 void mapSquareElementValue(DataType& data,void* _) {
 	data*=data;
 }
@@ -134,13 +143,7 @@ almost_equal(T x, T y, int ulp)
 }
 
 
-template <typename DataType>
-void foldFloatFind(const DataType& data,const void* target,void* index) {
-	if(almost_equal<DataType>(data, *((DataType*)target),10)){
-		std::cout<<"found element at index:"<<*((unsigned long*) index)<<std::endl;
-	}
-	*((unsigned long*) index) += 1;
-}
+void foldFloatFind(const float& data,const void* target,void* index);
 
 template <typename DataType>
 void foldSumLessThan(const DataType& data,const void* n,void* acc) {
@@ -175,6 +178,109 @@ void foldMultiplyGreaterThan(const DataType& data,const void* n,void* acc) {
 
 void foldStringLessEqThan(const std::string& data,const void* n,void* acc);
 
+
 /* ************************************************************************** */
+/* MatrixMenu */
+
+template <typename DataType>
+void editMatrix(lasd::Matrix<DataType>& bt, const readInputFunctor& readFunction);
+
+template <typename DataType>
+void populateRandomMatrix(lasd::Matrix<DataType>& mat,lasd::Vector<DataType>& vec){
+	std::cout<< "populating random matrix from vector (some element could be missing due to collision)\n";
+	unsigned long size=vec.Size();
+	srand(time(NULL));
+
+	std::default_random_engine genx(std::random_device{}());
+	std::uniform_int_distribution<unsigned int> row(0,mat.RowNumber()-1);
+	std::uniform_int_distribution<unsigned int> col(0,mat.ColumnNumber()-1);
+	for(unsigned long i = 0; i<size; i++){
+
+		mat(row(genx),col(genx))=vec[i];
+
+	}
+	printMappableContainer(mat);
+	std::cout<<std::endl;
+
+};
+
+
+void intMatrixTest(lasd::Matrix<int>& );
+void floatMatrixTest(lasd::Matrix<float>& );
+void stringMatrixTest(lasd::Matrix<std::string>& );
+
+
+template <template<typename> typename Mat>
+void createIntMatrix(Mat<int>& mat){
+	unsigned long column;
+	unsigned long row;
+	readSizeInput(row, "insert row number");
+	readSizeInput(column, "insert column number");
+
+	unsigned long size;
+	do{
+		unsigned long max=row*column;
+
+		readSizeInput(size, "insert number of elements, max: "+std::to_string(max));
+	}while(size>row*column);
+
+	std::cout<<"Random Vector "<<std::endl;
+	lasd::Vector<int> vec(size);
+	mat.RowResize(row);
+	mat.ColumnResize(column);
+	populateRandomIntVector(vec);
+	populateRandomMatrix(mat,vec);
+
+	intMatrixTest(mat);
+}
+template <template<typename> typename Mat>
+void createFloatMatrix(Mat<float>& mat){
+	unsigned long column;
+	unsigned long row;
+	readSizeInput(row, "insert row number");
+	readSizeInput(column, "insert column number");
+
+	unsigned long size;
+	do{
+		unsigned long max=row*column;
+
+		readSizeInput(size, "insert number of elements, max: "+std::to_string(max));
+	}while(size>row*column);
+
+	std::cout<<"Random Vector "<<std::endl;
+	lasd::Vector<float> vec(size);
+	mat.RowResize(row);
+	mat.ColumnResize(column);
+	populateRandomFloatVector(vec);
+	populateRandomMatrix(mat,vec);
+
+	floatMatrixTest(mat);
+}
+template <template<typename> typename Mat>
+void createStringMatrix(Mat<std::string>& mat){
+	unsigned long column;
+	unsigned long row;
+	readSizeInput(row, "insert row number");
+	readSizeInput(column, "insert column number");
+
+	unsigned long size;
+	do{
+		unsigned long max=row*column;
+
+		readSizeInput(size, "insert number of elements, max: "+std::to_string(max));
+	}while(size>row*column);
+
+	std::cout<<"Random Vector "<<std::endl;
+	lasd::Vector<std::string> vec(size);
+	mat.RowResize(row);
+	mat.ColumnResize(column);
+	populateRandomStringVector(vec);
+	populateRandomMatrix(mat,vec);
+
+	stringMatrixTest(mat);
+}
+
+/* ************************************************************************** */
+
 
 #endif

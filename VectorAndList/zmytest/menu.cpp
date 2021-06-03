@@ -11,9 +11,10 @@ FirstMenu::FirstMenu()
 {
 	menuText = std::string("\n--Main Menu--\n")
 				+"Please make your selection\n"
-				+ "1 - BinarySearchTree\n"
-				+ "2 - start zlasd tests\n"
-				+ "3 - Quit\n"
+				+ "1 - Matrix Vector\n"
+				+ "2 - Matrix Yale\n"
+				+ "3 - start zlasd tests\n"
+				+ "4 - Quit\n"
 				+ "Selection: ";
 }
 BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
@@ -23,21 +24,21 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	{
 		case 1:
 		{
-			mainMenu = new BinarySearchTreeMenu;
+			mainMenu = new MatrixVectorMenu;
 			break;
 		}
-//		case 2:
-//		{
-//			mainMenu = new BinaryTreeLnkMenu;
-//			break;
-//		}
 		case 2:
+		{
+			mainMenu = new MatrixYaleMenu;
+			break;
+		}
+		case 3:
 		{
 			lasdtest();
 			break;
 		}
 
-		case 3:
+		case 4:
 		{
 
 			iIsQuitOptionSelected = true;
@@ -54,18 +55,18 @@ BaseMenu *FirstMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 	return mainMenu;
 }
 
-BinarySearchTreeMenu::BinarySearchTreeMenu()
+MatrixVectorMenu::MatrixVectorMenu()
 {
-	menuText = std::string("\n--BinaryTreeVec Menu--\n")
+	menuText = std::string("\n--MatrixVector Menu--\n")
 				+ "Please make your selection\n"
-				+ "1 - create random int BinarySearchTree \n"
-				+ "2 - create random string BinarySearchTree \n"
-				+ "3 - create random float BinarySearchTree \n"
+				+ "1 - create random int MatrixVector \n"
+				+ "2 - create random float MatrixVector \n"
+				+ "3 - create random string MatrixVector \n"
 				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
-BaseMenu *BinarySearchTreeMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
+BaseMenu* MatrixVectorMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
 	BaseMenu *mainMenu = 0;
 
@@ -73,20 +74,20 @@ BaseMenu *BinarySearchTreeMenu::getMenuSelection(int choice, bool& iIsQuitOption
 	{
 		case 1:
 		{
-
-			createIntBST();
+			lasd::MatrixVec<int> matVec;
+			createIntMatrix(matVec);
 		}
 		break;
 		case 2:
 		{
-
-			createStringBST();
+			lasd::MatrixVec<float> matVec;
+			createFloatMatrix(matVec);
 		}
 		break;
 		case 3:
 		{
-
-			createFloatBST();
+			lasd::MatrixVec<std::string> matVec;
+			createStringMatrix(matVec);
 		}
 		break;
 		case 4:
@@ -105,18 +106,18 @@ BaseMenu *BinarySearchTreeMenu::getMenuSelection(int choice, bool& iIsQuitOption
 	return mainMenu;
 }
 
-BinaryTreeLnkMenu::BinaryTreeLnkMenu()
+MatrixYaleMenu::MatrixYaleMenu()
 {
-	menuText = std::string("\n--BinaryTreeLnk Menu--\n")
+	menuText = std::string("\n--MatrixYale Menu--\n")
 				+ "Please make your selection\n"
-				+ "1 - create random int BinaryTreeLnk\n"
-				+ "2 - create random string BinaryTreeLnk\n"
-				+ "3 - create random float BinaryTreeLnk\n"
+				+ "1 - create random int MatrixYale\n"
+				+ "2 - create random float MatrixYale\n"
+				+ "3 - create random string MatrixYale\n"
 				+ "4 - back to main menu\n"
 				+ "Selection: ";
 }
 
-BaseMenu *BinaryTreeLnkMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
+BaseMenu* MatrixYaleMenu::getMenuSelection(int choice, bool& iIsQuitOptionSelected)
 {
 	BaseMenu *mainMenu = 0;
 
@@ -124,17 +125,20 @@ BaseMenu *BinaryTreeLnkMenu::getMenuSelection(int choice, bool& iIsQuitOptionSel
 	{
 		case 1:
 		{
-			createIntBinaryTreeLnk();
+			lasd::MatrixCSR<int> matYale;
+			createIntMatrix(matYale);
 		}
 		break;
 		case 2:
 		{
-			createStringBinaryTreeLnk();
+			lasd::MatrixCSR<float> matYale;
+			createFloatMatrix(matYale);
 		}
 		break;
 		case 3:
 		{
-			createFloatBinaryTreeLnk();
+			lasd::MatrixCSR<std::string> matYale;
+			createStringMatrix(matYale);
 		}
 		break;
 		case 4:
