@@ -45,10 +45,16 @@ namespace lasd {
   // Move constructor
 	template <typename DataType>
 	MatrixCSR<DataType>::MatrixCSR(MatrixCSR&& matrix) noexcept : List<std::pair<DataType,unsigned long>>(std::move(matrix)){ //controllare puntatore head
+		typename List<std::pair<DataType,unsigned long>>::Node** mHead = &(matrix.head);
 		std::swap(rowNumber,matrix.rowNumber);
 		std::swap(columnNumber,matrix.columnNumber);
 		std::swap(rowVector,matrix.rowVector);
-		rowVector[0]=&head;
+//		rowVector[0]=&head;
+		unsigned long index=0;
+		while(index<rowNumber&&rowVector[index]==mHead){
+
+			rowVector[index]=&head;
+		}
 
 	}
 
@@ -66,10 +72,7 @@ namespace lasd {
 
   // Move assignment
 	template <typename DataType>
-	MatrixCSR<DataType>& MatrixCSR<DataType>::operator=(MatrixCSR<DataType>&& matrix) noexcept{
-//		MatrixCSR<DataType>* temp= new MatrixCSR<DataType>(std::move(matrix));
-//		std::swap(*this,*temp);
-//		delete temp;
+	MatrixCSR<DataType>& MatrixCSR<DataType>::operator=(MatrixCSR<DataType>&& matrix) noexcept{ //test head
 
 		typename List<std::pair<DataType,unsigned long>>::Node** mHead = &(matrix.head);
 		std::swap(head,matrix.head);
@@ -91,23 +94,23 @@ namespace lasd {
   /* ************************************************************************ */
 
   // Comparison operators
+
 	template <typename DataType>
 	bool MatrixCSR<DataType>::operator==(const MatrixCSR<DataType>&matrix) const noexcept{
 
 		if(rowNumber==matrix.rowNumber && columnNumber==matrix.columnNumber ){
 
-			for(unsigned long row=0;row<rowNumber;row++)
-				for(unsigned long col=0;col<columnNumber;col++){
-					bool exist=ExistsCell(row,col);
-					if(exist==matrix.ExistsCell(row,col)){
-						if(exist==true){
-							if((*this)(row,col)!=matrix(row,col))
-								return false;
-						}
-					}else
-						return false;
+			for(unsigned long row=0;row<rowNumber;row++){
+				typename List<std::pair<DataType,unsigned long>>::Node** mPtr = matrix.rowVector[row];
+				typename List<std::pair<DataType,unsigned long>>::Node** ptr = rowVector[row];
+				for(;ptr!=rowVector[row+1] || mPtr!=matrix.rowVector[row+1];ptr=&((*ptr)->next), mPtr=&((*mPtr)->next)){
+
+					if((*ptr)->value.first!=(*mPtr)->value.first){
+							return false;
+					}
 
 				}
+			}
 
 
 			return true;
@@ -120,6 +123,36 @@ namespace lasd {
 	bool MatrixCSR<DataType>::operator!=(const MatrixCSR<DataType>&matrix) const noexcept{
 		return !(*this==matrix);
 	}
+
+//	template <typename DataType>
+//	bool MatrixCSR<DataType>::operator==(const MatrixCSR<DataType>&matrix) const noexcept{ //modificare
+//
+//		if(rowNumber==matrix.rowNumber && columnNumber==matrix.columnNumber ){
+//
+//			for(unsigned long row=0;row<rowNumber;row++)
+//				for(unsigned long col=0;col<columnNumber;col++){
+//					bool exist=ExistsCell(row,col);
+//					if(exist==matrix.ExistsCell(row,col)){
+//						if(exist==true){
+//							if((*this)(row,col)!=matrix(row,col))
+//								return false;
+//						}
+//					}else
+//						return false;
+//
+//				}
+//
+//
+//			return true;
+//		}else
+//			return false;
+//
+//	}
+//
+//	template <typename DataType>
+//	bool MatrixCSR<DataType>::operator!=(const MatrixCSR<DataType>&matrix) const noexcept{
+//		return !(*this==matrix);
+//	}
 
   /* ************************************************************************ */
 

@@ -153,6 +153,7 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
     EqualMatrix(loctestnum, loctesterr, mat, copmat);
 
     Mat<long> movmat(std::move(mat));
+    Mat<long> app(movmat);
 
     GetRowNumber(loctestnum, loctesterr, mat, true, 0);
     GetColumnNumber(loctestnum, loctesterr, mat, true, 0);
@@ -178,8 +179,20 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
     GetRowNumber(loctestnum, loctesterr, movmat, true, 0);
     GetColumnNumber(loctestnum, loctesterr, movmat, true, 0);
 
-//    Mat<long> matCSR(std::move(mat));
-//    mat=std::move(matCSR);
+    /*test equals*/
+    Mat<long> matCSR(std::move(app));
+    MapPreOrder<long, long>(loctestnum, loctesterr, matCSR, true, &MapPrint<long>, 0);
+    mat=std::move(matCSR);
+    Mat<long> copymat(mat);
+    MapPreOrder<long, long>(loctestnum, loctesterr, copymat, true, &MapPrint<long>, 0);
+    EqualMatrix(loctestnum, loctesterr, mat, copymat);
+    SetCell<long>(loctestnum, loctesterr, mat, true, 4, 2, 8);
+    MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0);
+    NonEqualMatrix(loctestnum, loctesterr, mat, copymat);
+    SetRowNumber(loctestnum, loctesterr, copymat, true, 10);
+    NonEqualMatrix(loctestnum, loctesterr, mat, copymat);
+    /* end*/
+
     mat = copmat;
     copmat.Clear();
 
