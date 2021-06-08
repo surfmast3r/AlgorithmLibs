@@ -186,9 +186,11 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
     Mat<long> copymat(mat);
     MapPreOrder<long, long>(loctestnum, loctesterr, copymat, true, &MapPrint<long>, 0);
     EqualMatrix(loctestnum, loctesterr, mat, copymat);
-    SetCell<long>(loctestnum, loctesterr, mat, true, 4, 2, 8);
+    SetCell<long>(loctestnum, loctesterr, mat, true, 4, 2, 7);
+    SetCell<long>(loctestnum, loctesterr, mat, true, 4, 3, 8);
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0);
     NonEqualMatrix(loctestnum, loctesterr, mat, copymat);
+    NonEqualMatrix(loctestnum, loctesterr, copymat, mat);
     SetRowNumber(loctestnum, loctesterr, copymat, true, 10);
     NonEqualMatrix(loctestnum, loctesterr, mat, copymat);
     /* end*/

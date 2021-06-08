@@ -98,16 +98,27 @@ namespace lasd {
 	template <typename DataType>
 	bool MatrixCSR<DataType>::operator==(const MatrixCSR<DataType>&matrix) const noexcept{
 
-		if(rowNumber==matrix.rowNumber && columnNumber==matrix.columnNumber ){
+		if(rowNumber==matrix.rowNumber && columnNumber==matrix.columnNumber ){   //se hanno stesso numero di righe e colonne
 
 			for(unsigned long row=0;row<rowNumber;row++){
 				typename List<std::pair<DataType,unsigned long>>::Node** mPtr = matrix.rowVector[row];
 				typename List<std::pair<DataType,unsigned long>>::Node** ptr = rowVector[row];
-				for(;ptr!=rowVector[row+1] || mPtr!=matrix.rowVector[row+1];ptr=&((*ptr)->next), mPtr=&((*mPtr)->next)){
+				bool endRowA=mPtr==matrix.rowVector[row+1];
+				bool endRowB=ptr==rowVector[row+1];
+				while(!endRowA||!endRowB){ 										//se almeno una delle due righe non è terminata
+					if(endRowA==endRowB)   										//se non sono terminate entrambe controlla l'elemento
+					{
+						if((*ptr)->value.first!=(*mPtr)->value.first){
+							return false;										//se gli elementi sono diversi return false
+						}
 
-					if((*ptr)->value.first!=(*mPtr)->value.first){
-							return false;
+						ptr=&((*ptr)->next);                    				//avanza i puntatori delle liste
+						mPtr=&((*mPtr)->next);                  				//
+						endRowA=mPtr==matrix.rowVector[row+1];  				//e ricontrolla la terminazione di riga
+						endRowB=ptr==rowVector[row+1];							//
 					}
+					else
+						return false;											//se una sola è terminata return false
 
 				}
 			}
