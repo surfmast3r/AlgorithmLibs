@@ -60,18 +60,18 @@ void stringBSTTest(lasd::BST<std::string>& );
 /* ************************************************************************** */
 /* BinaryTreeVecMenu */
 
-void createIntBinaryTreeVec();
-void createFloatBinaryTreeVec();
-void createStringBinaryTreeVec();
-
-/* BinaryTreeLnkMenu */
-void createIntBinaryTreeLnk();
-void createFloatBinaryTreeLnk();
-void createStringBinaryTreeLnk();
-
-void intBinaryTreeTest(lasd::BinaryTree<int>& bt);
-void floatBinaryTreeTest(lasd::BinaryTree<float>& bt);
-void stringBinaryTreeTest(lasd::BinaryTree<std::string>& bt);
+//void createIntBinaryTreeVec();
+//void createFloatBinaryTreeVec();
+//void createStringBinaryTreeVec();
+//
+///* BinaryTreeLnkMenu */
+//void createIntBinaryTreeLnk();
+//void createFloatBinaryTreeLnk();
+//void createStringBinaryTreeLnk();
+//
+//void intBinaryTreeTest(lasd::BinaryTree<int>& bt);
+//void floatBinaryTreeTest(lasd::BinaryTree<float>& bt);
+//void stringBinaryTreeTest(lasd::BinaryTree<std::string>& bt);
 
 template<typename DataType>
 void navigateBinaryTree(lasd::BinaryTree<DataType>& bt,const readInputFunctor&);
@@ -162,7 +162,7 @@ void foldSumBiggerThan(const DataType& data,const void* n,void* acc) {
 
 template <typename DataType>
 void foldMultiplyLessThan(const DataType& data,const void* n,void* acc) {
-	if(data<*((DataType*)n)){
+	if(data<*((DataType*)n)&&data!=0){
 		*((DataType*) acc)*=data;
 	}
 

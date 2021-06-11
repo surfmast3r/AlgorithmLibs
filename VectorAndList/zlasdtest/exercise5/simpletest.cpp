@@ -181,11 +181,29 @@ void stestMatrixInt(Mat<long>& mat, uint& testnum, uint& testerr) {
 
     /*test equals*/
     Mat<long> matCSR(std::move(app));
+    Mat<long> matEmpty;
     MapPreOrder<long, long>(loctestnum, loctesterr, matCSR, true, &MapPrint<long>, 0);
     mat=std::move(matCSR);
     Mat<long> copymat(mat);
     MapPreOrder<long, long>(loctestnum, loctesterr, copymat, true, &MapPrint<long>, 0);
     EqualMatrix(loctestnum, loctesterr, mat, copymat);
+    NonEqualMatrix(loctestnum, loctesterr, mat, matEmpty);
+    NonEqualMatrix(loctestnum, loctesterr, matEmpty, mat);
+    SetRowNumber(loctestnum, loctesterr, matEmpty, true, 5);
+    SetColumnNumber(loctestnum, loctesterr, matEmpty, true, 4);
+
+    SetCell<long>(loctestnum, loctesterr, matEmpty, true, 0, 1, 1);
+    SetCell<long>(loctestnum, loctesterr, matEmpty, true, 1, 0, 2);
+    SetCell<long>(loctestnum, loctesterr, matEmpty, true, 2, 1, 3);
+    SetCell<long>(loctestnum, loctesterr, matEmpty, true, 0, 3, 4);
+    SetCell<long>(loctestnum, loctesterr, matEmpty, true, 2, 3, 5);
+    SetCell<long>(loctestnum, loctesterr, matEmpty, true, 4, 1, 6);
+    SetCell<long>(loctestnum, loctesterr, matEmpty, true, 4, 3, 7);
+
+
+    EqualMatrix(loctestnum, loctesterr, matEmpty, mat);
+    SetRowNumber(loctestnum, loctesterr, matEmpty, true, 10);
+    NonEqualMatrix(loctestnum, loctesterr, mat , matEmpty);
     SetCell<long>(loctestnum, loctesterr, mat, true, 4, 2, 7);
     SetCell<long>(loctestnum, loctesterr, mat, true, 4, 3, 8);
     MapPreOrder<long, long>(loctestnum, loctesterr, mat, true, &MapPrint<long>, 0);

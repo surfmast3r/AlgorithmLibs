@@ -135,36 +135,6 @@ namespace lasd {
 		return !(*this==matrix);
 	}
 
-//	template <typename DataType>
-//	bool MatrixCSR<DataType>::operator==(const MatrixCSR<DataType>&matrix) const noexcept{ //modificare
-//
-//		if(rowNumber==matrix.rowNumber && columnNumber==matrix.columnNumber ){
-//
-//			for(unsigned long row=0;row<rowNumber;row++)
-//				for(unsigned long col=0;col<columnNumber;col++){
-//					bool exist=ExistsCell(row,col);
-//					if(exist==matrix.ExistsCell(row,col)){
-//						if(exist==true){
-//							if((*this)(row,col)!=matrix(row,col))
-//								return false;
-//						}
-//					}else
-//						return false;
-//
-//				}
-//
-//
-//			return true;
-//		}else
-//			return false;
-//
-//	}
-//
-//	template <typename DataType>
-//	bool MatrixCSR<DataType>::operator!=(const MatrixCSR<DataType>&matrix) const noexcept{
-//		return !(*this==matrix);
-//	}
-
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Matrix)
